@@ -175,7 +175,7 @@ body {
   background-color: #71151a;
 }
 #aqi, #pm25, #o3, #pm10, #no2 {
-  background: image_url("colors.png") no-repeat 23px 10px;
+  background: asset-data-url("colors.png") no-repeat 23px 10px;
   background-size: 115px 220px;
   height: 280px;
 }
