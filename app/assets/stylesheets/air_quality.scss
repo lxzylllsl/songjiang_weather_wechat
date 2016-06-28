@@ -181,7 +181,7 @@ body {
 }
 
 #aqi_m, #pm25_m, #o3_m, #pm10_m, #no2_m {
-  background: image_url("colors_m.png") no-repeat 23px 10px;
+  background: asset-data-url("colors_m.png") no-repeat 23px 10px;
   background-size: 115px 340px;
   min-height: 420px;
 }
