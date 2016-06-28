@@ -1,0 +1,63 @@
+<% content_for :title do %>
+  天气预报
+<% end %>
+<div class="main-top-container">
+  <div class="row main-top-container-1">
+    <div class="col-xs-7 location-info">
+      <%= image_tag 'locate.png', class: 'locate-icon' %>
+      <span>华实中学</span>
+    </div>
+    <div class="col-xs-5 date-time-info text-right">
+      <%= DateTime.now.strftime('%Y.%m.%d %H:%M') %>
+    </div>
+  </div>
+
+  <div class="row main-top-container-2">
+    <div class="col-xs-7 container-left">
+      <div class="real-time-tempe">
+        28°
+      </div>
+      <div class="forecast-tempe">
+        <p class="tempe">10℃～31℃</p>
+        <p class="date-time"><%= chinese_year(Date.today.year) %>&nbsp;&nbsp;八月十二</p>
+      </div>
+    </div>
+    <div class="col-xs-5 container-right">
+      <div class="auto-station-info text-left">
+        <div class="col-xs-12">能见度 9.23km</div>
+        <div class="col-xs-12">湿&nbsp;&nbsp;&nbsp;度 86%</div>
+        <div class="col-xs-12">东南风 3～4级</div>
+        <div class="col-xs-12">气&nbsp;&nbsp;&nbsp;压 1900Pa</div>
+        <div class="col-xs-12">70 <span class="air-shadeguide">良</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="row main-top-container-3">
+    <%= image_tag "warnings/b_a1.png", class: 'warning-icon' %>
+  </div>
+  <div class="row main-top-container-4">
+    却下水晶帘，玲珑望秋月 --白露
+  </div>
+</div>
+<div id="bottom-container" class="main-bottom-container">
+  <div id="scroller" class="forecast-container">
+    <ul>
+      <% 10.times do |idx| %>
+        <li class="item">
+          <p><%= (DateTime.now + idx.day).strftime('%m.%d') %></p>
+          <p>周日</p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  
+</div>
+<script>
+  var myScroll;
+  var _window_width = $(window).width();
+  var _item_width = _window_width / 5;
+  $("#scroller").width(_item_width * 10);
+  $("#scroller li").width(_item_width);
+  myScroll = new IScroll('#bottom-container', { scrollX: true, scrollY: false, mouseWheel: true });
+  document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+</script>

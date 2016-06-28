@@ -1,0 +1,88 @@
+<% content_for :title do %>
+  空气质量
+<% end %>
+<div class="row real-time-aqi-container">
+  <div class="aqi-info">
+    <div class="col-xs-5 title">空气质量</div>
+    <div class="col-xs-7 sub-info text-right"><%= DateTime.now.strftime('%m月%d %H:%M') %> 松江环保局发布</div>  
+  </div>
+  <div class="content">
+    <div class="col-xs-6">
+      <div class="col-xs-6">
+        <div class="col-xs-12 aqi-level"><%= @real_time['aqi'] %></div>
+        <%= raw(transform_aqi @real_time['level']) %>
+      </div>
+      <div class="col-xs-6">
+        <%= image_tag 'aqi/aqi100.png', class: 'aqi-human' %>
+      </div>
+      <div class="col-xs-12 aqi-pripoll">
+        主要污染物: <%= @real_time['pripoll'] %>
+      </div>
+    </div>
+    <div class="col-xs-6 desc">
+      健康影响：<%= @real_time['content']%>
+    </div>
+  </div>
+</div>
+<div class="row shaddow"></div>
+<div id="bottom-container" class="row air-forecast-container">
+  <div id="scroller" class="forecast-container">
+    <ul>
+      <% @forecast_air_quality.each do |item| %>
+        <li class="item">
+          <p><%= item['period'].split('（')[0] %></p>
+          <p><%= item['period'].split('（')[1].delete('）') %></p>
+          <div class="detail">
+            <p><%= item['aqi'] %></p>
+            <%= raw(split_level item['level']) %>
+          </div>
+          <p class="pripoll">主要污染物: <%= item['pripoll'] %></p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  
+</div>
+<div class="divider"></div>
+<div class="row air-chart-container">
+  <div class="title">过去24小时空气质量指数变化图</div>
+  <% if @aqi_datas.present? %>
+    <% aqi_max = @aqi_datas.max_by{ |data| data[1]}[1] > 350 ? "_m" : "" %>
+  <% else %>
+    <% aqi_max = "" %>
+  <% end %>
+  <ul class="nav nav-pills">
+    <li role="presentation" class="active"><a href="#aqi<%= aqi_max %>" aria-controls="aqi" role="tab" data-toggle="tab">AQI<br/>空气质量<br/><%= @aqi_weathers.try(:first).try(:aqi) %></a></li>
+    <li role="presentation"><a href="#pm25<%= aqi_max %>" aria-controls="pm25" role="tab" data-toggle="tab"><%= aqi_format "PM2.5" %></span><br/>细颗粒物<br/><%= @aqi_weathers.try(:first).try(:pm2_5) %></a></li>
+    <li role="presentation"><a href="#o3<%= aqi_max %>" aria-controls="o3" role="tab" data-toggle="tab"><%= aqi_format "O3" %><br/>臭氧<br/><%= @aqi_weathers.try(:first).try(:o3) %></a></li>
+    <li role="presentation"><a href="#pm10<%= aqi_max %>" aria-controls="pm10" role="tab" data-toggle="tab"><%= aqi_format("PM10") %><br/>可吸入颗粒<br/><%= @aqi_weathers.try(:first).try(:pm10) %></a></li>
+    <li role="presentation"><a href="#no2<%= aqi_max %>" aria-controls="no2" role="tab" data-toggle="tab"><%= aqi_format("NO2") %><br/>二氧化氮<br/><%= @aqi_weathers.try(:first).try(:no2) %></a></li>
+    
+  </ul>
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="aqi<%= aqi_max %>"></div>
+    <div role="tabpanel" class="tab-pane" id="pm25<%= aqi_max %>"></div>
+    <div role="tabpanel" class="tab-pane" id="o3<%= aqi_max %>"></div>
+    <div role="tabpanel" class="tab-pane" id="pm10<%= aqi_max %>"></div>
+    <div role="tabpanel" class="tab-pane" id="no2<%= aqi_max %>"></div>
+  </div>
+</div>
+<% content_for :scripts do %>
+  <%= javascript_tag do %>
+    aqi_datas = <%= @aqi_datas.to_json.html_safe %>
+    pm25_datas = <%= @pm25_datas.to_json.html_safe %>
+    pm10_datas = <%= @pm10_datas.to_json.html_safe %>
+    o3_datas = <%= @o3_datas.to_json.html_safe %>
+    no2_datas = <%= @no2_datas.to_json.html_safe %>
+  <% end %>
+  <%= javascript_include_tag "aqi_weathers#{aqi_max}", 'data-turbolinks-track' => true %>
+<% end %>
+<script>
+  var myScroll;
+  var _window_width = $('#bottom-container').width();
+  var _item_width = _window_width / 3;
+  $("#scroller").width((_item_width * 5) + 5);
+  $("#scroller li").width(_item_width);
+  myScroll = new IScroll('#bottom-container', { scrollX: true, scrollY: false, mouseWheel: true });
+  // document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+</script>

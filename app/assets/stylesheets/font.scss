@@ -1,0 +1,47 @@
+@font-face {font-family: "iconfont";
+  src: font-url('iconfont.eot?t=1466769027'); /* IE9*/
+  src: font-url('iconfont.eot?t=1466769027#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  font-url('iconfont.woff?t=1466769027') format('woff'), /* chrome, firefox */
+  font-url('iconfont.ttf?t=1466769027') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  font-url('iconfont.svg?t=1466769027#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-leizhenyu:before { content: "\e600"; }
+.icon-leida:before { content: "\e601"; }
+.icon-weixing:before { content: "\e602"; }
+.icon-leida1:before { content: "\e603"; }
+.icon-leida2:before { content: "\e604"; }
+.icon-leizhenyubaitian:before { content: "\e605"; }
+.icon-leizhenyuyewan:before { content: "\e606"; }
+.icon-weixing1:before { content: "\e607"; }
+.icon-bianji:before { content: "\e608"; }
+.icon-denglu:before { content: "\e609"; }
+.icon-dingyue:before { content: "\e60a"; }
+.icon-fabu:before { content: "\e60b"; }
+.icon-bofang:before { content: "\e60c"; }
+.icon-buzhi:before { content: "\e60d"; }
+.icon-chakan:before { content: "\e60e"; }
+.icon-chakanpiyue:before { content: "\e60f"; }
+.icon-jujue:before { content: "\e610"; }
+.icon-guanbi:before { content: "\e611"; }
+.icon-guanli:before { content: "\e612"; }
+.icon-jieshu:before { content: "\e613"; }
+.icon-jinru:before { content: "\e614"; }
+.icon-shanchu:before { content: "\e615"; }
+.icon-shangchuan:before { content: "\e616"; }
+.icon-shezhi:before { content: "\e617"; }
+.icon-shengji:before { content: "\e618"; }
+.icon-sousuo:before { content: "\e619"; }
+.icon-tijiao:before { content: "\e61a"; }
+.icon-tianjia:before { content: "\e61b"; }
+.icon-tuichu:before { content: "\e61c"; }
+.icon-yingyong:before { content: "\e61d"; }
+.icon-home-page:before { content: "\e61e"; }

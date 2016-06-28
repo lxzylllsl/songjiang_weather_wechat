@@ -1,0 +1,9 @@
+<div class="row">
+  <ul class="col-xs-12" style="list-style: none; font-size: 26px;">
+  <% @list.each do |item| %>
+    <li class="col-xs-12">
+      <%= link_to item[:name], item[:url] %>  
+    </li>
+  <% end %>
+  </ul>
+</div>

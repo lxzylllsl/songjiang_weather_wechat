@@ -1,0 +1,302 @@
+// Place all the styles related to the air_quality controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+  color: #4a4a4a;
+  background-color: rgba(140, 178, 101, .5);
+}
+.col-xs-6 {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.real-time-aqi-container {
+  background-color: #fff;
+  .aqi-info {
+    height: 52px;
+    padding-top: 18px;
+    padding-left: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+    overflow: hidden;
+    color: #4a4a4a;
+    border-bottom: 1px solid rgba(74,74,74,0.5);
+    .title {
+      font-size: 16px;
+    }
+    .sub-info {
+      font-size: 14px;
+    }
+  }
+  .content {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    .aqi-level {
+      margin-top: 2px;
+      margin-bottom: 4px;
+      text-align: center;
+      color: #e5da1e;
+      font-size: 20px;
+    }
+    .aqi-level-shadeguide {
+      margin-left: 8.33%;
+      border-radius: 43px;
+      color: #fff;
+      text-align: center;
+    }
+    .aqi-human {
+      width: 72px;
+    }
+    .aqi-pripoll {
+      margin-top: 8px;
+      margin-left: 12px;
+    }
+    
+  }
+}
+.shaddow {
+  height: 1px;
+  margin-left: 0;
+  margin-right: 0;
+  box-shadow: 0px 8px 8px rgba(0,0,0,0.2);
+}
+.divider {
+  width: 90%;
+  height: 1px;
+  margin-left: 5%;
+  border-bottom: 1px solid rgba(155,155,155,.6);
+}
+.air-forecast-container {
+  margin: 18px 6px 10px 6px;
+  overflow: hidden;
+  .forecast-container {
+    position: relative;
+    z-index: 1;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    overflow: hidden;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    -o-text-size-adjust: none;
+    text-size-adjust: none;
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+    }
+    .item {
+      display: block;
+      float: left;
+      height: 100%;
+      border-right: 1px solid rgba(140,178,101,.2);
+      background-color: transparent;
+      font-size: 14px;
+      .detail {
+        margin-left: 5px;
+        margin-right: 5px;
+        padding-bottom: 5px;
+        color: #fff;
+        background-color: rgba(169,169,169,.4);
+        .level-s {
+          padding: 2px 12px;
+          border-radius: 5px;
+        }
+        .level-m {
+         padding: 2px 6px; 
+         border-radius: 5px;
+         margin-left: 2px;
+        }
+        
+      }
+      .pripoll {
+        font-size: 12px;
+      }
+    }      
+  }
+}
+.air-chart-container {
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 12px;
+}
+.nav-pills {
+  margin-top: 12px;
+  li {
+    font-size: 12px;
+    a {
+      padding: 4px 6px;
+      color: #4a4a4a;
+    }
+    a:hover,
+    a:focus {
+      color: #fff;
+      background-color: transparent!important;
+    }
+    a:active {
+      background-color: #4a4a4a!important;
+    }
+  }
+  li.active {
+    a {
+      background-color: rgba(74,74,74,0.5)!important;
+    }
+  }
+}
+.level1 {
+  background-color: #188743;
+}
+.level2 {
+  background-color: #e5da1e;
+}
+.level3 {
+  background-color: #e0b624;
+}
+.level4 {
+  background-color: #ce202a;
+}
+.level5 {
+  background-color: #80287f;
+}
+.level6 {
+  background-color: #71151a;
+}
+#aqi, #pm25, #o3, #pm10, #no2 {
+  background: image_url("colors.png") no-repeat 23px 10px;
+  background-size: 115px 220px;
+  height: 280px;
+}
+
+#aqi_m, #pm25_m, #o3_m, #pm10_m, #no2_m {
+  background: image_url("colors_m.png") no-repeat 23px 10px;
+  background-size: 115px 340px;
+  min-height: 420px;
+}
+
+@media screen and (max-width: 320px) {
+  .col-xs-6 {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+  .real-time-aqi-container {
+    .aqi-info {
+      height: 42px;
+      padding-top: 12px;
+      padding-left: 8px;
+      margin-left: 10px;
+      margin-right: 10px;
+      .title {
+        font-size: 14px;
+      }
+      .sub-info {
+        font-size: 12px;
+      }
+    }
+    .content {
+      margin-top: 8px;
+      margin-bottom: 8px;
+      .aqi-level {
+        margin-top: 2px;
+        margin-bottom: 4px;
+        font-size: 18px;
+      }
+      .aqi-level-shadeguide {
+        margin-left: 7%;
+        border-radius: 36px;
+      }
+      .aqi-human {
+        width: 62px;
+      }
+      .aqi-pripoll {
+        font-size: 12px;
+        margin-top: 6px;
+        margin-left: 10px;
+      }
+      .desc {
+        font-size: 12px;
+      }
+    }
+  }
+  .shaddow {
+    box-shadow: 0px 8px 8px rgba(0,0,0,0.2);
+  }
+  .air-forecast-container {
+    margin: 12px 4px 6px 4px;
+    .forecast-container {
+      position: relative;
+      z-index: 1;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      overflow: hidden;
+      -webkit-transform: translateZ(0);
+      -moz-transform: translateZ(0);
+      -ms-transform: translateZ(0);
+      -o-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-text-size-adjust: none;
+      -moz-text-size-adjust: none;
+      -ms-text-size-adjust: none;
+      -o-text-size-adjust: none;
+      text-size-adjust: none;
+      .item {
+        font-size: 12px;
+        p {
+          margin-bottom: 3px;
+        }
+        .detail {
+          margin-left: 3px;
+          margin-right: 3px;
+          padding-bottom: 5px;
+          margin-bottom: 3px;
+          .level-s {
+            padding: 2px 10px;
+            border-radius: 5px;
+          }
+          .level-m {
+           padding: 2px 4px; 
+           border-radius: 5px;
+           margin-left: 2px;
+          }
+          
+        }
+        .pripoll {
+          font-size: 12px;
+        }
+      }      
+    }
+  }
+  .air-chart-container {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 8px;
+    .title {
+      font-size: 12px;
+    }
+  }
+  .nav-pills {
+    margin-top: 12px;
+    li {
+      font-size: 12px;
+      a {
+        padding: 4px 6px;
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+<% content_for :title do %>
+  雷达卫星
+<% end %>
+<div class="row">
+  <ul class="col-xs-10 col-xs-offset-1 tab">
+    <li role="presentation" class="col-xs-6 active"><a href="#radar" aria-controls="radar" role="tab" data-toggle="tab"><i class="iconfont icon-leida"></i>雷达回波</a></li>
+    <li role="presentation" class="col-xs-6"><a href="#satelli" aria-controls="satelli" role="tab" data-toggle="tab"><i class="iconfont icon-weixing"></i>卫星云图</a></li>  
+  </ul>
+  <div class="col-xs-10 col-xs-offset-1 info">
+    <div class="col-xs-7 date-time">更新时间: <%= DateTime.now.strftime('%F %H:%M') %></div>
+    <div class="col-xs-5 sub-info text-right">红点代表当前位置</div>
+  </div>
+</div>
+
+<div class="row tab-content">
+  <div role="tabpanel" class="tab-pane active" id="radar">
+    <div id="picture-container" class="col-xs-10 col-xs-offset-1 container">
+      <div id="scroller" class="picture-canvas">
+        <%= image_tag "test.gif" %>
+      </div>
+    </div>
+    <div class="col-xs-10 col-xs-offset-1 radar-bitmap">
+      <%= image_tag "radar_bitmap.png" %>
+    </div>
+    <div class="col-xs-10 col-xs-offset-1 radar-time-line" id="radar-time-line">
+      <ul>
+        <li class="play"><i class="iconfont icon-bofang"></i></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+
+    <div id="touchmove-info">
+    </div>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="satelli">
+    <div class="col-xs-10 col-xs-offset-1">
+      <%= image_tag "test.gif" %>
+    </div> 
+  </div>
+</div>
+<script>
+  $(function(){
+    var startX, startY, endX, endY;
+    var base_x = -300;
+    var base_y = -400;
+    $("#scroller").on("touchstart", function(evt){
+      var _touch = evt.originalEvent.targetTouches[0];
+      startX = _touch.pageX;
+      startY = _touch.pageY;
+    }).on("touchmove", function(evt){
+      var _touch = evt.originalEvent.targetTouches[0];
+      endX = _touch.pageX;
+      endY = _touch.pageY;
+      var _x = base_x + _touch.pageX;
+      var _y = base_y + _touch.pageY;
+      if (_x > 0) _x = 0;
+      if (_x < -410) _x = -410;
+      
+      if (_y > 0) _y = 0;
+      if (_y < -300) _y = -300;
+      $(this).css('transform', 'translate('+_x+'px,'+_y+'px)');
+    }).on("touchend", function(evt){
+      base_x -= (startX - endX);
+      base_y -= (startY - endY);
+    });
+    $(document).on('touchmove', function (e) { e.preventDefault(); }, false);
+  });
+</script>

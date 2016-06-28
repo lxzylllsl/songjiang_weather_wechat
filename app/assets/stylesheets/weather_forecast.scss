@@ -1,0 +1,221 @@
+// Place all the styles related to the weather_forecast controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.main-top-container {
+  font-weight: 100;
+  background: image_url('background_1.png');
+  background-size: 100%;
+  .main-top-container-1 {
+    .location-info {
+      height: 42px;
+      padding-top: 15px;
+      padding-left: 16px;
+      font-size: 20px;
+      color: #333;
+      .locate-icon {
+        width: 16px;
+        height: 20px;
+      }
+    }
+    .date-time-info {
+      height: 42px;
+      padding-top: 15px;
+      padding-right: 20px;
+      font-size: 16px;
+    }
+  }
+  .main-top-container-2 {
+    .container-left {
+      color: #fff;
+      font-weight: 100;
+      .real-time-tempe {
+        padding-left: 34px;
+        letter-spacing: 2.5px;
+        font-size: 90px;
+      }
+      .forecast-tempe {
+        font-size: 26px;
+        padding-left: 32px;
+        p {
+          margin-bottom: 0;
+        }
+        .tempe {
+          letter-spacing: 0.54px;
+        }
+        .date-time {
+          font-size: 14px;
+          letter-spacing: 1.28px;
+        }
+      }
+    }
+    .container-right {
+      padding-top: 38px;
+      padding-left: 22px;
+      padding-right: 18px;
+      color: rgba(38,38,38,0.8);
+      .auto-station-info {
+        font-size: 14px;
+        div {
+          margin-bottom: 8px;
+        }
+      }
+      .air-shadeguide {
+        margin-left: 10px;
+        padding: 1px 26px;
+        color: #fff;
+        background: #B8E986;
+        border-radius: 4px;
+      }
+    }
+  }
+  .main-top-container-3 {
+    height: 64px;
+    line-height: 64px;
+    margin-top: 5px;
+    padding-left: 26px;
+    .warning-icon {
+      width: 42px;
+      height: 42px;
+      margin-left: 10px;
+    }
+  }
+  .main-top-container-4 {
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 100;
+    letter-spacing: 2.62px;
+    background-color: rgba(255,255,255,0.5);
+  }
+}
+.main-bottom-container {
+  .forecast-container {
+    position: absolute;
+    z-index: 1;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    height: 100%;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    -o-text-size-adjust: none;
+    text-size-adjust: none;
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+    }
+    .item {
+      display: block;
+      float: left;
+      height: 100%;
+      outline: 1px solid #ccc;
+      background-color: #fafafa;
+      font-size: 14px;
+    }      
+  }
+}
+@media screen and (max-width: 320px) {
+  .main-top-container {
+    .main-top-container-1 {
+      .location-info {
+        height: 36px;
+        padding-top: 12px;
+        padding-left: 12px;
+        font-size: 14px;
+        .locate-icon {
+          width: 14px;
+          height: 18px;
+        }
+      }
+      .date-time-info {
+        height: 36px;
+        padding-top: 12px;
+        padding-right: 12px;
+        font-size: 14px;
+      }
+    }
+    .main-top-container-2 {
+      .container-left {
+        .real-time-tempe {
+          height: 80px;
+          padding-left: 26px;
+          letter-spacing: 2.2px;
+          font-size: 68px;
+        }
+        .forecast-tempe {
+          font-size: 20px;
+          padding-left: 22px;
+          p {
+            margin-bottom: 0;
+          }
+          .tempe {
+            letter-spacing: 0.54px;
+          }
+          .date-time {
+            font-size: 12px;
+            letter-spacing: 1px;
+          }
+        }
+      }
+      .container-right {
+        padding-top: 26px;
+        padding-right: 18px;
+        padding-left: 20px;
+        color: rgba(38,38,38,1);
+        .auto-station-info {
+          font-size: 12px;
+          div {
+            margin-bottom: 2px;
+          }
+        }
+        .air-shadeguide {
+          margin-left: 6px;
+          padding: 1px 26px;
+          color: #fff;
+          background: #B8E986;
+          border-radius: 4px;
+        }
+      }
+    }
+    .main-top-container-3 {
+      height: 44px;
+      line-height: 44px;
+      margin-top: 2px;
+      padding-left: 20px;
+      .warning-icon {
+        width: 34px;
+        height: 34px;
+        margin-left: 8px;
+      }
+    }
+    .main-top-container-4 {
+      height: 36px;
+      line-height: 36px;
+      text-align: center;
+      font-size: 14px;
+      letter-spacing: 2.02px;
+      background-color: rgba(255,255,255,0.5);
+    }
+  }
+  .main-bottom-container {
+    .item {
+
+    }
+    
+  }
+}

@@ -1,0 +1,13 @@
+# config/application.yml
+defaults: &defaults
+  LocationUtil:
+    ak: '200aadcf1ccf720749c79228f9b7fd79'
+    remote: 'http://api.map.baidu.com/geocoder/v2/'
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
