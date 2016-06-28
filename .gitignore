@@ -20,5 +20,5 @@
 *.gif
 *.png
 /test/*
-/config/ininializers/weixin_rails_middleware.rb
-/config/ininializers/weixin_authorize.rb
+config/initializers/weixin_rails_middleware.rb
+config/ininializers/weixin_authorize.rb
