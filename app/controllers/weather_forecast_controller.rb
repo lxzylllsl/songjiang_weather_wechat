@@ -5,8 +5,11 @@ class WeatherForecastController < ApplicationController
   end
 
   def index
-    p location_params
-    LocationUtil.new.reverse(location_params)
+    site = LocationUtil.new.reverse(location_params)
+    @weather_forecasts = Weather::WeatherForecasts.new.fetch
+    @real_time_site = Weather::RealTimeStation.new.fetch(location_params[:lon], location_params[:lat])
+    @real_time_aqi = Weather::Aqi.new.fetch
+    
   end
 
   private

@@ -10,7 +10,7 @@ class Radar
     offset_x, offset_y = calculate _lon, _lat
     p "offset_x: #{offset_x}, offset_y: #{offset_y}"
     image = Magick::Image.read("smic_qpradar-R-002_201605311143.gif").first
-    sj_bg = Magick::Image.read("songjiang.png").first
+    sj_bg = Magick::Image.read("./app/assets/images/songjiang.png").first
     sj_bg = sj_bg.resize(45, 47)
     image.composite!(sj_bg, 304, 281, Magick::SrcOverCompositeOp)
     red = "#f00"

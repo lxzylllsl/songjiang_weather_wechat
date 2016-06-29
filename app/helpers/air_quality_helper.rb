@@ -22,7 +22,6 @@ module AirQualityHelper
     end
   end
 
-  private
   def translate level
     case level
     when '优'

@@ -2,7 +2,31 @@
 defaults: &defaults
   LocationUtil:
     ak: '200aadcf1ccf720749c79228f9b7fd79'
-    remote: 'http://api.map.baidu.com/geocoder/v2/'
+    remote: 'http://api.map.baidu.com'
+    api_path: 'geocoder/v2/'
+  Weather::WeatherForecasts:
+    appid: 'bFLKk0uV7IZvzcBoWJ1j'
+    appkey: 'mXwnhDkYIG6S9iOyqsAW7vPVQ5ZxBe'
+    api_path: '/api/v1/weather_forecasts/query'
+    remote: 'http://61.152.122.112:8080/'
+  Weather::RealTimeStation:
+    appid: 'bFLKk0uV7IZvzcBoWJ1j'
+    appkey: 'mXwnhDkYIG6S9iOyqsAW7vPVQ5ZxBe'
+    api_path: '/api/v1/auto_stations/locate_site'
+    remote: 'http://61.152.122.112:8080/'
+  Aqi::RealTimeAqi:
+    appid: 'bFLKk0uV7IZvzcBoWJ1j'
+    appkey: 'mXwnhDkYIG6S9iOyqsAW7vPVQ5ZxBe'
+    api_path: '/api/v1/aqi'
+    remote: 'http://61.152.122.112:8080/'
+  Aqi::ForecastAirQuality:
+    appid: 'bFLKk0uV7IZvzcBoWJ1j'
+    appkey: 'mXwnhDkYIG6S9iOyqsAW7vPVQ5ZxBe'
+    api_path: '/api/v1/aqi/forecast'
+    remote: 'http://61.152.122.112:8080/'
+  Aqi::AqiHistory:
+    api_path: 'aqi_avg_hours/'
+    remote: 'http://222.66.83.20:9090/'
 development:
   <<: *defaults
 

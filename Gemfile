@@ -22,8 +22,6 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'puma'
-
 gem 'font-awesome-rails'
 gem 'bootstrap-sass'
 gem 'backstretch-rails'
@@ -70,12 +68,16 @@ gem 'acts_as_commentable_with_threading'
 
 gem 'faraday'
 
+group :production do
+  gem 'puma'
+end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 end
 
 group :development do
+  gem 'unicorn'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 

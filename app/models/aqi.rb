@@ -5,18 +5,16 @@ class Aqi
     include NetworkMiddleware
 
     def initialize
-      @api_path = 'api/v1/aqi'
-      @remote = 'http://61.152.122.112:8080'
+      @root = self.class.name.to_s
       super
     end
 
     def fetch
-      params_hash = {
-        method: 'get',
-        data: 'appid=ZfQg2xyW04X3umRPsi9H&appkey=xWOX5kAYVSduEl38oJctyRgB2NDMpH'
-      }
-      result = get_data(params_hash, {})
-      result['data']
+      _result = get_data({method: 'get', data: {
+        appid: @appid,
+        appkey: @appkey
+      }}, {})
+      _result.fetch('data', {})
     end  
   end
 
@@ -24,17 +22,17 @@ class Aqi
     include NetworkMiddleware
 
     def initialize
-      @api_path = 'api/v1/aqi/forecast'
-      @remote = 'http://61.152.122.112:8080'
+      @root = self.class.name.to_s
       super
     end
 
     def fetch
       params_hash = {
         method: 'get',
-        data: 'appid=ZfQg2xyW04X3umRPsi9H&appkey=xWOX5kAYVSduEl38oJctyRgB2NDMpH'
+        data: {appid: @appid, appkey: @appkey}
       }
       result = get_data(params_hash, {})
+      p result
       result['data']['list']
     end
   end
@@ -43,15 +41,14 @@ class Aqi
     include NetworkMiddleware
     
     def initialize
-      @api_path = URI::escape('aqi_avg_hours/上海')
-      @remote = 'http://222.66.83.20:9090'
+      @root = self.class.name.to_s
       super
+      @api_path = URI::escape("#{@api_path}上海")
     end
 
     def fetch
       params_hash = {
-        method: 'get',
-        data: ''
+        method: 'get'
       }
 
       result = get_data(params_hash, {})

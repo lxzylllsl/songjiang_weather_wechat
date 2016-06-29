@@ -1,6 +1,10 @@
 module NetworkMiddleware
 
   def initialize
+    settings = Settings.__send__ @root
+    settings.each do |k, v|
+      instance_variable_set "@#{k}", v
+    end
     @connect = Faraday.new(:url => @remote) do |faraday|
       faraday.request :url_encoded
       faraday.response :logger
@@ -35,10 +39,8 @@ module NetworkMiddleware
   end
 
   def use_get(params={}, head_params={})
-    request_params = params[:data] || params['data']
-    # i_type = params[:i_type] || params['i_type'] || 'User'
     response = @connect.get do |request|
-      request.url "#{@api_path}?#{request_params}"
+      request.url @api_path
       request.headers['Content-Type'] = 'application/json'
       request.headers['Accept'] = 'application/json'
       # if head_params.present?
@@ -47,8 +49,10 @@ module NetworkMiddleware
       #   request.headers["X-#{i_type}-Phone"] = phone
       #   request.headers["X-#{i_type}-Token"] = token
       # end
-      
-      # request.body = request_params.to_json
+      request_params = params[:data] || params['data']
+      if request_params.present?  
+        request.body = request_params.to_json
+      end
     end
     MultiJson.load(response.body)
   end

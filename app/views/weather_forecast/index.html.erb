@@ -5,17 +5,17 @@
   <div class="row main-top-container-1">
     <div class="col-xs-7 location-info">
       <%= image_tag 'locate.png', class: 'locate-icon' %>
-      <span>华实中学</span>
+      <span><%= @real_time_site['name'] %></span>
     </div>
     <div class="col-xs-5 date-time-info text-right">
-      <%= DateTime.now.strftime('%Y.%m.%d %H:%M') %>
+      <%= @real_time_site['datetime'] %>
     </div>
   </div>
 
   <div class="row main-top-container-2">
     <div class="col-xs-7 container-left">
       <div class="real-time-tempe">
-        28°
+        <%= @real_time_site['tempe'] %>°
       </div>
       <div class="forecast-tempe">
         <p class="tempe">10℃～31℃</p>
@@ -24,11 +24,11 @@
     </div>
     <div class="col-xs-5 container-right">
       <div class="auto-station-info text-left">
-        <div class="col-xs-12">能见度 9.23km</div>
-        <div class="col-xs-12">湿&nbsp;&nbsp;&nbsp;度 86%</div>
+        <div class="col-xs-12">能见度 <%= @real_time_site['visibility'] %>km</div>
+        <div class="col-xs-12">湿&nbsp;&nbsp;&nbsp;度 <%= @real_time_site['humi'] %>%</div>
         <div class="col-xs-12">东南风 3～4级</div>
-        <div class="col-xs-12">气&nbsp;&nbsp;&nbsp;压 1900Pa</div>
-        <div class="col-xs-12">70 <span class="air-shadeguide">良</span></div>
+        <div class="col-xs-12">气&nbsp;&nbsp;&nbsp;压 <%= @real_time_site['pressure'] %>Pa</div>
+        <div class="col-xs-12"><%= @real_time_aqi['aqi'] %> <span class="air-shadeguide <%= translate(@real_time_aqi['level'])%>"><%= @real_time_aqi['level'] %></span></div>
       </div>
     </div>
   </div>
@@ -42,10 +42,14 @@
 <div id="bottom-container" class="main-bottom-container">
   <div id="scroller" class="forecast-container">
     <ul>
-      <% 10.times do |idx| %>
+      <% @weather_forecasts.each do |item| %>
         <li class="item">
-          <p><%= (DateTime.now + idx.day).strftime('%m.%d') %></p>
-          <p>周日</p>
+          <p><%= t(item['week']) %></p>
+          <p><%= item['datatime'] %></p>
+          <p><%= item['weather'] %></p>
+          <%= image_tag "small_icon/#{item['first_icon']}" %>
+          <p><%= item['tempe'] %></p>
+          <%= image_tag "small_icon/#{item['second_icon']}" %>
         </li>
       <% end %>
     </ul>
@@ -56,7 +60,7 @@
   var myScroll;
   var _window_width = $(window).width();
   var _item_width = _window_width / 5;
-  $("#scroller").width(_item_width * 10);
+  $("#scroller").width(_item_width * <%= @weather_forecasts.size %>);
   $("#scroller li").width(_item_width);
   myScroll = new IScroll('#bottom-container', { scrollX: true, scrollY: false, mouseWheel: true });
   document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
