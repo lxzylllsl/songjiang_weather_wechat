@@ -41,7 +41,9 @@
       <% end %>
     </ul>
   </div>
-  
+  <div class="scroll-marker">
+    <i class="iconfont icon-xiaoyuan iconfont1 selected"></i><i class="iconfont icon-xiaoyuan iconfont2"></i>
+  </div>
 </div>
 <div class="divider"></div>
 <div class="row air-chart-container">
@@ -84,5 +86,16 @@
   $("#scroller").width((_item_width * 5) + 5);
   $("#scroller li").width(_item_width);
   myScroll = new IScroll('#bottom-container', { scrollX: true, scrollY: false, mouseWheel: true });
+
+  myScroll.on('scrollEnd', updatePosition);
+  function updatePosition() {
+    if ((_item_width * 2) < Math.abs(this.x)) {
+      $('.iconfont1').removeClass('selected');
+      $('.iconfont2').addClass('selected');
+    }else{
+      $('.iconfont1').addClass('selected');
+      $('.iconfont2').removeClass('selected');
+    }
+  }
   // document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 </script>

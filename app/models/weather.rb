@@ -18,6 +18,7 @@ class Weather
       _result.fetch('data', {})
     end
   end
+  
   class WeatherForecasts
     include NetworkMiddleware
     include Syncopate
@@ -40,7 +41,11 @@ class Weather
         item['datatime'] = _datetime.strftime('%m.%d')
         item['week'] = _datetime.strftime('%a')
         weathers = Weather.filter(analyzed(item['weather']))
-        item['weather'] = weathers.join('/')
+        if weathers[0].eql?(weathers[-1])
+          item['weather'] = weathers[0]
+        else
+          item['weather'] = weathers.join('转')
+        end
         item['first_icon'] = Weather.get_pic_file weathers[0]
         item['second_icon'] = Weather.get_pic_file weathers[-1]
       end

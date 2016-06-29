@@ -127,6 +127,18 @@ body {
       }
     }      
   }
+  .scroll-marker {
+    position: relative;
+    margin-top: 10px;
+    text-align: center;
+    .iconfont {
+      font-size: 10px;
+      color: #efefef;
+    }
+    .selected {
+      color: #ccc;
+    }
+  }
 }
 .air-chart-container {
   margin-left: 25px;

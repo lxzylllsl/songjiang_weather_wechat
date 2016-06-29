@@ -18,8 +18,8 @@
         <%= @real_time_site['tempe'] %>°
       </div>
       <div class="forecast-tempe">
-        <p class="tempe">10℃～31℃</p>
-        <p class="date-time"><%= chinese_year(Date.today.year) %>&nbsp;&nbsp;八月十二</p>
+        <p class="tempe"><%= @weather_forecasts.first['tempe'] %></p>
+        <p class="date-time"><%= chinese_year %></p>
       </div>
     </div>
     <div class="col-xs-5 container-right">
@@ -33,7 +33,9 @@
     </div>
   </div>
   <div class="row main-top-container-3">
-    <%= image_tag "warnings/b_a1.png", class: 'warning-icon' %>
+    <% @warnings.each do |warning| %>
+      <%= image_tag "warnings/b_a1.png", class: 'warning-icon' %>
+    <% end %>
   </div>
   <div class="row main-top-container-4">
     却下水晶帘，玲珑望秋月 --白露
@@ -44,24 +46,37 @@
     <ul>
       <% @weather_forecasts.each do |item| %>
         <li class="item">
-          <p><%= t(item['week']) %></p>
-          <p><%= item['datatime'] %></p>
-          <p><%= item['weather'] %></p>
+          <p class="week"><%= t(item['week']) %></p>
+          <p class="date-time"><%= item['datatime'] %></p>
+          <p class="weather"><%= item['weather'] %></p>
           <%= image_tag "small_icon/#{item['first_icon']}" %>
-          <p><%= item['tempe'] %></p>
+          <p class="tempe"><%= item['tempe'] %></p>
           <%= image_tag "small_icon/#{item['second_icon']}" %>
         </li>
       <% end %>
     </ul>
   </div>
-  
+  <div class="scroll-marker">
+    <i class="iconfont icon-xiaoyuan iconfont1 selected"></i><i class="iconfont icon-xiaoyuan iconfont2"></i>
+  </div>
 </div>
 <script>
   var myScroll;
   var _window_width = $(window).width();
-  var _item_width = _window_width / 5;
-  $("#scroller").width(_item_width * <%= @weather_forecasts.size %>);
+  var _item_width = (_window_width / 5) - 6;
+  $("#scroller").width((_item_width * <%= @weather_forecasts_size %>) + <%= @weather_forecasts_size * 7 %>);
   $("#scroller li").width(_item_width);
   myScroll = new IScroll('#bottom-container', { scrollX: true, scrollY: false, mouseWheel: true });
-  document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+  myScroll.on('scrollEnd', updatePosition);
+  function updatePosition() {
+    if (_window_width < Math.abs(this.x)) {
+      $('.iconfont1').removeClass('selected');
+      $('.iconfont2').addClass('selected');
+    }else{
+      $('.iconfont1').addClass('selected');
+      $('.iconfont2').removeClass('selected');
+    }
+  }
+  // document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 </script>

@@ -59,6 +59,8 @@ gem "paperclip"#, :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'paperclip-av-transcoder'
 
 gem 'ransack'
+# 公历转农历
+gem 'chinese_lunar', git: 'https://github.com/shtzr840329/chinese_lunar.git'
 
 gem 'acts_as_votable', '~> 0.10.0'
 
