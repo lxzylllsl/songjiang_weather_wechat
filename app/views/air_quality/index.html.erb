@@ -4,7 +4,7 @@
 <div class="row real-time-aqi-container">
   <div class="aqi-info">
     <div class="col-xs-5 title">空气质量</div>
-    <div class="col-xs-7 sub-info text-right"><%= DateTime.now.strftime('%m月%d %H:%M') %> 松江环保局发布</div>  
+    <div class="col-xs-7 sub-info text-right"><%= DateTime.strptime(@real_time['datetime'], "%Y年%m月%d日 %H时").strftime('%m月%d %H:%M') %> 松江环保局发布</div>  
   </div>
   <div class="content">
     <div class="col-xs-6">
