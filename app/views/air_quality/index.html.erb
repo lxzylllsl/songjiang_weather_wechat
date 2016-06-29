@@ -16,7 +16,7 @@
         <%= image_tag 'aqi/aqi100.png', class: 'aqi-human' %>
       </div>
       <div class="col-xs-12 aqi-pripoll">
-        主要污染物: <%= @real_time['pripoll'] %>
+        主要污染物: <%= aqi_format @real_time['pripoll'] %>
       </div>
     </div>
     <div class="col-xs-6 desc">
