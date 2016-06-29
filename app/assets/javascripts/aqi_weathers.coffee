@@ -65,7 +65,7 @@ drawAqi = (ec)->
       itemStyle:
         normal:
           lineStyle:
-            color: '#fff'
+            color: '#4a4a4a'
             width: 1
       data: dataConfigs
     ]
@@ -133,7 +133,7 @@ drawPm25 = (ec)->
       itemStyle:
         normal:
           lineStyle:
-            color: '#fff'
+            color: '#4a4a4a'
             width: 1
       data: dataConfigs
     ]
@@ -201,7 +201,7 @@ drawO3 = (ec)->
       itemStyle:
         normal:
           lineStyle:
-            color: '#fff'
+            color: '#4a4a4a'
             width: 1
       data: dataConfigs
     ]
@@ -269,7 +269,7 @@ drawPm10 = (ec)->
       itemStyle:
         normal:
           lineStyle:
-            color: '#fff'
+            color: '#4a4a4a'
             width: 1
       data: dataConfigs
     ]
@@ -338,7 +338,7 @@ drawNo2 = (ec)->
       itemStyle:
         normal:
           lineStyle:
-            color: '#fff'
+            color: '#4a4a4a'
             width: 1
       data: dataConfigs
     ]
