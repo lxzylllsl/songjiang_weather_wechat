@@ -1,0 +1,4 @@
+class WeatherEssentialController < ApplicationController
+
+  
+end

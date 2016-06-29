@@ -30,13 +30,13 @@
     <ul>
       <% @forecast_air_quality.each do |item| %>
         <li class="item">
-          <p><%= item['period'].split('（')[0] %></p>
-          <p><%= item['period'].split('（')[1].delete('）') %></p>
+          <p class="time"><%= item['period'].split('（')[0] %></p>
+          <p class="side"><%= item['period'].split('（')[1].delete('）') %></p>
           <div class="detail">
             <p><%= item['aqi'] %></p>
             <%= raw(split_level item['level']) %>
           </div>
-          <p class="pripoll">主要污染物: <%= item['pripoll'] %></p>
+          <p class="pripoll">主要污染物: <%= aqi_format item['pripoll'] %></p>
         </li>
       <% end %>
     </ul>

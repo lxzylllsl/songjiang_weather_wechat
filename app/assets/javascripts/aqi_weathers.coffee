@@ -19,7 +19,7 @@ drawAqi = (ec)->
     grid:
       height: 220
       x: 30
-      x2: 20
+      x2: 16
       y: 10
       borderWidth: 0
     xAxis: [
@@ -29,10 +29,10 @@ drawAqi = (ec)->
         formatter: (value)->
           "#{value.getHours()}时\n#{value.getMonth()+1}-#{value.getDate()}"
         textStyle:
-          color: "#ffffff"
+          color: "#fff"
       axisLine:
         lineStyle:
-          color: '#ffffff'
+          color: '#fff'
           width: 0
       axisTick:
         show: false
@@ -47,15 +47,15 @@ drawAqi = (ec)->
       splitNumber: 7
       axisLabel:
         textStyle:
-          color: "#ffffff"
+          color: "#fff"
       axisLine:
         show: false
         lineStyle:
-          color: '#657398'
+          color: '#b6b5b5'
       splitLine:
         onGap: true
         lineStyle:
-          color: '#657398'
+          color: '#b6b5b5'
     ]
     series: [
       name: '空气质量'
@@ -65,7 +65,7 @@ drawAqi = (ec)->
       itemStyle:
         normal:
           lineStyle:
-            color: '#ffffff'
+            color: '#fff'
             width: 1
       data: dataConfigs
     ]
@@ -88,7 +88,7 @@ drawPm25 = (ec)->
     grid:
       height: 220
       x: 30
-      x2: 20
+      x2: 16
       y: 10
       borderWidth: 0
     xAxis: [
@@ -97,10 +97,10 @@ drawPm25 = (ec)->
         formatter: (value)->
           "#{value.getHours()}时\n#{value.getMonth()+1}-#{value.getDate()}"
         textStyle:
-          color: "#ffffff"
+          color: "#fff"
       axisLine:
         lineStyle:
-          color: '#ffffff'
+          color: '#fff'
           width: 0
       axisTick:
         show: false
@@ -115,7 +115,7 @@ drawPm25 = (ec)->
       splitNumber: 7
       axisLabel:
         textStyle:
-          color: "#ffffff"
+          color: "#fff"
       axisLine:
         show: false
         lineStyle:
@@ -133,7 +133,7 @@ drawPm25 = (ec)->
       itemStyle:
         normal:
           lineStyle:
-            color: '#ffffff'
+            color: '#fff'
             width: 1
       data: dataConfigs
     ]
@@ -156,7 +156,7 @@ drawO3 = (ec)->
     grid:
       height: 220
       x: 30
-      x2: 20
+      x2: 16
       y: 10
       borderWidth: 0
     xAxis: [
@@ -165,10 +165,10 @@ drawO3 = (ec)->
         formatter: (value)->
           "#{value.getHours()}时\n#{value.getMonth()+1}-#{value.getDate()}"
         textStyle:
-          color: "#ffffff"
+          color: "#fff"
       axisLine:
         lineStyle:
-          color: '#ffffff'
+          color: '#fff'
           width: 0
       axisTick:
         show: false
@@ -183,7 +183,7 @@ drawO3 = (ec)->
       splitNumber: 7
       axisLabel:
         textStyle:
-          color: "#ffffff"
+          color: "#fff"
       axisLine:
         show: false
         lineStyle:
@@ -201,7 +201,7 @@ drawO3 = (ec)->
       itemStyle:
         normal:
           lineStyle:
-            color: '#ffffff'
+            color: '#fff'
             width: 1
       data: dataConfigs
     ]
@@ -224,7 +224,7 @@ drawPm10 = (ec)->
     grid:
       height: 220
       x: 30
-      x2: 20
+      x2: 16
       y: 10
       borderWidth: 0
     xAxis: [
@@ -233,10 +233,10 @@ drawPm10 = (ec)->
         formatter: (value)->
           "#{value.getHours()}时\n#{value.getMonth()+1}-#{value.getDate()}"
         textStyle:
-          color: "#ffffff"
+          color: "#fff"
       axisLine:
         lineStyle:
-          color: '#ffffff'
+          color: '#fff'
           width: 0
       axisTick:
         show: false
@@ -251,7 +251,7 @@ drawPm10 = (ec)->
       splitNumber: 7
       axisLabel:
         textStyle:
-          color: "#ffffff"
+          color: "#fff"
       axisLine:
         show: false
         lineStyle:
@@ -269,7 +269,7 @@ drawPm10 = (ec)->
       itemStyle:
         normal:
           lineStyle:
-            color: '#ffffff'
+            color: '#fff'
             width: 1
       data: dataConfigs
     ]
@@ -292,7 +292,7 @@ drawNo2 = (ec)->
     grid:
       height: 220
       x: 30
-      x2: 20
+      x2: 16
       y: 10
       borderWidth: 0
     xAxis: [
@@ -302,10 +302,10 @@ drawNo2 = (ec)->
         formatter: (value)->
           "#{value.getHours()}时\n#{value.getMonth()+1}-#{value.getDate()}"
         textStyle:
-          color: "#ffffff"
+          color: "#fff"
       axisLine:
         lineStyle:
-          color: '#ffffff'
+          color: '#fff'
           width: 0
       axisTick:
         show: false
@@ -320,7 +320,7 @@ drawNo2 = (ec)->
       splitNumber: 7
       axisLabel:
         textStyle:
-          color: "#ffffff"
+          color: "#fff"
       axisLine:
         show: false
         lineStyle:
@@ -338,7 +338,7 @@ drawNo2 = (ec)->
       itemStyle:
         normal:
           lineStyle:
-            color: '#ffffff'
+            color: '#fff'
             width: 1
       data: dataConfigs
     ]
