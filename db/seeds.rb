@@ -8,7 +8,7 @@ Diymenu.delete_all
 Diymenu.create(id: 1, name: '天气实况', is_show: true, sort: 0)
 Diymenu.create(id: 2, name: '预报预警', is_show: true, sort: 1)
 Diymenu.create(id: 3, name: '问问', key: '问问', is_show: true, sort:2)
-Diymenu.create(id: 4, parent_id: 1, name: '空气质量', url: 'http://139.196.38.11/http://172.168.1.6:3000/air_quality', is_show: true, sort:0)
+Diymenu.create(id: 4, parent_id: 1, name: '空气质量', url: 'http://139.196.38.11/air_quality', is_show: true, sort:0)
 Diymenu.create(id: 5, parent_id: 1, name: '台风动态', key: '台风动态', is_show: true, sort:1)
 Diymenu.create(id: 6, parent_id: 1, name: '雷达卫星', key: '雷达卫星', is_show: true, sort:2)
 Diymenu.create(id: 7, parent_id: 1, name: '气象要素', key: '气象要素', is_show: true, sort:3)

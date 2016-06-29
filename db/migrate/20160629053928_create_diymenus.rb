@@ -1,4 +1,4 @@
-class Diymenu < ActiveRecord::Migration
+class CreateDiymenus < ActiveRecord::Migration
   def change
     create_table :diymenus do |t|
       t.integer :parent_id

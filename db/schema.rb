@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629052548) do
+ActiveRecord::Schema.define(version: 20160629053928) do
 
   create_table "diymenus", force: :cascade do |t|
     t.integer  "parent_id",  limit: 4
