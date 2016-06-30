@@ -1,0 +1,2 @@
+module TyphoonHelper
+end

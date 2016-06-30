@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= yield :title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    "#{controller.controller_name}", media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag "#{controller.controller_name}", media: 'all', 'data-turbolinks-track' => true %>
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=200aadcf1ccf720749c79228f9b7fd79"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+  <%= yield %>      
+</div>
+<%= yield :scripts %>
+</body>
+</html>

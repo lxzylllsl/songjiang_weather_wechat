@@ -26,6 +26,8 @@ Rails.application.routes.draw do
       get :history
     end
   end
+
+  resources :typhoon 
   
   namespace :admin do
     resources :page_list, only: [:index]

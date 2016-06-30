@@ -1,0 +1,151 @@
+<div id="selector">
+  <select name="" id="typhoon_selector">
+    <% @typhoon_list.each do |item| %>
+      <option value="<%= item['typhoonid']%>"><%= item['cnname']%>(<%= item['enname']%>)</option>
+    <% end %>
+  </select>
+</div>
+<div id="viewDiv"></div>
+<script type="text/javascript">
+  $(function(){
+
+    var real_location = []
+    var forecast_location = []
+    var map = new BMap.Map("viewDiv");
+    map.centerAndZoom(new BMap.Point(126.404, 16.915), 5);
+    map.enableScrollWheelZoom(true);
+
+    map.addEventListener("tilesloaded", function(){
+      init_map();
+    });
+    
+    $("#typhoon_selector").on('change', function(){
+      var typhoon_id = $(this).val();
+      map.clearOverlays();
+      get_typhoon(typhoon_id);
+    });
+    
+    function init_map() {
+      var polyline48 = new BMap.Polyline([
+        new BMap.Point(131.984253, 33.947917),
+        new BMap.Point(131.984253, 14.923554),
+        new BMap.Point(119.965210, -0.043945),
+        new BMap.Point(105.001831, -0.043945)
+      ], {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+      
+      var polyline24 = new BMap.Polyline([
+        new BMap.Point(126.990967, 34.002581),
+        new BMap.Point(126.990967, 21.965972),
+        new BMap.Point(118.995667, 17.960445),
+        new BMap.Point(118.995667, 10.968157),
+        new BMap.Point(113.019104, 4.477856),
+        new BMap.Point(105.001831, -0.043945)
+      ], {strokeColor:"red", strokeWeight:2, strokeOpacity:0.5});
+      polyline24.disableMassClear();
+      polyline48.disableMassClear();
+      map.addOverlay(polyline48);
+      map.addOverlay(polyline24);
+
+      var point48 = new BMap.Point(131.984253, 27.0);
+      var opts = {position: point48, offset: new BMap.Size(30, -30)}
+      var label48 = new BMap.Label('48小时警戒线', opts);
+      label48.disableMassClear();
+      map.addOverlay(label48);
+
+      var point24 = new BMap.Point(126.984253, 27.0);
+      opts = {position: point24, offset: new BMap.Size(30, -30)}
+      var label24 = new BMap.Label('24小时警戒线', opts);
+      label24.disableMassClear();
+      map.addOverlay(label24);
+    }
+
+    var level_items = ['level_1.png', 'level_1.png', 'level_2.png', 'level_3.png', 'level_4.png', 'level_5.png', 'level_6.png']
+    
+    function transform_level(level) {
+      if (level >= 10.8 && level <= 17.1) {
+        return 1;
+      } else if (level >= 17.2 && level <= 24.4) {
+        return 2;
+      } else if (level >= 24.5 && level <= 32.6) {
+        return 3;
+      } else if (level >= 32.7 && level <= 41.4) {
+        return 4;
+      } else if (level >= 41.5 && level <= 50.9) {
+        return 5;
+      } else if (level >= 51) {
+        return 6;
+      } else {
+        return 0;
+      }
+    }
+
+    function get_typhoon(typhoon_id) {
+      $.ajax({
+        type: 'get',
+        async: true,
+        url: 'http://61.152.122.112:8080/api/v1/typhoons/'+typhoon_id+'?appid=ZfQg2xyW04X3umRPsi9H&appkey=xWOX5kAYVSduEl38oJctyRgB2NDMpH',
+        headers: {Accept: 'application/json'},
+        success: function(json) {
+          console.log(json);
+          real_location = json.real_location
+          forecast_location = json.forecast_location
+          show();
+        },
+        fail: function(json) {
+          console.log(json);
+        }
+      });
+    }
+
+    var curr_point_idx = 0;
+    var points = [];
+    var _typhoon = new BMap.Polyline(points, {strokeColor:"red", strokeWeight:2, strokeOpacity:0.5});
+    var timer;
+    function show() {
+      if (real_location[curr_point_idx] == undefined) {
+        curr_point_idx = 0;
+        points.length = 0;
+        clearTimeout(timer);
+        show_forecast();
+        return;
+      }
+
+      timer = setTimeout(function(){
+        var _ptm;
+        map.addOverlay(_typhoon);
+        point = new BMap.Point(real_location[curr_point_idx].lon, real_location[curr_point_idx].lat)
+        points.push(point);
+        _typhoon.setPath(points);
+        _ptm = new BMap.Marker(point, {icon: new BMap.Icon(level_items[transform_level(real_location[curr_point_idx].max_wind)], new BMap.Size(12,12))});
+        map.addOverlay(_ptm);
+        curr_point_idx += 1;
+        show();
+      }, 60);
+      
+    }
+
+    function show_forecast() {
+      var size, _ptm, curr_point_idx2;
+      var curr_point_obj = real_location[real_location.length - 1];
+      var curr_point = new BMap.Point(curr_point_obj.lon, curr_point_obj.lat);
+      
+      for (size in forecast_location) {
+        var _path = [curr_point]
+        var curr_path_idx;
+        var point;
+        var _typhoon2 = new BMap.Polyline(_path, {strokeColor:"red", strokeStyle: 'dashed', strokeWeight:2, strokeOpacity:0.5});
+        for (curr_point_idx2 in forecast_location[size]) {
+          point = new BMap.Point(forecast_location[size][curr_point_idx2].lon, forecast_location[size][curr_point_idx2].lat)
+          _path.push(point);
+          _typhoon2.setPath(_path);
+          console.log(_path);
+          _ptm = new BMap.Marker(point, {icon: new BMap.Icon(level_items[transform_level(forecast_location[size][curr_point_idx2].max_wind)], new BMap.Size(12,12))});
+          console.log(_ptm)
+          map.addOverlay(_ptm);
+        }
+        map.addOverlay(_typhoon2);
+      }
+    }
+
+  });
+</script>
