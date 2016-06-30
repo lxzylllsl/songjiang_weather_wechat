@@ -1,0 +1,2 @@
+module AutoStationsHelper
+end

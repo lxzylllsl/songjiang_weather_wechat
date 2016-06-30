@@ -1,3 +1,133 @@
 // Place all the styles related to the weather_essential controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.col-xs-4,
+.col-xs-5,
+.col-xs-6,
+.col-xs-7,
+.col-xs-8 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.col-xs-12 {
+  padding-left: 5px;
+  padding-right: 5px; 
+}
+.top-container {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #000;
+  .location-info {
+    padding: 10px 10px 10px 20px;
+    font-size: 18px;
+    img {
+      width: 20px;
+    }
+  }
+  .real-time-content {
+    font-size: 12px;
+    .real-tempe {
+      font-size: 32px;
+    }
+    .right-container {
+      .right-content {
+        padding: 8px 5px 0 5px;
+        border-bottom: 1px solid #979797;
+        .col-xs-6 {
+          padding: 0;
+        }
+      }
+    }
+    .divide {
+      border-right: 1px solid #979797;
+    }
+  }
+}
+.bottom-container {
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  .tab-bar {
+    height: 44px;
+    background-color: #000;
+    .col-xs-offset-1 {
+      margin-left: 8.3333333%;
+    }
+    .col-xs-3 {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    bottom: 0px;
+    position: absolute;
+    ul.tab {
+      height: 36px;
+      line-height: 36px;
+      margin-bottom: 0;
+      list-style: none;
+      text-align: center;
+      li {
+        font-size: 16px;
+        cursor: pointer;
+        a {
+          color: #fff;
+        }
+        .iconfont {
+          margin-right: 5px;
+        }
+      }
+      li.active {
+        a {
+          color: #88cc42;  
+        }
+      }
+    }
+  }
+  .tab-content {
+    .tab-pane {
+      top: 0;
+      bottom: 46px;
+      position: absolute;
+      overflow-y: scroll;
+    }
+  }
+}
+.table {
+  font-size: 12px;
+  thead {
+    height: 34px;
+    line-height: 34px;
+    color: #fff;
+    background-color: #8CB265;
+  }
+}
+.table-hover > tbody > tr:hover {
+  border-radius: 5px;
+  color: #fff;
+  background-color: #8CB265;
+}
+.site-id {
+  display: none;
+}
+#float-window {
+  position: absolute;
+  top: 180px;
+  width: 100%;
+  height: 280px;
+  // left: 5%;
+  display: none;
+  background-color: rgba(0,0,0,.7);
+  .header {
+    margin-top: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    .iconfont {
+      font-size: 24px;
+    }
+  }
+}
+#myChart {
+  // display: none;
+  position: relative;
+  top: 90px;
+  height: 250px;
+}

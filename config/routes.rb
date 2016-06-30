@@ -15,8 +15,18 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :weather_essential
-    
+  resources :weather_essential do
+    collection do
+      get :locate
+    end
+  end
+  
+  resources :auto_stations do
+    collection do 
+      get :history
+    end
+  end
+  
   namespace :admin do
     resources :page_list, only: [:index]
   end
