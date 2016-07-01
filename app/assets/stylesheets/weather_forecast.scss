@@ -6,7 +6,6 @@ body {
   background-color: #fafafa;
 }
 .main-top-container {
-  font-weight: 100;
   background: asset-data-url('background_1.png');
   background-size: 100%;
   .main-top-container-1 {
@@ -33,6 +32,7 @@ body {
       color: #fff;
       font-weight: 100;
       .real-time-tempe {
+        font-weight: 100;
         padding-left: 34px;
         letter-spacing: 2.5px;
         font-size: 72px;
@@ -60,6 +60,7 @@ body {
       .auto-station-info {
         font-size: 14px;
         div {
+          font-weight: 300;
           margin-bottom: 8px;
         }
       }
@@ -132,8 +133,10 @@ body {
       border-right: 1px solid #ccc;
       background-color: #fafafa;
       font-size: 14px;
+      color: #666;
       .weather {
         height: 52px;
+        font-weight: 300;
       }
       img {
         width: 60%;
@@ -141,6 +144,7 @@ body {
       .tempe {
         margin-top: 10px;
         margin-bottom: 10px;
+        font-weight: 500;
       }
     }      
   }
