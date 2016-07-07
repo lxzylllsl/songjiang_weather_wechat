@@ -289,7 +289,7 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
     }
 
     function show_tips(content, e){
-      var infowindow = new BMap.InfoWindow(content,{width:100,height:220,title: "[" + current_typhoon.name + "] " + current_typhoon.cname});
+      var infowindow = new BMap.InfoWindow(content,{width:100,height:210,title: "[" + current_typhoon.name + "] " + current_typhoon.cname});
       map.openInfoWindow(infowindow,e.target.point);
     }
 
@@ -352,9 +352,8 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
     }
 
     function build_content(point) {
-
       var content = "<p>数据时间: " + point.time + "</p>";
-      if (point.unit != 'null') {
+      if (point.unit != null) {
         content += "<p>预报机构: "+ point.unit+"</p>";  
       }
       
@@ -366,8 +365,13 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
         content += "<p>最大风速: " + point.speed + " 米/秒</p>";  
       }
       content += "<p>中心气压: " + ((point.min_pressure == 9999) ? "-" : point.min_pressure) + " 百帕</p>";
-      content += "<p>七级半径: " + ((point.seven_radius == 9999) ? "-" : point.seven_radius ) + " 公里</p>";
-      content += "<p>十级半径: " + ((point.ten_radius == 9999) ? "-" : point.ten_radius) + " 公里</p>";
+      if (point.seven_radius != null) {
+        content += "<p>七级半径: " + point.seven_radius + " 公里</p>";  
+      }
+      if (point.ten_radius != null) {
+        content += "<p>十级半径: " + point.ten_radius + " 公里</p>";  
+      }
+      
       return content;
     }
 
