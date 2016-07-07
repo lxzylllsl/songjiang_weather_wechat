@@ -9,6 +9,12 @@
 <div id="run-icon">
   <i class="glyphicon glyphicon-play"></i>
 </div>
+<% if @visitor.eql?('shweather') %>
+  <div id="visitor-logo">
+    <%= image_tag("shweather_logo.png") %>
+    <p>上海天气</p>    
+  </div>
+<% end %>
 <div id="tflist">
   <!-- 耳朵 -->
   <div class="tab-bar col-xs-12">
@@ -74,6 +80,7 @@
           '<%= image_url('level5.png') %>', 
           '<%= image_url('level6.png') %>']
     typhoon_gif = '<%= image_url('typhoon.gif')%>'
+    logo = '<%= @visitor %>'
   <% end %>
 <% end %>
 <script type="text/javascript">
@@ -201,7 +208,11 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
 
     function build_title(json) {
       var current_location = json.real_location[json.real_location.length - 1];
-      var content = json.name + "号"+level_names[transform_level(current_location.max_wind)] + json.cname + "("+json.ename+") ";
+      var content = "";
+      if (logo == 'shweather') {
+        content = "[上海天气]";
+      }
+      content += json.name + "号"+level_names[transform_level(current_location.max_wind)] + json.cname + "("+json.ename+") ";
       content += current_location.time;
       if (current_location.speed != 9999) {
         content += " 风速: " + current_location.speed;

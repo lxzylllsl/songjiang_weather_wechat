@@ -3,7 +3,9 @@ class TyphoonController < ApplicationController
 
   def index
     # 计数器
-    $redis.lpush "read_typhoon", {time: DateTime.now}
+    @visitor = params[:v]
+    $redis.lpush "read_typhoon", {time: DateTime.now, visitor: @visitor}
+    
     # @typhoon = Typhoon::TyphoonDetail.new.fetch('-')
   end
 
