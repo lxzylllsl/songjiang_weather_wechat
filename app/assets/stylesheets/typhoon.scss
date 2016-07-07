@@ -5,28 +5,252 @@
 .container-fluid {
   height: 100%;
 }
+.anchorBL,
+.anchorTR {
+  display: none;
+}
 .BMapLabel {
-  font-size: 16px!important;
+  font-size: 12px!important;
   width: 20px!important;
   white-space: normal!important;
   border: 0!important;
+  color: #f5915f;
   background-color: initial!important;
 }
-#selector {
-  width: 160px;
-  height: 32px;
-  position: absolute;
+.BMap_bubble_title {
+  margin-bottom: 4px;
+  border-bottom: 1px solid #d3d3d4;
+  font-size: 12px;
+}
+.BMap_bubble_content {
+  font-size: 12px;
+  p {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding-top: 4px;
+    font-size: 12px;
+    color: #9e9e9f;
+    border-bottom: 1px solid #d3d3d3;
+  }
+}
+#title {
+  width: 100%;
+  height: 42px;
   top: 0;
-  left: 45%;
+  position: absolute;
+  text-align: center;
   z-index: 99;
+  font-weight: 700;
+  color: #ec2831;
+  .main-title {
+    margin-top: 10px;
+    margin-bottom: 6px;
+    font-size: 18px;
+    // -webkit-text-stroke: 1px #ddd;
+  }
+  .sub-title {
+    margin-top: 0;
+    font-size: 16px; 
+  }
+}
+#viewDiv {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+
 }
 #typhoon_selector {
   width: 100%;
   font-size: 16px;
 }
-#viewDiv {
-  width: 100%;
-  height: 100%;
+.wind_marker {
   position: absolute;
-  top: 0;
+  left: 10px;
+  bottom: 10px;
+  width: 80px;
+  height: 100px;
+}
+#tflist-icon {
+  position: absolute;
+  right: 10px;
+  bottom: 30px;
+  width: 42px;
+  height: 42px;
+  z-index: 99;
+  background-color: #4b89dc;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  .glyphicon {
+    font-size: 20px;
+    padding-top: 10px;
+    color: #fff;
+  }
+}
+#run-icon {
+ position: absolute;
+  right: 62px;
+  bottom: 30px;
+  width: 42px;
+  height: 42px;
+  z-index: 99;
+  background-color: #4b89dc;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  .glyphicon {
+    font-size: 20px;
+    padding-top: 10px;
+    color: #fff;
+  } 
+}
+#tflist {
+  position: absolute;
+  bottom: 0;
+  height: 360px;
+  width: 100%;
+  padding-top: 5px;
+  display: none;
+  z-index: 99;
+}
+.tab-bar {
+  background-color: transparent;
+  ul {
+    padding: 0;
+    margin-bottom: 0;
+    list-style: none;
+    li {
+      padding: 6px 30px 6px 30px;
+      margin-left: 10px;
+      text-align: center;
+      background-color: #fff;
+      float: left;
+      font-weight: 700;
+    }
+  }
+}
+.tab-pane {
+  background-color: #eee;
+  height: 360px;
+  overflow-y: scroll;
+  .title {
+    height: 32px;
+    line-height: 32px;
+    padding-left: 20px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #5988da;
+  }
+  .content {
+    min-height: 62px;
+    padding-top: 8px;
+    overflow: hidden;
+    div {
+      width: 25%;
+      padding: 6px;
+      font-size: 12px;
+      float: left;
+      img {
+        margin-right: 4px;
+      }
+    }
+    .sh {
+      color: #08b4ea;
+    }
+    .jp {
+      color: #034100;
+    }
+    .bj {
+      color: #000257;
+    }
+    .gu {
+      color: #5c4d3a;
+    }
+  }
+}
+#header {
+  overflow: hidden;
+  div {
+    float: left;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    outline: 2px solid #fff;
+    background-color: #5988da;
+  }
+  .time {
+    width: 50%;
+  }
+  .narrow {
+    width: 25%;
+  }
+}
+#wrapper {
+  position: absolute;
+  z-index: 99;
+  top: 32px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #ccc;
+  overflow: hidden;
+}
+
+#scroller {
+  position: absolute;
+  z-index: 1000;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  width: 100%;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  -o-text-size-adjust: none;
+  text-size-adjust: none;
+  ul {
+    li {
+      div {
+        float: left;
+        text-align: center;
+        font-size: 12px;
+      }
+      .time {
+        width: 50%;
+      }
+      .narrow {
+        width: 25%;
+      }
+    }
+  }
+}
+
+#scroller ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+}
+
+#scroller li {
+  padding: 0 10px;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #fff;
+  background-color: #fafafa;
+  font-size: 14px;
 }

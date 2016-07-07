@@ -26,13 +26,13 @@ class Typhoon
       super
     end
 
-    def fetch
+    def fetch(id)
+      @api_path = @api_path + id
       _result = get_data({method: 'get', data: {
         appid: @appid,
         appkey: @appkey,
-        area: '松江'
       }}, {})
-      _result.fetch('data', {})
+      
     end
   end
 end

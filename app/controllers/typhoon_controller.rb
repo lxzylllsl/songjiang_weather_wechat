@@ -2,7 +2,7 @@ class TyphoonController < ApplicationController
   layout 'typhoon'
 
   def index
-    @typhoon_list = Typhoon::TyphoonList.new.fetch
+    # @typhoon = Typhoon::TyphoonDetail.new.fetch('-')
   end
 
   def show

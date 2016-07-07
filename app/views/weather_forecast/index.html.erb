@@ -34,7 +34,7 @@
   </div>
   <div class="row main-top-container-3">
     <% @warnings.each do |warning| %>
-      <%= image_tag "warnings/b_a1.png", class: 'warning-icon' %>
+      <%= image_tag "warnings/#{warning['icon']}", class: 'warning-icon' %>
     <% end %>
   </div>
   <div class="row main-top-container-4">

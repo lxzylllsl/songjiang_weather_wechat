@@ -77,8 +77,8 @@ body {
     }
   }
   .main-top-container-3 {
-    height: 32px;
-    line-height: 32px;
+    height: 52px;
+    line-height: 52px;
     margin-top: 5px;
     padding-left: 26px;
     overflow: hidden;
@@ -230,19 +230,19 @@ body {
       }
     }
     .main-top-container-3 {
-      height: 44px;
-      line-height: 44px;
+      height: 38px;
+      line-height: 38px;
       margin-top: 2px;
       padding-left: 20px;
       .warning-icon {
-        width: 34px;
-        height: 34px;
+        width: 32px;
+        height: 32px;
         margin-left: 8px;
       }
     }
     .main-top-container-4 {
-      height: 36px;
-      line-height: 36px;
+      height: 30px;
+      line-height: 30px;
       text-align: center;
       font-size: 14px;
       letter-spacing: 2.02px;
@@ -250,10 +250,21 @@ body {
     }
   }
   .main-bottom-container {
-    padding: 20px 5px;
-    border: 1px solid #ddd;
-    .item {
-
+    .forecast-container {
+      .item {
+        margin-top: 0px;
+        padding-top: 5px;
+        font-size: 12px;
+        p {
+          margin: 0 0 5px;
+        }
+        .week {
+          font-size: 14px;
+        }
+        .weather {
+          height: 46px;
+        }
+      }
     }
     
   }

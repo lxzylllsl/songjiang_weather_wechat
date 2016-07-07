@@ -1,37 +1,105 @@
-<div id="selector">
-  <select name="" id="typhoon_selector">
-    <% @typhoon_list.each do |item| %>
-      <option value="<%= item['typhoonid']%>"><%= item['cnname']%>(<%= item['enname']%>)</option>
-    <% end %>
-  </select>
+<div id="title">
+  <p class="main-title"></p>
+  <p class="sub-title"></p>
 </div>
 <div id="viewDiv"></div>
+<div id="tflist-icon">
+  <i class="glyphicon glyphicon-th-list"></i>
+</div>
+<div id="run-icon">
+  <i class="glyphicon glyphicon-play"></i>
+</div>
+<div id="tflist">
+  <!-- 耳朵 -->
+  <div class="tab-bar col-xs-12">
+    <ul class="tab">
+      <li role="presentation" class="active">
+        <a href="#list" aria-controls="list" role="tab" data-toggle="tab"><span id="tf-name">列表</span></a>
+      </li>
+      <li role="presentation" class="">
+        <a href="#info" aria-controls="info" role="tab" data-toggle="tab">图例</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 内容 -->
+  <div class="row tab-content">
+
+    <div role="tabpanel" class="tab-pane col-xs-12 active" id="list">
+      <div id="header"><div class="time">时间</div><div class="narrow">气压</div><div class="narrow">风力</div></div>
+      <div id="wrapper">
+        <div id="scroller">
+          <ul>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div role="tabpanel" class="tab-pane col-xs-12 active" id="info">
+      <div class="top">
+        <div class="title">
+          预报台
+        </div>  
+        <div class="content">
+          <div class="sh">━ ━上海</div>  
+          <div class="bj">━ ━北京</div>
+          <div class="jp">━ ━日本</div>
+          <div class="gu">━ ━美国</div>
+        </div>  
+      </div>
+
+      <div class="bottom">
+        <div class="title">
+          台风等级
+        </div>  
+        <div class="content">
+          <div><%= image_tag('level1.png')%>热带低压</div> 
+          <div><%= image_tag('level2.png')%>热带风暴</div> 
+          <div><%= image_tag('level3.png')%>强热带风暴</div> 
+          <div><%= image_tag('level4.png')%>台风</div> 
+          <div><%= image_tag('level5.png')%>强台风</div> 
+          <div><%= image_tag('level6.png')%>超强台风</div> 
+        </div>  
+      </div>
+    </div>
+  </div>
+</div>
+<% content_for :scripts do %>
+  <%= javascript_tag do %>
+    typhoon_level_imgs = ['','<%= image_url('level1.png') %>', 
+          '<%= image_url('level2.png') %>', 
+          '<%= image_url('level3.png') %>', 
+          '<%= image_url('level4.png') %>', 
+          '<%= image_url('level5.png') %>', 
+          '<%= image_url('level6.png') %>']
+    typhoon_gif = '<%= image_url('typhoon.gif')%>'
+  <% end %>
+<% end %>
 <script type="text/javascript">
+var myScroll;
+
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
   $(function(){
-
-    var real_location = []
-    var forecast_location = []
+    
     var map = new BMap.Map("viewDiv");
-    map.centerAndZoom(new BMap.Point(126.404, 16.915), 5);
-    map.enableScrollWheelZoom(true);
 
-    map.addEventListener("tilesloaded", function(){
-      init_map();
-    });
-    
-    $("#typhoon_selector").on('change', function(){
-      var typhoon_id = $(this).val();
-      map.clearOverlays();
-      get_typhoon(typhoon_id);
-    });
-    
+    map.centerAndZoom(new BMap.Point(126.404, 16.915), 5);
+    map.addControl(new BMap.MapTypeControl());
+    map.enableScrollWheelZoom(true);
+    var current_typhoon;
+    // 初始化警戒线
+    init_map();
+
+    get_typhoon('-');
+
     function init_map() {
       var polyline48 = new BMap.Polyline([
         new BMap.Point(131.984253, 33.947917),
         new BMap.Point(131.984253, 14.923554),
         new BMap.Point(119.965210, -0.043945),
         new BMap.Point(105.001831, -0.043945)
-      ], {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+      ], {strokeColor:"blue", strokeStyle: 'dashed', strokeWeight:1, strokeOpacity:.7});
       
       var polyline24 = new BMap.Polyline([
         new BMap.Point(126.990967, 34.002581),
@@ -40,27 +108,49 @@
         new BMap.Point(118.995667, 10.968157),
         new BMap.Point(113.019104, 4.477856),
         new BMap.Point(105.001831, -0.043945)
-      ], {strokeColor:"red", strokeWeight:2, strokeOpacity:0.5});
+      ], {strokeColor:"yellow", strokeWeight:1, strokeOpacity:.7});
       polyline24.disableMassClear();
       polyline48.disableMassClear();
       map.addOverlay(polyline48);
       map.addOverlay(polyline24);
 
       var point48 = new BMap.Point(131.984253, 27.0);
-      var opts = {position: point48, offset: new BMap.Size(30, -30)}
+      var opts = {position: point48, offset: new BMap.Size(-8, -30)}
       var label48 = new BMap.Label('48小时警戒线', opts);
       label48.disableMassClear();
       map.addOverlay(label48);
 
       var point24 = new BMap.Point(126.984253, 27.0);
-      opts = {position: point24, offset: new BMap.Size(30, -30)}
+      opts = {position: point24, offset: new BMap.Size(-8, -30)}
       var label24 = new BMap.Label('24小时警戒线', opts);
       label24.disableMassClear();
       map.addOverlay(label24);
     }
 
-    var level_items = ['level_1.png', 'level_1.png', 'level_2.png', 'level_3.png', 'level_4.png', 'level_5.png', 'level_6.png']
-    
+    var level_names = ['','热带低压', '热带风暴', '强热带风暴', '台风', '强台风', '超强台风'];
+    function get_typhoon_list() {
+      $.ajax({
+        type: 'get',
+        async: true,
+        url: 'http://61.152.122.112:8080/api/v1/typhoons?appid=ZfQg2xyW04X3umRPsi9H&appkey=xWOX5kAYVSduEl38oJctyRgB2NDMpH',
+        headers: {Accept: 'application/json'},
+        success: function(json) {
+          typhoons = json.data;
+          var idx;
+          var typhoon_selector = $("#typhoon_selector");
+          for (idx in typhoons) {
+            typhoon_selector.append("<option value='"+typhoons[idx].typhoonid+"'>"+typhoons[idx].cnname+"("+typhoons[idx].enname+")</option>")
+          }
+          current_typhoon_id = typhoons[0].typhoonid;
+          current_typhoon_name = typhoons[0].cnname;
+          get_typhoon(typhoons[0].typhoonid);
+        },
+        fail: function(json) {
+          console.log(json);
+        }
+      });
+    }
+
     function transform_level(level) {
       if (level >= 10.8 && level <= 17.1) {
         return 1;
@@ -86,10 +176,22 @@
         url: 'http://61.152.122.112:8080/api/v1/typhoons/'+typhoon_id+'?appid=ZfQg2xyW04X3umRPsi9H&appkey=xWOX5kAYVSduEl38oJctyRgB2NDMpH',
         headers: {Accept: 'application/json'},
         success: function(json) {
-          console.log(json);
-          real_location = json.real_location
-          forecast_location = json.forecast_location
-          show();
+          current_typhoon = json;
+          $('#title .main-title').html(json.name + json.cname + "("+ json.ename +")");
+          $('#title .sub-title').html("等级:" + level_names[transform_level(json.level)]);
+          $('#tf-name').html("("+json.name+")"+json.cname);
+          $("head title").html(build_title(json));
+          draw_typhoon();
+          var list_datas = json.real_location;
+          var table_content = "";
+          for (var idx = list_datas.length - 1; idx >= 0; idx--) {
+            table_content += "<li><div class='time'>"+list_datas[idx].time+"</div><div class='narrow'>"+list_datas[idx].min_pressure+"</div><div class='narrow'>"+list_datas[idx].max_wind+"</div></li>";
+          }
+          $("#scroller ul").append(table_content);
+          setTimeout(function(){
+            myScroll = new IScroll('#wrapper', {scrollY: true, mouseWheel: true });  
+          }, 100);
+          
         },
         fail: function(json) {
           console.log(json);
@@ -97,12 +199,36 @@
       });
     }
 
+    function build_title(json) {
+      var current_location = json.real_location[json.real_location.length - 1];
+      var content = json.name + "号"+level_names[transform_level(current_location.max_wind)] + json.cname + "("+json.ename+") ";
+      content += current_location.time;
+      if (current_location.speed != 9999) {
+        content += " 风速: " + current_location.speed;
+      }
+      content += " 东经: " + current_location.lon + "°";
+      content += " 北纬: " + current_location.lat + "°";
+      if (current_location.direct != 9999) {
+        content += " 气压: " + current_location.direct;  
+      }
+      content += " 近中心最大气压: " + current_location.max_wind;
+      return content;
+    }
+
     var curr_point_idx = 0;
     var points = [];
-    var _typhoon = new BMap.Polyline(points, {strokeColor:"red", strokeWeight:2, strokeOpacity:0.5});
-    var timer;
-    function show() {
+    var _typhoon = new BMap.Polyline(points, {strokeColor:"#5466f6", strokeWeight:2, strokeOpacity:0.5});
+    
+    function draw_typhoon(d) {
+      if (d == undefined) {
+        d = 50;
+      }
+      var timer, _ptm;
+      var real_location = current_typhoon.real_location;
       if (real_location[curr_point_idx] == undefined) {
+        _ptm = new BMap.Marker(point, {icon: new BMap.Icon(typhoon_gif, new BMap.Size(40,40))});
+        show_wind_radius(real_location[curr_point_idx - 1]);
+        map.addOverlay(_ptm);
         curr_point_idx = 0;
         points.length = 0;
         clearTimeout(timer);
@@ -111,41 +237,117 @@
       }
 
       timer = setTimeout(function(){
-        var _ptm;
         map.addOverlay(_typhoon);
-        point = new BMap.Point(real_location[curr_point_idx].lon, real_location[curr_point_idx].lat)
+        var _current_pt = real_location[curr_point_idx];
+        point = new BMap.Point(_current_pt.lon, _current_pt.lat)
         points.push(point);
         _typhoon.setPath(points);
-        _ptm = new BMap.Marker(point, {icon: new BMap.Icon(level_items[transform_level(real_location[curr_point_idx].max_wind)], new BMap.Size(12,12))});
+        _ptm = new BMap.Marker(point, {icon: new BMap.Icon(typhoon_level_imgs[transform_level(_current_pt.max_wind)], new BMap.Size(16,16))});
+        
+        var content = build_content(_current_pt);
+
+        addClickHandler(content, _ptm);
         map.addOverlay(_ptm);
         curr_point_idx += 1;
-        show();
-      }, 60);
-      
+        draw_typhoon(d);
+      }, d); 
+    }
+
+    var seven_wind_radius, ten_wind_radius;
+    function show_wind_radius(target) {
+      map.removeOverlay(seven_wind_radius);
+      map.removeOverlay(ten_wind_radius);
+      var seven_wind_radius = new BMap.Circle(new BMap.Point(target.lon, target.lat), target.seven_radius * 1000, {strokeColor:"#ffce4a", fillColor: '#ffce4a', strokeWeight: 0.5, strokeOpacity:0.1});
+      var ten_wind_radius = new BMap.Circle(new BMap.Point(target.lon, target.lat), target.ten_radius * 1000, {strokeColor:"#ffce4a", fillColor: '#ffce4a', strokeWeight: 0.5, strokeOpacity:0.5});
+      map.addOverlay(ten_wind_radius);
+      map.addOverlay(seven_wind_radius);
+    }
+
+    function addClickHandler(content, marker) {
+      marker.addEventListener('click', function(e) {
+        show_tips(content, e);
+      });
+    }
+
+    function show_tips(content, e){
+      var infowindow = new BMap.InfoWindow(content,{width:100,height:220,title: "[" + current_typhoon.name + "] " + current_typhoon.cname});
+      map.openInfoWindow(infowindow,e.target.point);
     }
 
     function show_forecast() {
       var size, _ptm, curr_point_idx2;
-      var curr_point_obj = real_location[real_location.length - 1];
+      var curr_point_obj = current_typhoon.real_location[current_typhoon.real_location.length - 1];
       var curr_point = new BMap.Point(curr_point_obj.lon, curr_point_obj.lat);
-      
+      var forecast_location = current_typhoon.forecast_location;
       for (size in forecast_location) {
+        var items = forecast_location[size].items;
         var _path = [curr_point]
         var curr_path_idx;
         var point;
-        var _typhoon2 = new BMap.Polyline(_path, {strokeColor:"red", strokeStyle: 'dashed', strokeWeight:2, strokeOpacity:0.5});
-        for (curr_point_idx2 in forecast_location[size]) {
-          point = new BMap.Point(forecast_location[size][curr_point_idx2].lon, forecast_location[size][curr_point_idx2].lat)
+
+        var _typhoon2 = new BMap.Polyline(_path, {strokeColor: dept_color(forecast_location[size].name), strokeStyle: 'dashed', strokeWeight:2, strokeOpacity:0.8});
+        var _current_pt, content;
+        for (curr_point_idx2 in items) {
+          _current_pt = items[curr_point_idx2];
+          point = new BMap.Point(_current_pt.lon, _current_pt.lat)
           _path.push(point);
           _typhoon2.setPath(_path);
-          console.log(_path);
-          _ptm = new BMap.Marker(point, {icon: new BMap.Icon(level_items[transform_level(forecast_location[size][curr_point_idx2].max_wind)], new BMap.Size(12,12))});
-          console.log(_ptm)
+
+          _ptm = new BMap.Marker(point, {icon: new BMap.Icon(typhoon_level_imgs[transform_level(_current_pt.max_wind)], new BMap.Size(16,16))});
+          content = build_content(_current_pt);
+          addClickHandler(content, _ptm);
           map.addOverlay(_ptm);
         }
         map.addOverlay(_typhoon2);
       }
     }
 
+    $("#tflist-icon").on('click', function(){
+      if ($(this).css('bottom') == '30px') {
+        $(this).css('bottom', '350px');
+      } else {
+        $(this).css('bottom', '30px');
+      }
+
+      $(this).find('i').toggleClass('glyphicon-remove');
+      $("#tflist").toggle();
+    });
+
+    function dept_color(dept) {
+      var _color = "";
+      if (dept == "babj") {
+        _color = "#000257";
+      } else if (dept == "rjtd") {
+        _color = "#034100";
+      } else if (dept == "bcsh") {
+        _color = "#08b4ea";
+      } else if (dept == "pgtw") {
+        _color = "#5c4d3a";
+      }
+      return _color;
+    }
+
+    function build_content(point) {
+      var content = "<p>数据时间: " + point.time + "</p>";
+      content += "<p>中心位置: " + point.lon + '°, ' + point.lat + "°</p>";
+      content += "<p>最大风力: " + transform_level(point.max_wind) + " 级</p>";
+      if (point.speed == 9999) {
+        content += "<p>最大风速: - 米/秒</p>";
+      } else {
+        content += "<p>最大风速: " + point.speed + " 米/秒</p>";  
+      }
+      content += "<p>中心气压: " + ((point.min_pressure == 9999) ? "-" : point.min_pressure) + " 百帕</p>";
+      content += "<p>七级半径: " + ((point.seven_radius == 9999) ? "-" : point.seven_radius ) + " 公里</p>";
+      content += "<p>十级半径: " + ((point.ten_radius == 9999) ? "-" : point.ten_radius) + " 公里</p>";
+      return content;
+    }
+
+    $("#run-icon").on("click", function() {
+      map.clearOverlays();
+      _typhoon.setPath(null);
+      init_map();
+      draw_typhoon(200);
+    });
+    
   });
 </script>
