@@ -97,6 +97,8 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
     map.centerAndZoom(new BMap.Point(126.404, 16.915), 5);
     map.addControl(new BMap.MapTypeControl());
     map.enableScrollWheelZoom(true);
+    map.setMinZoom(4);
+    map.setMaxZoom(7);
     var current_typhoon;
     var can_run = true;
     // 初始化警戒线
