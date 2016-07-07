@@ -210,7 +210,7 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
       var current_location = json.real_location[json.real_location.length - 1];
       var content = "";
       if (logo == 'shweather') {
-        content = "[上海天气]";
+        content = "【上海天气】";
       }
       content += json.name + "号"+level_names[transform_level(current_location.max_wind)] + json.cname + "("+json.ename+") ";
       content += current_location.time;
