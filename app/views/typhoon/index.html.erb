@@ -359,12 +359,12 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
       
       content += "<p>中心位置: " + point.lon + '°, ' + point.lat + "°</p>";
       content += "<p>最大风力: " + transform_level(point.max_wind) + " 级</p>";
-      if (point.speed == 9999) {
+      if (point.speed == null) {
         content += "<p>最大风速: - 米/秒</p>";
       } else {
         content += "<p>最大风速: " + point.speed + " 米/秒</p>";  
       }
-      content += "<p>中心气压: " + ((point.min_pressure == 9999) ? "-" : point.min_pressure) + " 百帕</p>";
+      content += "<p>中心气压: " + ((point.min_pressure == null) ? "-" : point.min_pressure) + " 百帕</p>";
       if (point.seven_radius != null) {
         content += "<p>七级半径: " + point.seven_radius + " 公里</p>";  
       }
