@@ -258,19 +258,22 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
       var current_location = json.real_location[json.real_location.length - 1];
       var content = "";
       if (logo == 'shweather') {
-        content = "【上海天气】";
+        content = "【上海天气】台风";
+        content += "("+json.cname+") 路径实时发布系统";
+      } else {
+        content += json.name + "号"+level_names[transform_level(current_location.max_wind)] + json.cname + "("+json.ename+") ";
+        content += current_location.time;
+        if (current_location.max_wind != 9999) {
+          content += " 风速: " + current_location.max_wind;
+        }
+        content += " 东经: " + current_location.lon + "°";
+        content += " 北纬: " + current_location.lat + "°";
+        if (current_location.direct != 9999) {
+          content += " 气压: " + current_location.direct;  
+        }
+        content += " 近中心最大气压: " + current_location.max_wind;  
       }
-      content += json.name + "号"+level_names[transform_level(current_location.max_wind)] + json.cname + "("+json.ename+") ";
-      content += current_location.time;
-      if (current_location.max_wind != 9999) {
-        content += " 风速: " + current_location.max_wind;
-      }
-      content += " 东经: " + current_location.lon + "°";
-      content += " 北纬: " + current_location.lat + "°";
-      if (current_location.direct != 9999) {
-        content += " 气压: " + current_location.direct;  
-      }
-      content += " 近中心最大气压: " + current_location.max_wind;
+      
       return content;
     }
 
