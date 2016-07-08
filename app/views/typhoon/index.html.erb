@@ -1,14 +1,18 @@
 <div id="title">
   <p class="main-title"></p>
-  <p class="sub-title"></p>
+  <div class="row"><div class="col-xs-6 text-right current_time"></div><div class="col-xs-6 text-left sub-title"></div></div>
 </div>
 <div id="viewDiv"></div>
-<div id="tflist-icon">
-  <i class="glyphicon glyphicon-th-list"></i>
+<!-- 按钮组 -->
+<div class="btn-group">
+  <div id="info-nr-btn" data-target="menus" class="info-nr-menu glyphicon glyphicon-option-horizontal"></div>
+  <div data-target="list" class="info-nr-menu h-btn glyphicon glyphicon-th-list"></div>
+  <div data-target="play" class="info-nr-menu h-btn glyphicon glyphicon-play"></div>
+  <div id="switcher" data-target="switch" class="switch info-nr-menu h-btn glyphicon glyphicon-globe"></div>
 </div>
-<div id="run-icon">
+<!-- <div id="run-icon">
   <i class="glyphicon glyphicon-play"></i>
-</div>
+</div> -->
 <% if @visitor.eql?('shweather') %>
   <div class="legend">
     <div class="content unit">
@@ -37,6 +41,9 @@
         <a href="#info" aria-controls="info" role="tab" data-toggle="tab">图例</a>
       </li>
     </ul>
+    <div class="hidden-container">
+      <i class="glyphicon glyphicon-chevron-down"></i>
+    </div>
   </div>
 
   <!-- 内容 -->
@@ -98,9 +105,9 @@
   <% end %>
 <% end %>
 <script type="text/javascript">
-var myScroll;
+  var myScroll;
 
-document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+  document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
   $(function(){
     
     var map = new BMap.Map("viewDiv");
@@ -110,12 +117,73 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
     map.enableScrollWheelZoom(true);
     map.setMinZoom(4);
     map.setMaxZoom(9);
+    var radar_pic;
     var current_typhoon;
     var can_run = true;
-    // 初始化警戒线
+    // // 初始化警戒线
     init_map();
 
     get_typhoon('1601');
+
+    // 菜单组事件
+    $(".btn-group").on('click', 'div', function(){
+      var target = $(this).attr('data-target');
+      switch(target) {
+        case "menus":
+          $(this).toggleClass('on');
+          show_btn_group();
+          break;
+        case "list":
+          $('#info-nr-btn').removeClass('on');
+          show_btn_group();
+          show_bottom_container();
+          break;
+        case "play":
+          if ($(this).hasClass('glyphicon-minus')) {
+            return;
+          }
+          $(this).removeClass('glyphicon-play').addClass('glyphicon-minus');
+          clearTimeout(timer);
+          map.clearOverlays();
+          _typhoon.setPath(null);
+          init_map();
+          draw_typhoon(200);
+          break;
+        case "switch":
+          show_radar_echo();
+          break;
+      }
+    });
+
+    $("#tflist div.hidden-container").on('click', function() {
+      $("#tflist").fadeOut(600);
+    });
+
+    function show_bottom_container() {
+      $("#tflist").toggle();
+    }
+
+    function show_btn_group() {
+      var divs = $('.btn-group').find('div');
+      for (i = 0; i < divs.length; i++) {
+        $(divs[i]).toggleClass('s-btn');
+      }
+    }
+
+    function show_radar_echo() {
+      if ($('#switcher').hasClass('active')) {
+        map.removeOverlay(radar_pic);
+        $('#switcher').removeClass('active');
+        return;
+      }
+      var SW = new BMap.Point(71.993044552411,3.9647143346677);
+      var NE = new BMap.Point(134.81287310095,57.863626408479);
+      map.removeOverlay(radar_pic);
+      radar_pic = new BMap.GroundOverlay(new BMap.Bounds(SW, NE), {opacity: .7})
+      radar_pic.setImageURL('<%= @radar_echo%>');
+      map.addOverlay(radar_pic);
+      $('#switcher').addClass('active')
+    }
 
     function init_map() {
       var polyline48 = new BMap.Polyline([
@@ -292,7 +360,8 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
     var points = [];
     var timer;
     var _typhoon = new BMap.Polyline(points, {strokeColor:"#5466f6", strokeWeight:2, strokeOpacity:0.5});
-    
+    var typhoon_gif_mark;
+
     function draw_typhoon(d) {
       can_run = false;
       if (d == undefined) {
@@ -301,9 +370,8 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
       var _ptm;
       var real_location = current_typhoon.real_location;
       if (real_location[curr_point_idx] == undefined) {
-        _ptm = new BMap.Marker(point, {icon: new BMap.Icon(typhoon_gif, new BMap.Size(40,40))});
+        
         show_wind_radius(real_location[curr_point_idx - 1]);
-        map.addOverlay(_ptm);
         curr_point_idx = 0;
         points.length = 0;
         clearTimeout(timer);
@@ -315,10 +383,13 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
         map.addOverlay(_typhoon);
         var _current_pt = real_location[curr_point_idx];
         point = new BMap.Point(_current_pt.lon, _current_pt.lat)
+        map.removeOverlay(typhoon_gif_mark);
+        typhoon_gif_mark = new BMap.Marker(point, {icon: new BMap.Icon(typhoon_gif, new BMap.Size(40,40))});
+        map.addOverlay(typhoon_gif_mark);
         points.push(point);
         _typhoon.setPath(points);
         _ptm = new BMap.Marker(point, {icon: new BMap.Icon(typhoon_level_imgs[transform_level(_current_pt.max_wind)], new BMap.Size(16,16))});
-        
+        $('.current_time').html(_current_pt.time);
         var content = build_content(_current_pt);
 
         addClickHandler(content, _ptm);
@@ -327,28 +398,7 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
         draw_typhoon(d);
       }, d); 
     }
-
-    var seven_wind_radius, ten_wind_radius;
-    function show_wind_radius(target) {
-      map.removeOverlay(seven_wind_radius);
-      map.removeOverlay(ten_wind_radius);
-      var seven_wind_radius = new BMap.Circle(new BMap.Point(target.lon, target.lat), target.seven_radius * 1000, {strokeColor:"#ffce4a", fillColor: '#ffce4a', strokeWeight: 0.5, strokeOpacity:0.1});
-      var ten_wind_radius = new BMap.Circle(new BMap.Point(target.lon, target.lat), target.ten_radius * 1000, {strokeColor:"#ffce4a", fillColor: '#ffce4a', strokeWeight: 0.5, strokeOpacity:0.5});
-      map.addOverlay(ten_wind_radius);
-      map.addOverlay(seven_wind_radius);
-    }
-
-    function addClickHandler(content, marker) {
-      marker.addEventListener('click', function(e) {
-        show_tips(content, e);
-      });
-    }
-
-    function show_tips(content, e){
-      var infowindow = new BMap.InfoWindow(content,{width:100,height:210,title: "[" + current_typhoon.name + "] " + current_typhoon.cname});
-      map.openInfoWindow(infowindow,e.target.point);
-    }
-
+    
     function show_forecast() {
       var size, _ptm, curr_point_idx2;
       var curr_point_obj = current_typhoon.real_location[current_typhoon.real_location.length - 1];
@@ -376,18 +426,31 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
         map.addOverlay(_typhoon2);
       }
       can_run = true;
+      $('.btn-group > .glyphicon-minus').removeClass('glyphicon-minus').addClass('glyphicon-play');
     }
 
-    $("#tflist-icon").on('click', function(){
-      if ($(this).css('bottom') == '30px') {
-        $(this).css('bottom', '350px');
-      } else {
-        $(this).css('bottom', '30px');
-      }
+    var seven_wind_radius, ten_wind_radius;
+    function show_wind_radius(target) {
+      map.removeOverlay(seven_wind_radius);
+      map.removeOverlay(ten_wind_radius);
+      var seven_wind_radius = new BMap.Circle(new BMap.Point(target.lon, target.lat), target.seven_radius * 1000, {strokeColor:"#ffce4a", fillColor: '#ffce4a', strokeWeight: 0.5, strokeOpacity:0.1});
+      var ten_wind_radius = new BMap.Circle(new BMap.Point(target.lon, target.lat), target.ten_radius * 1000, {strokeColor:"#ffce4a", fillColor: '#ffce4a', strokeWeight: 0.5, strokeOpacity:0.5});
+      map.addOverlay(ten_wind_radius);
+      map.addOverlay(seven_wind_radius);
+    }
 
-      $(this).find('i').toggleClass('glyphicon-remove');
-      $("#tflist").toggle();
-    });
+    function addClickHandler(content, marker) {
+      marker.addEventListener('click', function(e) {
+        show_tips(content, e);
+      });
+    }
+
+    function show_tips(content, e){
+      var infowindow = new BMap.InfoWindow(content,{width:100,height:210,title: "[" + current_typhoon.name + "] " + current_typhoon.cname});
+      map.openInfoWindow(infowindow,e.target.point);
+    }
+
+    
 
     function dept_color(dept) {
       var _color = "";
@@ -402,7 +465,7 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
       } else if (dept == "日本") {
         _color = "#43FF4B";
       } else {
-        _color = "#101010";
+        _color = "#000";
       }
       return _color;
     }
@@ -412,7 +475,6 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
       if (point.unit != null) {
         content += "<p>预报机构: "+ point.unit+"</p>";  
       }
-      
       content += "<p>中心位置: " + point.lon + '°, ' + point.lat + "°</p>";
       content += "<p>最大风力: " + get_wind_level(point.max_wind) + " 级("+level_names[transform_level(point.max_wind)]+")</p>";
       if (point.max_wind == null && point.max_wind == 9999) {
@@ -430,17 +492,5 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
       
       return content;
     }
-
-    $("#run-icon").on("click", function() {
-      if (!can_run) {
-        return;
-      }
-      clearTimeout(timer);
-      map.clearOverlays();
-      _typhoon.setPath(null);
-      init_map();
-      draw_typhoon(200);
-    });
-    
   });
 </script>

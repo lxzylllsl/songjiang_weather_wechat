@@ -4,6 +4,7 @@
 
 .container-fluid {
   height: 100%;
+  background-color: #333;
 }
 .anchorBL,
 .anchorTR {
@@ -71,22 +72,46 @@
   width: 80px;
   height: 100px;
 }
-#tflist-icon {
+.btn-group {
   position: absolute;
   right: 10px;
   bottom: 30px;
-  width: 42px;
-  height: 42px;
   z-index: 99;
-  background-color: #4b89dc;
-  text-align: center;
-  border-radius: 50%;
-  cursor: pointer;
-  .glyphicon {
-    font-size: 20px;
-    padding-top: 10px;
-    color: #fff;
+  font-size: 20px;
+  color: #fff;
+  .info-nr-menu {
+    width: 42px;
+    height: 42px;
+    background-color: #4b89dc;
+    text-align: center;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    cursor: pointer;
+    padding-top: 8px;
+    // -webkit-appearance: button;
   }
+}
+
+.h-btn {
+  display: none;
+}
+.s-btn {
+  display: block;
+}
+.s-btn:nth-of-type(2) {
+  -webkit-transform: translate(-10px, 10px) rotate(0deg);
+  -webkit-transition: all .5s ease-in;
+  -moz-transition: all .5s ease-in;
+  transition: all 5.5s ease-in;
+}
+.s-btn:nth-of-type(3) {
+ -webkit-transform: translate(-52px, -10px) rotate(0deg); 
+}
+.s-btn:nth-of-type(4) {
+  -webkit-transform: translate(-75px, -10px) rotate(0deg);
+}
+#info-nr-btn.on {
+  -webkit-transform: translate(0px, 126px) rotate(90deg);
 }
 #run-icon {
  position: absolute;
@@ -128,6 +153,18 @@
       float: left;
       font-weight: 700;
     }
+  }
+  .hidden-container {
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    right: 10px;
+    padding-top: 8px;
+    font-size: 20px;
+    background-color: #fff;
+    color: #4b89dc;
+    border-radius: 50%;
+    text-align: center;
   }
 }
 .tab-pane {

@@ -26,10 +26,28 @@ class Radar
     image.write("./app/assets/images/test.gif")
   end
 
+  class RadarEcho
+    include NetworkMiddleware
+
+    def initialize
+      @root = self.class.name.to_s
+      super
+    end
+
+    def fetch
+      _result = get_data({method: 'get', data: {
+        appid: @appid,
+        appkey: @appkey
+      }}, {});
+      _result['result']
+    end
+  end
+
   private
   def self.calculate lon, lat
     _lon_idx = (lon - @radar_lon) / 0.0092
     _lat_idx = (@radar_lat - lat) / 0.0082
     [_lon_idx, _lat_idx]
   end
+
 end
