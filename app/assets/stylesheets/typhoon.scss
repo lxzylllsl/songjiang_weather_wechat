@@ -286,17 +286,13 @@
   left: 10px;
   font-size: 12px;
   font-weight: 700;
-  background-color: rgba(255,255,255,0.5);
-  .unit {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #666;
-  }
+  background-color: rgba(255,255,255,0.6);
   p {
     margin-top: 6px;
     margin-bottom: 2px;
     font-size: 14px;
-      }
+    border-bottom: 1px solid #eee;
+  }
   .sh {
     color: #101010;
   }
