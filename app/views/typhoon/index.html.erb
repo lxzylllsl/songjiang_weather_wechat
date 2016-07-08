@@ -312,7 +312,6 @@
         success: function(json) {
           current_typhoon = json;
           $('#title .main-title').html(json.name + json.cname + "("+ json.ename +")");
-          $('#title .sub-title').html("等级:" + level_names[transform_level(json.level)]);
           $('#tf-name').html("("+json.name+")"+json.cname);
           $("head title").html(build_title(json));
           draw_typhoon();
@@ -390,6 +389,7 @@
         _typhoon.setPath(points);
         _ptm = new BMap.Marker(point, {icon: new BMap.Icon(typhoon_level_imgs[transform_level(_current_pt.max_wind)], new BMap.Size(16,16))});
         $('.current_time').html(_current_pt.time);
+        $('#title .sub-title').html("等级:" + level_names[transform_level(_current_pt.max_wind)]);
         var content = build_content(_current_pt);
 
         addClickHandler(content, _ptm);
