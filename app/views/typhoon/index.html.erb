@@ -360,7 +360,7 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
         var curr_path_idx;
         var point;
 
-        var _typhoon2 = new BMap.Polyline(_path, {strokeColor: dept_color(forecast_location[size][0].unit), strokeStyle: 'dashed', strokeWeight:2, strokeOpacity:0.8});
+        var _typhoon2 = new BMap.Polyline(_path, {strokeColor: dept_color(forecast_location[size][0].unit), strokeStyle: 'dashed', strokeWeight:2, strokeOpacity:1});
         var _current_pt, content;
         for (curr_point_idx2 in items) {
           _current_pt = items[curr_point_idx2];
