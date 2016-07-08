@@ -14,17 +14,13 @@ class Warning
         appkey: @appkey
       }}, {})
       _result = []
-      response.fetch('data', []).each do |item|
+      content = response.try('data') || []
+      content.each do |item|
         # unless item['level'].eql?('解除')
           item['icon'] = Warning.get_image_pic(item['type'], item['level'])
           _result << item
         # end
       end
-      
-      _result.each do |item|
-        
-      end
-      p _result
       _result
     end
   end
