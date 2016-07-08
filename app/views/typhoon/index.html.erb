@@ -51,16 +51,14 @@
 
     <div role="tabpanel" class="tab-pane col-xs-12 active" id="list">
       <div id="header"><div class="time">时间</div><div class="narrow">气压</div><div class="narrow">风力</div></div>
-      <div id="wrapper">
-        <div id="scroller">
-          <ul>
-            
-          </ul>
-        </div>
+      <div class="typhoon-list">
+        <ul class="typhoon-items">
+          
+        </ul>  
       </div>
     </div>
 
-    <div role="tabpanel" class="tab-pane col-xs-12 active" id="info">
+    <div role="tabpanel" class="tab-pane col-xs-12" id="info">
       <div class="top">
         <div class="title">
           预报台
@@ -105,11 +103,7 @@
   <% end %>
 <% end %>
 <script type="text/javascript">
-  var myScroll;
-
-  document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
   $(function(){
-    
     var map = new BMap.Map("viewDiv");
 
     map.centerAndZoom(new BMap.Point(126.404, 16.915), 5);
@@ -320,10 +314,12 @@
           for (var idx = list_datas.length - 1; idx >= 0; idx--) {
             table_content += "<li><div class='time'>"+list_datas[idx].time+"</div><div class='narrow'>"+list_datas[idx].min_pressure+"</div><div class='narrow'>"+list_datas[idx].max_wind+"</div></li>";
           }
-          $("#scroller ul").append(table_content);
-          setTimeout(function(){
-            myScroll = new IScroll('#wrapper', {scrollY: true, mouseWheel: true });  
-          }, 100);
+          // $("#scroller > ul").append(table_content);
+
+          $("#list .typhoon-items").append(table_content);
+          // setTimeout(function(){
+          //   myScroll = new IScroll('#wrapper', {scrollY: true, mouseWheel: true });  
+          // }, 100);
           
         },
         fail: function(json) {

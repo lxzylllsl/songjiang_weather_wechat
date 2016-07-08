@@ -170,7 +170,6 @@
 .tab-pane {
   background-color: #eee;
   height: 360px;
-  overflow-y: scroll;
   .title {
     height: 32px;
     line-height: 32px;
@@ -265,10 +264,15 @@
   text-size-adjust: none;
   ul {
     li {
+      padding: 0 10px;
+      height: 40px;
+      line-height: 40px;
+      border-top: 1px solid #fff;
+      background-color: #fafafa;
+      font-size: 14px;
       div {
         float: left;
         text-align: center;
-        font-size: 12px;
       }
       .time {
         width: 50%;
@@ -277,6 +281,9 @@
         width: 25%;
       }
     }
+    li:nth-child(even) {
+      background-color: #eee;
+    } 
   }
 }
 
@@ -288,14 +295,40 @@
   text-align: left;
 }
 
-#scroller li {
-  padding: 0 10px;
-  height: 40px;
-  line-height: 40px;
-  border-bottom: 1px solid #ccc;
-  border-top: 1px solid #fff;
-  background-color: #fafafa;
-  font-size: 14px;
+#list{
+  .typhoon-list {
+    height: 100%;
+    overflow-y: scroll;
+    .typhoon-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      text-align: left;   
+      li {
+        padding: 0 10px;
+        height: 40px;
+        line-height: 40px;
+        border-top: 1px solid #fff;
+        background-color: #fafafa;
+        font-size: 14px;
+        div {
+          float: left;
+          text-align: center;
+        }
+        .time {
+          width: 50%;
+        }
+        .narrow {
+          width: 25%;
+        }
+      }
+      li:nth-child(even) {
+        background-color: #eee;
+      }  
+    }
+  }
+  
 }
 #visitor-logo {
   position: absolute;
