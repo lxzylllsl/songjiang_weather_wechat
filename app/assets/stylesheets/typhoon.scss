@@ -277,3 +277,45 @@
     position: relative;
   }
 }
+.legend {
+  width: 100px;
+  padding: 4px 4px 4px 8px;
+  position: absolute;
+  overflow: hidden;
+  bottom: 130px;
+  left: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  background-color: rgba(255,255,255,0.5);
+  .unit {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #666;
+  }
+  p {
+    margin-top: 6px;
+    margin-bottom: 2px;
+    font-size: 14px;
+      }
+  .sh {
+    color: #101010;
+  }
+  .jp {
+    color: #43FF4B;
+  }
+  .bj {
+    color: #FF4050;
+  }
+  .hk {
+    color: #ff40f5;
+  }
+  .am {
+    color: #40DDFF;
+  }
+  .tw {
+    color: #FFA040;
+  }
+  img {
+    margin-right: 8px;
+  }
+}

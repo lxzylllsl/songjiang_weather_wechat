@@ -10,6 +10,26 @@
   <i class="glyphicon glyphicon-play"></i>
 </div>
 <% if @visitor.eql?('shweather') %>
+  <div class="legend">
+    <div class="content unit">
+      <p>预报台</p>
+      <div class="bj">━ ━中国</div>  
+      <div class="hk">━ ━中国香港</div>
+      <div class="am">━ ━美国</div>
+      <div class="tw">━ ━中国台湾</div>
+      <div class="jp">━ ━日本</div>
+      <div class="sh">━ ━上海</div>
+    </div>
+    <div class="content level">
+      <p>图例</p>
+      <div><%= image_tag('level1.png')%>热带低压</div> 
+      <div><%= image_tag('level2.png')%>热带风暴</div> 
+      <div><%= image_tag('level3.png')%>强热带风暴</div> 
+      <div><%= image_tag('level4.png')%>台风</div> 
+      <div><%= image_tag('level5.png')%>强台风</div> 
+      <div><%= image_tag('level6.png')%>超强台风</div> 
+    </div>  
+  </div>
   <div id="visitor-logo">
     <%= image_tag("shweather_logo.png") %>
     <p>上海天气</p>    
