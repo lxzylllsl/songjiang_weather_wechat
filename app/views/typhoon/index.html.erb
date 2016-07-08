@@ -233,7 +233,7 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
         success: function(json) {
           current_typhoon = json;
           $('#title .main-title').html(json.name + json.cname + "("+ json.ename +")");
-          $('#title .sub-title').html("等级:" + level_names[transform_level(json.max_wind)]);
+          $('#title .sub-title').html("等级:" + level_names[transform_level(json.level)]);
           $('#tf-name').html("("+json.name+")"+json.cname);
           $("head title").html(build_title(json));
           draw_typhoon();
