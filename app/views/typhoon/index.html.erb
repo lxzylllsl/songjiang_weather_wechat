@@ -400,7 +400,7 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
       }
       
       content += "<p>中心位置: " + point.lon + '°, ' + point.lat + "°</p>";
-      content += "<p>最大风力: " + get_wind_level(point.max_wind) + " 级</p>";
+      content += "<p>最大风力: " + get_wind_level(point.max_wind) + " 级("+level_names[transform_level(point.max_wind)]+")</p>";
       if (point.max_wind == null) {
         content += "<p>最大风速: - 米/秒</p>";
       } else {
