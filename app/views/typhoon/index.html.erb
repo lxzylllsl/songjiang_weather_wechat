@@ -191,7 +191,7 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
         success: function(json) {
           current_typhoon = json;
           $('#title .main-title').html(json.name + json.cname + "("+ json.ename +")");
-          $('#title .sub-title').html("等级:" + level_names[transform_level(json.level)]);
+          $('#title .sub-title').html("等级:" + level_names[transform_level(json.max_wind)]);
           $('#tf-name').html("("+json.name+")"+json.cname);
           $("head title").html(build_title(json));
           draw_typhoon();
@@ -220,8 +220,8 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
       }
       content += json.name + "号"+level_names[transform_level(current_location.max_wind)] + json.cname + "("+json.ename+") ";
       content += current_location.time;
-      if (current_location.speed != 9999) {
-        content += " 风速: " + current_location.speed;
+      if (current_location.max_wind != 9999) {
+        content += " 风速: " + current_location.max_wind;
       }
       content += " 东经: " + current_location.lon + "°";
       content += " 北纬: " + current_location.lat + "°";
