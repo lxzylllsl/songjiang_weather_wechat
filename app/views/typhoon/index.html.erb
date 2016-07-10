@@ -1,28 +1,33 @@
+<div class="title-container"></div>
 <div id="title">
   <p class="main-title"></p>
-  <div class="row"><div class="col-xs-6 text-right current_time"></div><div class="col-xs-6 text-left sub-title"></div></div>
-</div>
+  <div class="row">
+    <div class="col-xs-5 sub-title"></div>
+    <div class="col-xs-7 current_time"></div>
+  </div>
+</div>  
+
 <div id="viewDiv"></div>
 <!-- 按钮组 -->
 <div class="btn-group">
-  <div id="info-nr-btn" data-target="menus" class="info-nr-menu glyphicon glyphicon-option-horizontal"></div>
-  <div data-target="list" class="info-nr-menu h-btn glyphicon glyphicon-th-list"></div>
-  <div data-target="play" class="info-nr-menu h-btn glyphicon glyphicon-play"></div>
-  <div id="switcher" data-target="switch" class="switch info-nr-menu h-btn glyphicon glyphicon-globe"></div>
+  <div data-target="list" class="info-nr-menu glyphicon glyphicon-menu-hamburger"></div>
+  <div data-target="play" class="info-nr-menu glyphicon glyphicon-play"></div>
+  <div id="switcher" data-target="switch" class="switch info-nr-menu glyphicon glyphicon-globe"></div>
 </div>
 <!-- <div id="run-icon">
   <i class="glyphicon glyphicon-play"></i>
 </div> -->
 <% if @visitor.eql?('shweather') %>
+  <div class="legend-container"></div>
   <div class="legend">
     <div class="content unit">
       <p>预报台</p>
-      <div class="bj">━ ━中国</div>
-      <div class="sh">━ ━上海</div>  
-      <div class="hk">━ ━中国香港</div>
-      <div class="am">━ ━美国</div>
-      <div class="tw">━ ━中国台湾</div>
-      <div class="jp">━ ━日本</div>
+      <div><span class="bj">━ ━</span>中国</div>
+      <div><span class="sh">━ ━</span>上海</div>  
+      <div><span class="hk">━ ━</span>中国香港</div>
+      <div><span class="am">━ ━</span>美国</div>
+      <div><span class="tw">━ ━</span>中国台湾</div>
+      <div><span class="jp">━ ━</span>日本</div>
     </div> 
   </div>
   <div id="visitor-logo">
@@ -48,10 +53,10 @@
 
   <!-- 内容 -->
   <div class="row tab-content">
-
     <div role="tabpanel" class="tab-pane col-xs-12 active" id="list">
-      <div id="header"><div class="time">时间</div><div class="narrow">气压</div><div class="narrow">风力</div></div>
+      <div class="header"><div class="time">时间</div><div class="narrow">气压</div><div class="narrow">风力</div></div>
       <div class="typhoon-list">
+        <div class="blur-bg-container"></div>
         <ul class="typhoon-items">
           
         </ul>  
@@ -59,8 +64,9 @@
     </div>
 
     <div role="tabpanel" class="tab-pane col-xs-12" id="info">
+    <div class="blur-bg-container"></div>
       <div class="top">
-        <div class="title">
+        <div class="header">
           预报台
         </div>  
         <div class="content">
@@ -74,7 +80,7 @@
       </div>
 
       <div class="bottom">
-        <div class="title">
+        <div class="header">
           台风等级
         </div>  
         <div class="content">
@@ -86,6 +92,7 @@
           <div><%= image_tag('level6.png')%>超强台风</div> 
         </div>  
       </div>
+      
     </div>
   </div>
 </div>
@@ -103,13 +110,13 @@
   <% end %>
 <% end %>
 <script type="text/javascript">
-  var useragent = navigator.userAgent;
-  if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
-      alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
-      var opened = window.open('about:blank', '_self');
-      opened.opener = null;
-      opened.close();
-  }
+  // var useragent = navigator.userAgent;
+  // if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+  //     alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+  //     var opened = window.open('about:blank', '_self');
+  //     opened.opener = null;
+  //     opened.close();
+  // }
   $(function(){
     var map = new BMap.Map("viewDiv");
 
@@ -124,19 +131,19 @@
     // // 初始化警戒线
     init_map();
 
+    
+    map.addEventListener('zoomend', function() {
+      // alert('zoom');
+    });
+
     get_typhoon('1601');
 
     // 菜单组事件
     $(".btn-group").on('click', 'div', function(){
       var target = $(this).attr('data-target');
       switch(target) {
-        case "menus":
-          $(this).toggleClass('on');
-          show_btn_group();
-          break;
         case "list":
           $('#info-nr-btn').removeClass('on');
-          show_btn_group();
           show_bottom_container();
           break;
         case "play":
@@ -157,18 +164,11 @@
     });
 
     $("#tflist div.hidden-container").on('click', function() {
-      $("#tflist").fadeOut(600);
+      $("#tflist").fadeOut(200);
     });
 
     function show_bottom_container() {
       $("#tflist").toggle();
-    }
-
-    function show_btn_group() {
-      var divs = $('.btn-group').find('div');
-      for (i = 0; i < divs.length; i++) {
-        $(divs[i]).toggleClass('s-btn');
-      }
     }
 
     function show_radar_echo() {
@@ -218,6 +218,7 @@
       var label24 = new BMap.Label('24小时警戒线', opts);
       label24.disableMassClear();
       map.addOverlay(label24);
+
     }
 
     var level_names = ['','热带低压', '热带风暴', '强热带风暴', '台风', '强台风', '超强台风'];
@@ -312,7 +313,7 @@
         headers: {Accept: 'application/json'},
         success: function(json) {
           current_typhoon = json;
-          $('#title .main-title').html(json.name + json.cname + "("+ json.ename +")");
+          $('#title .main-title').html(json.name + json.cname + " ("+ json.ename +")");
           $('#tf-name').html("("+json.name+")"+json.cname);
           $("head title").html(build_title(json));
           draw_typhoon();
@@ -361,7 +362,8 @@
     var curr_point_idx = 0;
     var points = [];
     var timer;
-    var _typhoon = new BMap.Polyline(points, {strokeColor:"#5466f6", strokeWeight:2, strokeOpacity:0.5});
+    var _typhoon = new BMap.Polyline(points, {strokeColor:"#9B9B9B", strokeWeight:1.5, strokeOpacity:1});
+    var _pt_icon;
     var typhoon_gif_mark;
 
     function draw_typhoon(d) {
@@ -390,7 +392,9 @@
         map.addOverlay(typhoon_gif_mark);
         points.push(point);
         _typhoon.setPath(points);
-        _ptm = new BMap.Marker(point, {icon: new BMap.Icon(typhoon_level_imgs[transform_level(_current_pt.max_wind)], new BMap.Size(16,16))});
+        _pt_icon = new BMap.Icon(typhoon_level_imgs[transform_level(_current_pt.max_wind)], new BMap.Size(10,10));
+        _pt_icon.setImageSize(new BMap.Size(10,10));
+        _ptm = new BMap.Marker(point, {icon: _pt_icon});
         $('.current_time').html(_current_pt.time);
         $('#title .sub-title').html("等级:" + level_names[transform_level(_current_pt.max_wind)]);
         var content = build_content(_current_pt);
@@ -420,8 +424,9 @@
           point = new BMap.Point(_current_pt.lon, _current_pt.lat)
           _path.push(point);
           _typhoon2.setPath(_path);
-
-          _ptm = new BMap.Marker(point, {icon: new BMap.Icon(typhoon_level_imgs[transform_level(_current_pt.max_wind)], new BMap.Size(16,16))});
+          _pt_icon = new BMap.Icon(typhoon_level_imgs[transform_level(_current_pt.max_wind)], new BMap.Size(10,10));
+          _pt_icon.setImageSize(new BMap.Size(10,10));
+          _ptm = new BMap.Marker(point, {icon: _pt_icon});
           content = build_content(_current_pt);
           addClickHandler(content, _ptm);
           map.addOverlay(_ptm);
