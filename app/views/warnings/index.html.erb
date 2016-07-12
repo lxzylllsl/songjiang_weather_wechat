@@ -1,0 +1,22 @@
+<% content_for :title do %>
+  气象预警
+<% end %>
+<div class="warnings-content">
+  <% if @warnings.blank? %>
+    <p>当前暂无预警</p>
+  <% else %>
+  <% end %>
+</div>
+<div id="viewDiv" class="map-container">
+  
+</div>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=200aadcf1ccf720749c79228f9b7fd79"></script>
+<script>
+  var map = new BMap.Map("viewDiv");
+
+  map.centerAndZoom(new BMap.Point(121.504, 31.305), 10);
+  map.enableScrollWheelZoom(true);
+  map.setMinZoom(10);
+  map.setMaxZoom(10);
+
+</script>

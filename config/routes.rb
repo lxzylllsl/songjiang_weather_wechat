@@ -28,7 +28,8 @@ Rails.application.routes.draw do
   end
 
   resources :typhoon 
-  
+  resources :warnings, only: [:index]
+
   namespace :admin do
     resources :page_list, only: [:index]
   end
