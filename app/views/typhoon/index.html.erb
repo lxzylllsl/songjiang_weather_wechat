@@ -14,9 +14,7 @@
   <div data-target="play" class="info-nr-menu glyphicon glyphicon-play"></div>
   <div id="switcher" data-target="switch" class="switch info-nr-menu glyphicon glyphicon-globe"></div>
 </div>
-<!-- <div id="run-icon">
-  <i class="glyphicon glyphicon-play"></i>
-</div> -->
+
 <% if @visitor.eql?('shweather') %>
   <div class="legend-container"></div>
   <div class="legend">
@@ -110,13 +108,13 @@
   <% end %>
 <% end %>
 <script type="text/javascript">
-  // var useragent = navigator.userAgent;
-  // if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
-  //     alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
-  //     var opened = window.open('about:blank', '_self');
-  //     opened.opener = null;
-  //     opened.close();
-  // }
+  var useragent = navigator.userAgent;
+  if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+      alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+      var opened = window.open('about:blank', '_self');
+      opened.opener = null;
+      opened.close();
+  }
   $(function(){
     var map = new BMap.Map("viewDiv");
 
@@ -314,6 +312,9 @@
         success: function(json) {
           current_typhoon = json;
           $('#title .main-title').html(json.name + json.cname + " ("+ json.ename +")");
+          if (current_typhoon.status == 'stop') {
+            $('#title .main-title').append(' 停止编报');
+          }
           $('#tf-name').html("("+json.name+")"+json.cname);
           $("head title").html(build_title(json));
           draw_typhoon();
@@ -322,13 +323,8 @@
           for (var idx = list_datas.length - 1; idx >= 0; idx--) {
             table_content += "<li><div class='time'>"+list_datas[idx].time+"</div><div class='narrow'>"+list_datas[idx].min_pressure+"</div><div class='narrow'>"+list_datas[idx].max_wind+"</div></li>";
           }
-          // $("#scroller > ul").append(table_content);
-
-          $("#list .typhoon-items").append(table_content);
-          // setTimeout(function(){
-          //   myScroll = new IScroll('#wrapper', {scrollY: true, mouseWheel: true });  
-          // }, 100);
           
+          $("#list .typhoon-items").append(table_content);
         },
         fail: function(json) {
           console.log(json);
@@ -379,7 +375,9 @@
         curr_point_idx = 0;
         points.length = 0;
         clearTimeout(timer);
-        show_forecast();
+        if (current_typhoon.status != 'stop') {
+          show_forecast();  
+        }
         return;
       }
 
