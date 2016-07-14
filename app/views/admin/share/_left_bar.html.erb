@@ -1,0 +1,39 @@
+<div class="sidebar-nav">
+
+  <!-- BEGIN SIDEBAR MENU -->   
+  <div class="nav-header" data-toggle="collapse" data-target="#dashboard-menu" aria-expanded="true">
+    <i class="iconfont icon-dashboard"></i>Dashboard
+  </div>
+  <ul id="dashboard-menu" class="nav nav-list collapse in">
+    <li><a href="#">用户</a></li>
+    <li><a href="#">气象数据</a></li>
+  </ul>
+
+  <div class="nav-header" data-toggle="collapse" data-target="#production-menu">
+    <i class="iconfont icon-setting"></i>产品
+  </div>
+  <ul id="production-menu" class="nav nav-list collapse in">
+    <li class="">
+      <%= link_to admin_articles_path do %>
+        <i class="icon-file-text"></i> 
+        <span class="title">专题</span>
+        <span class="selected"></span>
+      <% end %>
+    </li>
+  </ul>
+  
+  <div class="nav-header" data-toggle="collapse" data-target="#setting-menu">
+    <i class="iconfont icon-setting"></i>设置
+  </div>
+  <ul id="setting-menu" class="nav nav-list collapse in">
+    <li class="">
+      <%= link_to admin_followers_path do %>
+        <i class="icon-file-text"></i> 
+        <span class="title">粉丝</span>
+        <span class="selected"></span>
+      <% end %>
+    </li>
+  </ul>
+  <!-- END SIDEBAR MENU -->
+
+</div>

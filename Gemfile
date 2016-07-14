@@ -26,9 +26,12 @@ gem 'font-awesome-rails'
 gem 'bootstrap-sass'
 gem 'backstretch-rails'
 
+# Pagination library for Rails, Sinatra, Merb, DataMapper, and more
 gem 'will_paginate', '~> 3.0.6'
+gem 'will_paginate-bootstrap'
+
 # Authentication
-gem 'devise'
+gem 'devise', '~> 3.5.6'
 gem 'simple_form'
 
 # Http Etc.

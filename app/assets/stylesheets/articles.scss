@@ -1,0 +1,18 @@
+.top-container {
+  height: 160px;
+}
+.article-item {
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: hidden;
+  .thumb {
+    width: 100%;
+    max-height: 72px;
+  }
+  .explain {
+    padding-left: 30px;
+    h3 {
+      margin-top: 2px;
+    }
+  }
+}

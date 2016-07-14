@@ -1,0 +1,95 @@
+<div class="row">
+  <h1 class="page-title">专题文章编辑</h1>
+</div>
+<div class="editor-content">
+  <%= form_for [:admin, @article], :html => { :multipart => true } do |f| %>
+    <div class="row">
+      <div id="media_preview_area" class="media_preview_area col-xs-3">
+        <div id="appmsgItem", class="appmsg has_thumb">
+          <div class="appmsg_info"><em class="appmsg_date"></em></div>
+          <div class="cover_appmsg_item">
+            <h4 class="appmsg_title">
+              <a href="javascript:void(0);">标题</a>
+            </h4>
+            <div class="appmsg_thumb_wrp">
+              <img id='head_pic' class="js_appmsg_thumb appmsg_thumb" src='' style="display:none;">
+              <i class="appmsg_thumb default">封面图片</i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="media_edit_area" class="media_edit_area col-xs-8">
+        <div id="js_appmsg_editor">
+          <div class="appmsg_editor" style="margin-top: 0;">
+            <div class="inner">
+              <div class="appmsg_edit_item">
+                <label class="frm_label"><strong class="title">标题</strong>&nbsp;&nbsp;</label>
+                <% if @article.errors[:title].any? %>
+                  <dd class="error">* <%= @article.errors[:title][0] %></dd>
+                <% end %>
+                <%= f.text_field :title, {:class => "form-control"} %>
+              </div>
+              <div class="appmsg_edit_item">
+                <label class="frm_label">
+                  <strong class="title">作者</strong><p class="tips l">&nbsp;&nbsp;( 选填 ) </p>
+                </label>
+                <%= f.text_field :author, {:class => "form-control"} %>
+              </div>
+              <div class="appmsg_edit_item">
+                <label class="frm_label" style="float:none;">
+                  <strong class="title">封面</strong><p class="tips">（大图片建议尺寸：900像素 * 500像素）</p>
+                </label>
+                <div class="row">
+                  <%= f.file_field :picture, class: 'form-control' %>
+                </div>
+              </div>
+              <div id="digest-area" class="appmsg_edit_item">
+                <label class="frm_label">
+                  <strong class="title">摘要</strong>
+                </label>
+                <%= f.text_area :description, {:class => "form-control"} %>
+              </div>
+              <div class="appmsg_edit_item">
+                <label class="frm_label" style="float:none;">
+                  <strong class="title">正文&nbsp;&nbsp;</strong>
+                  <% if @article.errors[:content].any? %>
+                    <dd class="error">* <%= @article.errors[:content][0] %></dd>
+                  <% end %>
+                </label>
+                <%= f.text_area :content, {:rows => 20, :class => "form-control"} %>
+              </div>
+            </div>
+            <i class="arrow arrow_out" style="margin-top: 0;"></i>
+            <i class="arrow arrow_in" style="margin-top: 0;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tool-area row">
+      <%= f.submit "保存", { :class => "btn btn-xs bigger-110 btn-info" } %>
+    </div>
+  <% end %>  
+</div>
+<script>
+  var _w_height = $(document).height();
+  $('.editor-content').height(_w_height - 210);
+  window.onresize = function() {
+    var _w_height = $(document).height();
+    $('.editor-content').height(_w_height - 210);
+  };
+  
+  $('#article_picture').on('change', function(evt){
+    preview(this);
+  });
+
+  function preview(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $('#head_pic').attr('src', e.target.result).show();
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>

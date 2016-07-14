@@ -3,6 +3,11 @@ body {
   width: 100%;
   height: 100%;
 }
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;      
+}
 .anchorBL {
   display: none;
 }
@@ -16,6 +21,12 @@ body {
   -moz-box-shadow: 0 10px 42px -10px #8CB265;
   box-shadow: 0 10px 42px -10px #8CB265;
   z-index: 99;
+  .left {
+    width: 45%;
+  }
+  .right {
+    width: 55%;
+  }
   p {
     text-align: center;
     color: #5F6777;
@@ -23,10 +34,67 @@ body {
     font-weight: 500;
     font-size: 16px;
   }
+  .top-info {
+    width: 100%;
+    height: 36px;
+    line-height: 28px;
+    font-size: 10px;
+    label {
+      height: 32px;
+      line-height: 46px;
+      padding-left: 18px;
+      float: left;
+      font-size: 10px;
+    }  
+  }
+  .content {
+    height: 142px;
+    .switcher {
+      margin-left: 18px;
+      li {
+        height: 38px;
+        line-height: 38px;
+        margin-bottom: 6px;
+        font-size: 10px;
+        .item {
+          height: 38px;
+          margin-right: 12px;
+          background-color: #EFEFF4;
+          cursor: pointer;
+          .silder {
+            float: left;
+          }
+        }
+      }  
+    }
+    .left {
+      border-right: 1px solid #d8d8d8;
+    }
+    .left,
+    .right {
+      height: 114px;
+      float: left;
+    }  
+  }
 }
 .map-container {
   width: 100%;
   height: 100%;
   position: absolute;
   z-index: 1;
+}
+.warning-img {
+  width: 36px;
+  margin-right: 8px;
+  float: left;
+}
+.warning-content {
+  height: 114px;
+  line-height: 14px;
+  padding-left: 16px;
+  padding-right: 16px;
+  text-indent: 2em;
+  letter-spacing: .38px;
+  font-size: 10px;
+  color: #5F6777;
 }

@@ -1,10 +1,37 @@
 <% content_for :title do %>
   气象预警
 <% end %>
-<div class="warnings-content">
-  <% if @warnings.blank? %>
+<div class="row warnings-content">
+  <% if @songjiang_warnings.blank? %>
     <p>当前暂无预警</p>
   <% else %>
+    <div class="row top-info">
+      <label class="left">松江预警天气</label>
+      <label class="right warning-title"><%= @songjiang_warnings.first['title'] %></label>
+    </div>
+    <div class="col-xs-12 content">
+      <div class="left">
+        <ul class="switcher">
+          <% @songjiang_warnings.each do |item| %>
+            <li>
+              <div class="item">
+                <%= image_tag "warnings/#{item['icon']}", :class => 'warning-img' %>
+                <div class="slider">
+                  <%= "#{item['type']}#{item['level']}预警" %>    
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="right">
+        <% @songjiang_warnings.each do |item| %>
+          <div class="warning-content">
+            <%= item['content'] %>
+          </div>
+        <% end %>
+      </div>  
+    </div>
   <% end %>
 </div>
 <div id="viewDiv" class="map-container">
@@ -19,4 +46,33 @@
   map.setMinZoom(10);
   map.setMaxZoom(10);
 
+  $('.item').on('click', function(evt){
+  
+  });
+
+  <% if @warnings.present? %>
+    var _pt, _ptm, _pt_icon;
+    var location_infos = [new BMap.Point(121.434, 31.305), new BMap.Point(121.554, 31.305), new BMap.Point(121.434, 31.205), new BMap.Point(121.554, 31.205),]  
+    <% @warnings.each_with_index do |item, index| %>
+      console.log("<%= item %>");
+      _pt = location_infos[<%=index%>]
+      _pt_icon = new BMap.Icon('<%= image_url "warnings/#{item['icon']}"%>', new BMap.Size(36,36));
+      _pt_icon.setImageSize(new BMap.Size(36,36));
+      _ptm = new BMap.Marker(_pt, {icon: _pt_icon});
+      map.addOverlay(_ptm);
+    <% end %>
+  <% end %>
+
+  <% if @songjiang_warnings.present? %>
+    var _pt, _ptm, _pt_icon;
+    
+    <% @songjiang_warnings.each_with_index do |item, index| %>
+      console.log("<%= item %>");
+      _pt = new BMap.Point(121.191, 31.034);  
+      _pt_icon = new BMap.Icon('<%= image_url "warnings/#{item['icon']}"%>', new BMap.Size(36,36));
+      _pt_icon.setImageSize(new BMap.Size(36,36));
+      _ptm = new BMap.Marker(_pt, {icon: _pt_icon});
+      map.addOverlay(_ptm);
+    <% end %>
+  <% end %>
 </script>

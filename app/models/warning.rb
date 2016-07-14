@@ -14,15 +14,45 @@ class Warning
         appkey: @appkey
       }}, {})
       _result = []
-      content = response.try('data') || []
+      content = response['data']
       content.each do |item|
-        # unless item['level'].eql?('解除')
+        unless item['level'].eql?('解除')
+          item['id'] = Rand.random_str 6
           item['icon'] = Warning.get_image_pic(item['type'], item['level'])
           _result << item
-        # end
+        end
       end
       _result
     end
+  end
+
+  class SongjiangWarning
+    include NetworkMiddleware
+
+    def initialize
+      @root = self.class.name.to_s
+      super
+    end
+
+    def fetch
+      response = get_data({method: 'get', data: {
+        appid: @appid,
+        appkey: @appkey,
+        unit: '松江'
+      }}, {})
+      _result = []
+      content = response['data']
+      content.each do |item|
+        unless item['level'].eql?('解除')
+          item['id'] = Rand.random_str 6
+          item['title'] = "#{item['type']}#{item['level']}预警"
+          item['icon'] = Warning.get_image_pic(item['type'], item['level'])
+          _result << item
+        end
+      end
+      _result
+    end
+  
   end
 
   def self.get_image_pic(type, level)

@@ -1,0 +1,197 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require ../font
+ *= require_self
+ */
+
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+
+body {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-image: image_url('furley_bg.png');
+}
+.container-fluid,
+.row,
+.col-xs-4,
+.col-xs-5,
+.col-xs-7,
+.col-xs-8,
+.col-xs-9,
+.col-xs-10,
+.col-xs-11,
+.col-xs-12, {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+.container-fluid {
+  padding-right: 30px;
+}
+a,
+a:active,
+a:hover,
+a:focus,
+a:visited {
+  text-decoration:none;
+}
+ul {
+  padding: 0;
+  list-style: none;
+}
+.header {
+  height: 42px;
+  min-height: 42px;
+  line-height: 42px;
+  margin-bottom: 0;
+  .brand {
+    width: 300px;
+    height: 42px;
+    line-height: 42px;
+    float: left;
+    padding-left: 20px;
+    color: #eee;
+  }
+  .nav {
+    padding-right: 80px;
+    li {
+      a {
+        padding: 0;
+        color: #eee;
+      }
+      a:hover,
+      a:focus {
+        background-color: transparent;
+      }
+    }
+    img {
+      width: 32px;
+      height: 32px;
+    }
+    .dropdown {
+      .dropdown-menu {
+        color: #333;
+        background-color: #fff;
+      }  
+    }
+  }
+}
+.page-container {
+  position: fixed;
+  top: 42px;
+  height: 100%;
+  width: 100%;
+  .sidebar-nav {
+    width: 220px;
+    height: 100%;
+    float: left;
+    padding: 10px;
+    .nav-header {
+      height: 2em;
+      line-height: 2em;
+      padding: 0em .75em;
+      margin-top: 10px;
+      display: block;
+      font-weight: bold;
+      color: #333;
+      text-shadow: 1px 1px 1px #fff;
+      background: #dddddd;
+      background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #dddddd), color-stop(1, #ffffff));
+      background: -ms-linear-gradient(bottom, #dddddd, #ffffff);
+      background: -moz-linear-gradient(center bottom, #dddddd 0%, #ffffff 100%);
+      background: -o-linear-gradient(bottom, #dddddd, #ffffff);
+      filter: none;
+      filter: progid:dximagetransform.microsoft.gradient(startColorStr='#444444', EndColorStr='#555555');
+      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#dddddd')";
+      -webkit-border-top-right-radius: 3px;
+      -webkit-border-bottom-right-radius: 0px;
+      -webkit-border-bottom-left-radius: 0px;
+      -webkit-border-top-left-radius: 3px;
+      -moz-border-radius-topright: 3px;
+      -moz-border-radius-bottomright: 0px;
+      -moz-border-radius-bottomleft: 0px;
+      -moz-border-radius-topleft: 3px;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+      border-top-left-radius: 3px;
+      -moz-background-clip: padding;
+      -webkit-background-clip: padding-box;
+      background-clip: padding-box;
+      border-bottom: 1px solid #aaa;
+      font-size: 1em;
+      text-transform: none;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-bottom: 1px solid #aaa;
+    }
+    .nav-list {
+      border: 1px solid #ccc;
+      background: white;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      -moz-background-clip: padding;
+      -webkit-background-clip: padding-box;
+      background-clip: padding-box;
+      -webkit-box-shadow: 0px 1px 0px #ffffff;
+      -moz-box-shadow: 0px 1px 0px #ffffff;
+      box-shadow: 0px 1px 0px #ffffff;
+      margin: 0;
+      -webkit-border-top-right-radius: 0px;
+      -webkit-border-bottom-right-radius: 3px;
+      -webkit-border-bottom-left-radius: 3px;
+      -webkit-border-top-left-radius: 0px;
+      -moz-border-radius-topright: 0px;
+      -moz-border-radius-bottomright: 3px;
+      -moz-border-radius-bottomleft: 3px;
+      -moz-border-radius-topleft: 0px;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: 3px;
+      border-top-left-radius: 0px;
+      -moz-background-clip: padding;
+      -webkit-background-clip: padding-box;
+      background-clip: padding-box;
+      border-top: 0px;
+    }
+  }
+  .page-content {
+    position: fixed;
+    left: 222px;
+    right: 0;
+    height: 100%;
+    .content {
+      position: relative;
+      min-height: 552px;
+      background-color: #fff;
+      .tool-bar {
+        margin: 5px;
+      }
+    }
+  }
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  color: #eee;
+  text-align: right;
+  padding-right: 20px;
+  background-color: #222;
+}

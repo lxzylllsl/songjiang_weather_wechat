@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  mount WeixinRailsMiddleware::Engine, at: "/"
-  resources :followers
 
+  devise_for :users, controllers: {
+    sessions: "users/sessions"
+  }
+  
+  mount WeixinRailsMiddleware::Engine, at: "/"
+  
   resources :weather_forecast, only: [:index] do
     collection do
       get :locate
@@ -29,8 +33,13 @@ Rails.application.routes.draw do
 
   resources :typhoon 
   resources :warnings, only: [:index]
+  resources :articles, only: [:index, :show]
 
   namespace :admin do
+    root to: 'home#index'
     resources :page_list, only: [:index]
+    resources :articles
+    resources :users
+    resources :followers
   end
 end
