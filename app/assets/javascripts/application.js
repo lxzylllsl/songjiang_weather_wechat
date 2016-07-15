@@ -17,4 +17,5 @@
 //= require iscroll
 //= require echarts/echarts
 //= require echarts/chart/line
+//= require echarts/chart/bar
 //= require bootstrap-sprockets
