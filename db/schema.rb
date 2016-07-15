@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160712145815) do
+ActiveRecord::Schema.define(version: 20160715030635) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                limit: 255
@@ -55,6 +55,34 @@ ActiveRecord::Schema.define(version: 20160712145815) do
   end
 
   add_index "followers", ["openid"], name: "index_followers_on_openid", unique: true, using: :btree
+
+  create_table "poems", force: :cascade do |t|
+    t.string   "content",    limit: 255
+    t.string   "author",     limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "solars", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.date     "date"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "station_infos", force: :cascade do |t|
+    t.string   "sitenumber", limit: 255
+    t.string   "name",       limit: 255
+    t.string   "area",       limit: 255
+    t.string   "sitetype",   limit: 255
+    t.string   "address",    limit: 255
+    t.float    "lon",        limit: 24
+    t.float    "lat",        limit: 24
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "station_infos", ["sitenumber"], name: "index_station_infos_on_sitenumber", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "phone",                  limit: 255, default: "", null: false

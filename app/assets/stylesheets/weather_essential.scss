@@ -99,6 +99,9 @@
     color: #fff;
     background-color: #8CB265;
   }
+  td {
+    text-align: center;
+  }
 }
 .table-hover > tbody > tr:hover {
   border-radius: 5px;
@@ -121,6 +124,7 @@
     padding-left: 5px;
     padding-right: 5px;
     .iconfont {
+      color: #fff;
       font-size: 24px;
     }
   }

@@ -50,7 +50,16 @@ a:focus {
   color: #fff;
   font-size: 20px;
   .container {
+    width: 90%;
+    left: 5%;
     height: 300px;
+    overflow: hidden;
+  }
+  .cloud-container {
+    width: 90%;
+    height: 335px;
+    left: 5%;
+    position: relative;
     overflow: hidden;
   }
   .picture-canvas {
@@ -60,7 +69,9 @@ a:focus {
   }
   .radar-bitmap {
     img {
-      width: 100%;
+      width: 90%;
+      left: 5%;
+      position: relative;
       margin-top: 5px;
     }
   }
@@ -68,25 +79,48 @@ a:focus {
 .iconfont {
   margin-right: 5px;
 }
-.radar-time-line {
+.radar-time-line,
+.cloud-time-line {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  position: relative;
+  background-color: rgba(119,119,119,0.8);
+  .cloud-play {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    float: left;
+    background-color: #777;
+    border-right: 1px solid #ddd;
+  }
   ul {
     height: 42px;
-    padding: 0;
-    margin-top: 10px;
+    line-height: 42px;
+    padding-left: 0;
+    padding-top: 5px;
     overflow: hidden;
     list-style: none;
-    background-color: rgba(119,119,119,0.8);
+    font-size: 12px;
     li {
-      margin-top: 1px;
-      margin-left: 1px;
+      height: 32px;
+      line-height: 32px;
       text-align: center;
       float: left;
+      border-right: 1px solid #ddd;
     }
-    li.play {
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      background-color: #777;
+    li.active {
+      // background-color: #ddd;
     }
   }
+  
+}
+#cloud-divide {
+  width: 2px;
+  height: 32px;
+  position: absolute;
+  top: 5px;
+  left: 40px;
+  background-color: #f90e0e;
 }

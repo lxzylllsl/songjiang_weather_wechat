@@ -11,6 +11,9 @@ ul {
 .anchorBL {
   display: none;
 }
+.active {
+  // display: block;
+}
 .warnings-content {
   height: 190px;
   line-height: 190px;
@@ -61,7 +64,7 @@ ul {
           margin-right: 12px;
           background-color: #EFEFF4;
           cursor: pointer;
-          .silder {
+          .slider {
             float: left;
           }
         }
@@ -93,8 +96,17 @@ ul {
   line-height: 14px;
   padding-left: 16px;
   padding-right: 16px;
-  text-indent: 2em;
   letter-spacing: .38px;
   font-size: 10px;
   color: #5F6777;
+  display: none;
+  .time {
+    margin-bottom: 6px;
+  }
+  .explain {
+    text-indent: 2em;
+  }
+}
+.active {
+  display: block;
 }

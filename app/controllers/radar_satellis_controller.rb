@@ -12,6 +12,8 @@ class RadarSatellisController < ApplicationController
     else
     end
     Radar.locate location_params
+
+    @cloud_img = Image::CloudData.new.fetch
   end
 
   private

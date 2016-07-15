@@ -6,8 +6,11 @@ class WeatherEssentialController < ApplicationController
 
   def index
     @real_time_site = Weather::RealTimeStation.new.fetch(location_params[:lon], location_params[:lat])
-    p @real_time_site
     @statistics = AutoStation::Statistic.new.fetch
+    @statistics.map do |item|
+      _station = StationInfo.get_by_sitenumber item['sitenumber']
+      item['distance'] = _station.calculate_distance(location_params[:lon], location_params[:lat])
+    end
   end
 
   private

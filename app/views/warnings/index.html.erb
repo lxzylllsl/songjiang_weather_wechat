@@ -12,11 +12,11 @@
     <div class="col-xs-12 content">
       <div class="left">
         <ul class="switcher">
-          <% @songjiang_warnings.each do |item| %>
+          <% @songjiang_warnings.each_with_index do |item, idx| %>
             <li>
-              <div class="item">
+              <div data-target="<%=item['id']%>" class="item">
                 <%= image_tag "warnings/#{item['icon']}", :class => 'warning-img' %>
-                <div class="slider">
+                <div class="slider <%= 'active' if idx == 0 %>">
                   <%= "#{item['type']}#{item['level']}预警" %>    
                 </div>
               </div>
@@ -25,9 +25,12 @@
         </ul>
       </div>
       <div class="right">
-        <% @songjiang_warnings.each do |item| %>
-          <div class="warning-content">
-            <%= item['content'] %>
+        <% @songjiang_warnings.each_with_index do |item, idx| %>
+          <div data-target="<%=item['id']%>" class="warning-content <%= 'active' if idx == 0 %>">
+            <div class="time">发布时间: <%= item['publishtime'].to_datetime.strftime('%F %H:%M') %></div>
+            <div class="explain">
+              <%= item['content'] %>  
+            </div>
           </div>
         <% end %>
       </div>  
@@ -47,14 +50,21 @@
   map.setMaxZoom(10);
 
   $('.item').on('click', function(evt){
-  
+    var target = $(this).attr('data-target');
+    $('.warning-title').html($(this).find('.slider').html());
+    $('.warning-content').each(function(index, el) {
+     if($(el).attr('data-target') == target) {
+      $(el).addClass('active');
+     } else {
+      $(el).removeClass('active');
+     }
+    });
   });
 
   <% if @warnings.present? %>
     var _pt, _ptm, _pt_icon;
-    var location_infos = [new BMap.Point(121.434, 31.305), new BMap.Point(121.554, 31.305), new BMap.Point(121.434, 31.205), new BMap.Point(121.554, 31.205),]  
+    var location_infos = [new BMap.Point(121.434, 31.305), new BMap.Point(121.554, 31.305), new BMap.Point(121.434, 31.205), new BMap.Point(121.554, 31.205),]
     <% @warnings.each_with_index do |item, index| %>
-      console.log("<%= item %>");
       _pt = location_infos[<%=index%>]
       _pt_icon = new BMap.Icon('<%= image_url "warnings/#{item['icon']}"%>', new BMap.Size(36,36));
       _pt_icon.setImageSize(new BMap.Size(36,36));
@@ -63,12 +73,12 @@
     <% end %>
   <% end %>
 
+  var sj_location_infos = [new BMap.Point(121.191, 31.034), new BMap.Point(121.291, 31.034), new BMap.Point(121.191, 30.834), new BMap.Point(121.291, 30.834)]
   <% if @songjiang_warnings.present? %>
     var _pt, _ptm, _pt_icon;
     
     <% @songjiang_warnings.each_with_index do |item, index| %>
-      console.log("<%= item %>");
-      _pt = new BMap.Point(121.191, 31.034);  
+      _pt = sj_location_infos[<%=index%>];
       _pt_icon = new BMap.Icon('<%= image_url "warnings/#{item['icon']}"%>', new BMap.Size(36,36));
       _pt_icon.setImageSize(new BMap.Size(36,36));
       _ptm = new BMap.Marker(_pt, {icon: _pt_icon});

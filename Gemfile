@@ -51,6 +51,7 @@ gem "redis-namespace"
 
 gem 'rmmseg-cpp'
 
+# Seedbank gives your Rails seed data a little structure.
 gem 'seedbank'
 
 gem 'settingslogic'

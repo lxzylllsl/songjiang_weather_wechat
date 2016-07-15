@@ -34,15 +34,13 @@
   </div>
   <div class="row tab-content">
     <div role="tabpanel" class="tab-pane col-xs-12 active" id="tempe">
-      <table class="table table-hover table-striped table-condensed table-fixed-header">
+      <table id="tempe-table" class="table table-hover table-striped table-condensed table-fixed-header" role="grid">
         <thead class="header">
-          <tr>
-            <td>自动站名</td>
-            <td>即时气温</td>
-            <td>今日最低</td>
-            <td>今日最高</td>
-            <td>离你距离</td>
-          </tr>
+          <td>自动站名</td>
+          <td>即时气温</td>
+          <td>今日最低</td>
+          <td>今日最高</td>
+          <td>离你距离</td>
         </thead>
         <tbody>
           <% @statistics.each do |item| %>
@@ -51,7 +49,7 @@
               <td><%= filter(item['tempe']) %></td>
               <td><%= item['min_tempe'] %></td>
               <td><%= item['max_tempe'] %></td>
-              <td>2342</td>
+              <td><%= item['distance'] %></td>
             </tr>
           <% end %>
         </tbody>
@@ -116,8 +114,14 @@
 <div id="myChart">
     
 </div>
-
 <script type="text/javascript">
+  $(function(){
+    $('table').dataTable({
+      "searching": false,
+      "paging": false,
+      "info": false
+    });
+  });
   var myChart = null;
   
   require.config({
@@ -130,7 +134,9 @@
       myChart = ec.init($(this).get(0));
       option = {
         title: {text: "24小时趋势图", textStyle: {color: '#fff'}, x: 'center', y: 10},
+        legend: {show: false, data: []},
         grid: {x: 30, y: 50, x2: 10, y2: 30, borderWidth: 0},
+        tooltip: {show: true, trigger: 'axis', formatter: "时间: {b}<br/>{a} : {c}"},
         xAxis: [
           {
             type: 'category',
@@ -146,7 +152,7 @@
         }],
         series: [
           {
-            type: 'line', x: '10%',
+            type: 'line', x: '10%', showAllSymbol: true,
             data : [
               1,2,3,4,5,6,7,8,9,0
             ]
@@ -164,7 +170,9 @@
   $(".header").css({
     top: _top_container_height + 14
   });
-  $("tr").on('click', function(e){
+  $("#myChart").hide();
+
+  $("tbody").on('click', 'tr', function(e){
     var _target = $(this).attr('data');
     var _type = _target.split('_')[0];
     var _site = _target.split('_')[1];
@@ -173,10 +181,18 @@
   });
 
   $("#float-window .iconfont").click(function(e) {
+    hide_float_window();
+  });
+
+  function hide_float_window() {
     $("#myChart").hide();
     $("#float-window").hide();
+  }
+
+  $('.tab-bar').on('click', 'li', function(){
+    hide_float_window();
   });
-  $("#myChart").hide();
+
   function get_data(type, site) {
     $.ajax({
       type: 'get',
@@ -194,13 +210,19 @@
   function show_chart(data) {
     var _datas = [];
     var _times = [];
+    var _type;
     $.each(data, function(i, item){
+      if (_type == undefined) {
+        _type = item.type  
+      }
       _times.push(item.datetime);
       _datas.push(item.data);
     });
     myChart.setOption({
+      title: {text: '24小时' + _type + '趋势图'},
+      legend: {data: [_type]},
       xAxis: [{data: _times}],
-      series: [{data: _datas}]
+      series: [{name: _type, data: _datas}]
     });
     $("#myChart").show();
   }

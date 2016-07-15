@@ -1,6 +1,8 @@
 class Radar
-  @radar_lon = 120.95778
-  @radar_lat = 31.075
+  # @radar_lon = 120.95778
+  # @radar_lat = 31.075
+  @radar_lon = 121.88194
+  @radar_lat = 31.00694
 
   def self.locate location
     _lon = location[:lon].to_f
@@ -9,10 +11,16 @@ class Radar
     
     offset_x, offset_y = calculate _lon, _lat
     p "offset_x: #{offset_x}, offset_y: #{offset_y}"
-    image = Magick::Image.read("smic_qpradar-R-002_201605311143.gif").first
+    image = Magick::Image.read("smic_R0-005_201607141746.png").first
+
+    # 松江区域图叠加
     sj_bg = Magick::Image.read("./app/assets/images/songjiang.png").first
-    sj_bg = sj_bg.resize(45, 47)
-    image.composite!(sj_bg, 304, 281, Magick::SrcOverCompositeOp)
+    sj_bg = sj_bg.resize(45, 34)
+    # 青浦雷达位置
+    # image.composite!(sj_bg, 304, 281, Magick::SrcOverCompositeOp)
+    # 南汇雷达位置
+    image.composite!(sj_bg, 204, 281, Magick::SrcOverCompositeOp)
+
     red = "#f00"
     tri = Magick::Draw.new
 
