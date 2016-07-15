@@ -128,7 +128,7 @@
     paths: {echarts: '/assets/echarts'}
   });
   require(
-  ['echarts','echarts/chart/line'],
+  ['echarts','echarts/chart/line', 'echarts/chart/bar'],
   function (ec) {
     $('#myChart').each(function(){
       myChart = ec.init($(this).get(0));
@@ -152,7 +152,8 @@
         }],
         series: [
           {
-            type: 'line', x: '10%', showAllSymbol: true,
+            type: 'line', 
+            x: '10%', showAllSymbol: true,
             data : [
               1,2,3,4,5,6,7,8,9,0
             ]
@@ -211,6 +212,7 @@
     var _datas = [];
     var _times = [];
     var _type;
+    var chart_type = 'line';
     $.each(data, function(i, item){
       if (_type == undefined) {
         _type = item.type  
@@ -218,11 +220,15 @@
       _times.push(item.datetime);
       _datas.push(item.data);
     });
+    
+    if (_type == '降水') {
+      chart_type = 'bar';
+    }
     myChart.setOption({
       title: {text: '24小时' + _type + '趋势图'},
       legend: {data: [_type]},
       xAxis: [{data: _times}],
-      series: [{name: _type, data: _datas}]
+      series: [{type: chart_type, name: _type, data: _datas}]
     });
     $("#myChart").show();
   }
