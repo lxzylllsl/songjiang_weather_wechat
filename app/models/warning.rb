@@ -14,7 +14,7 @@ class Warning
         appkey: @appkey
       }}, {})
       _result = []
-      content = response['data']
+      content = response['data'] || []
       content.each do |item|
         unless item['level'].eql?('解除')
           item['id'] = Rand.random_str 6
