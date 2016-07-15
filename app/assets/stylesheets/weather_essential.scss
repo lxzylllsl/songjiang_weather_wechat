@@ -129,9 +129,11 @@
     }
   }
 }
-#myChart {
+#myChart,
+#barChart {
   // display: none;
   position: relative;
   top: 90px;
+  width: 100%;
   height: 250px;
 }

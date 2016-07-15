@@ -114,6 +114,9 @@
 <div id="myChart">
     
 </div>
+<div id="barChart">
+  
+</div>
 <script type="text/javascript">
   $(function(){
     $('table').dataTable({
@@ -123,12 +126,14 @@
     });
   });
   var myChart = null;
-  
+  var barChart = null;
+  var chart_type = 'line';
+
   require.config({
     paths: {echarts: '/assets/echarts'}
   });
   require(
-  ['echarts','echarts/chart/line', 'echarts/chart/bar'],
+  ['echarts','echarts/chart/line'],
   function (ec) {
     $('#myChart').each(function(){
       myChart = ec.init($(this).get(0));
@@ -164,6 +169,45 @@
       myChart.setOption(option);
     });
   });
+
+  require(
+  ['echarts','echarts/chart/bar'],
+  function (ec) {
+    $('#barChart').each(function(){
+      barChart = ec.init($(this).get(0));
+      bar_option = {
+        title: {text: "24小时趋势图", textStyle: {color: '#fff'}, x: 'center', y: 10},
+        legend: {show: false, data: []},
+        grid: {x: 30, y: 50, x2: 10, y2: 30, borderWidth: 0},
+        tooltip: {show: true, trigger: 'axis', formatter: "时间: {b}<br/>{a} : {c}"},
+        xAxis: [
+          {
+            type: 'category',
+            axisLabel: {textStyle: {color: '#fff'}},
+            splitLine: {show: false},
+            data: [1,2,3,4,5,6,7,8,9,10]
+          }
+        ],
+        yAxis: [{
+          type: 'value', splitLine: {show: false}, 
+          axisLabel: {textStyle: {color: '#fff'}},
+          scale: true
+        }],
+        series: [
+          {
+            type: 'bar', 
+            x: '10%', showAllSymbol: true,
+            data : [
+              1,2,3,4,5,6,7,8,9,0
+            ]
+          }
+        ]
+      };
+
+      barChart.setOption(bar_option);
+    });
+  });
+
   var _top_container_height = $('.top-container').height();
   $(".bottom-container").css({
     top: _top_container_height + 14
@@ -172,6 +216,7 @@
     top: _top_container_height + 14
   });
   $("#myChart").hide();
+  $("#barChart").hide();
 
   $("tbody").on('click', 'tr', function(e){
     var _target = $(this).attr('data');
@@ -187,10 +232,18 @@
 
   function hide_float_window() {
     $("#myChart").hide();
+    $("#barChart").hide();
     $("#float-window").hide();
   }
 
   $('.tab-bar').on('click', 'li', function(){
+    var type = $(this).find('a').attr('aria-controls');
+    if (type == 'rain') {
+      chart_type = 'bar';
+    }else{
+      chart_type = 'line';
+    }
+
     hide_float_window();
   });
 
@@ -212,7 +265,6 @@
     var _datas = [];
     var _times = [];
     var _type;
-    var chart_type = 'line';
     $.each(data, function(i, item){
       if (_type == undefined) {
         _type = item.type  
@@ -220,16 +272,24 @@
       _times.push(item.datetime);
       _datas.push(item.data);
     });
-    
     if (_type == '降水') {
-      chart_type = 'bar';
+      barChart.setOption({
+        title: {text: '24小时' + _type + '趋势图'},
+        legend: {data: [_type]},
+        xAxis: [{data: _times}],
+        series: [{name: _type, data: _datas}]
+      });  
+      $("#barChart").show();
+      $("#myChart").hide();
+    } else {
+      myChart.setOption({
+        title: {text: '24小时' + _type + '趋势图'},
+        legend: {data: [_type]},
+        xAxis: [{data: _times}],
+        series: [{name: _type, data: _datas}]
+      });  
+      $("#barChart").hide();
+      $("#myChart").show();
     }
-    myChart.setOption({
-      title: {text: '24小时' + _type + '趋势图'},
-      legend: {data: [_type]},
-      xAxis: [{data: _times}],
-      series: [{type: chart_type, name: _type, data: _datas}]
-    });
-    $("#myChart").show();
   }
 </script>
