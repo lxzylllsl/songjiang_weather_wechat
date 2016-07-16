@@ -75,16 +75,14 @@ gem 'acts_as_commentable_with_threading'
 
 gem 'faraday'
 
-group :production do
-  gem 'puma'
-end
+# A ruby web server built for concurrency
+gem 'puma', '~> 2.15.3'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 end
 
 group :development do
-  gem 'unicorn'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
