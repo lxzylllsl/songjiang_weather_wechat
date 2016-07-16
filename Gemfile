@@ -57,14 +57,15 @@ gem 'seedbank'
 gem 'settingslogic'
 gem 'whenever', :require => false
 
-gem 'ckeditor', github: 'galetahub/ckeditor'
-
 gem "paperclip"#, :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'paperclip-av-transcoder'
 
 gem 'ransack'
 # 公历转农历
 gem 'chinese_lunar', git: 'https://github.com/shtzr840329/chinese_lunar.git'
+
+# Ckeditor integration gem for rails
+gem 'ckeditor', git: 'https://github.com/shtzr840329/ckeditor.git'
 
 gem 'acts_as_votable', '~> 0.10.0'
 

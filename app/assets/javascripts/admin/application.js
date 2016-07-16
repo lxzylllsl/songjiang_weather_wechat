@@ -17,3 +17,4 @@
 //= require echarts/echarts
 //= require echarts/chart/line
 //= require bootstrap-sprockets
+//= require ckeditor/init

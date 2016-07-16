@@ -8,8 +8,8 @@
         <%= image_tag article.picture.url(:small), class: 'thumb' %>
       </div>
       <div class="col-xs-9 explain">
-        <h3><%= article.title %></h3>
-        <span><%= article.description %></span>
+        <h3><%= article.title.truncate(16) %></h3>
+        <div class="desc"><%= article.description.truncate(75) %></div>
       </div>  
     </div>
   <% end %>
