@@ -4,7 +4,7 @@ class RadarSatellisController < ApplicationController
     
   end
 
-  def show
+  def index
     @radar_images = Radar.locate location_params
     @cloud_img = Image::CloudData.new.fetch
   end

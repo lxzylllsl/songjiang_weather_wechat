@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   end
 
   resources :air_quality, only: [:index]
-  resources :radar_satellis, only: [:show] do
+  resources :radar_satellis, only: [:index] do
     collection do
       get :locate
     end
