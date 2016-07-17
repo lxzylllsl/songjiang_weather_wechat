@@ -24,10 +24,10 @@
       <%= image_tag "radar_bitmap.png" %>
     </div>
     <div class="radar-time-line">
-      <div class="radar-play">
+      <div class="radar-play ">
         <i class="iconfont icon-bofang"></i>
       </div>
-      <ul class="time-line">
+      <ul class="radar-ul time-line">
         <% @radar_images.each_with_index do |item, idx| %>
           <li data-idx="<%=idx%>" class="<%= 'divide' if idx < 5 %> time radar<%=idx%>" data-url="../images/<%= item[:url] %>"><%= item[:datetime].to_datetime.strftime('%H:%M') %></li>
         <% end %>
@@ -47,7 +47,7 @@
       <div class="cloud-play">
         <i class="iconfont icon-bofang"></i>
       </div>
-      <ul class="time-line">
+      <ul class="cloud-ul time-line">
         <% @cloud_img[0,6].each_with_index do |item, idx| %>
           <li data-idx="<%=idx%>" class="<%= 'divide' if idx < 5 %> time cloud<%=idx%>" data-url="<%= item['url'] %>"><%= item['datetime'].to_datetime.strftime('%H:%M') %></li>
         <% end %>
@@ -60,7 +60,7 @@
 <script>
   $(function(){
     var w_width = $(document).width();
-    $('.time-line > li').width((w_width - 76) / 6);
+    $('.time-line > li').width((w_width - 88) / 6);
 
     var run_thread;
     $('.cloud-play').on('click', function(){
@@ -121,9 +121,14 @@
       $('#radar-divide').css('left', (w * i) + (w / 2) + 40); 
     }
 
-    $('.time-line').on('click', 'li', function(evt){
+    $('.cloud-ul').on('click', 'li', function(evt){
       cloud_active($(this).attr('data-idx'));
       $('.cloud-container img').attr('src', $(this).attr('data-url'));
+    });
+
+    $('.radar-ul').on('click', 'li', function(evt){
+      radar_active($(this).attr('data-idx'));
+      $('.picture-canvas img').attr('src', $(this).attr('data-url'));
     });
 
     var startX, startY, endX, endY;

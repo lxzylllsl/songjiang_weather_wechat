@@ -81,10 +81,10 @@ a:focus {
 }
 .radar-time-line,
 .cloud-time-line {
+  width: 90%;
   height: 42px;
   margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
+  left: 5%;
   position: relative;
   float: left;
   background-color: rgba(119,119,119,0.8);
