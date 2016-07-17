@@ -5,17 +5,17 @@
     // lon=position.coords.longitude;
   }
   else {
-    location.href = "../radar_satellis/2?lon=121.19&lat=31.5";
+    location.href = "../radar_satellis?lon=121.19&lat=31.5";
   }
 
   function showPosition(position) {
     lat=position.coords.latitude;
     lon=position.coords.longitude;
-    location.href = "../radar_satellis/2?lon="+lon+"&lat="+lat;
+    location.href = "../radar_satellis?lon="+lon+"&lat="+lat;
   }
 
   function showError(error) {
-    location.href = "../radar_satellis/2?lon=121.19&lat=31.5";
+    location.href = "../radar_satellis?lon=121.19&lat=31.5";
     // switch(error.code) {
     //   case error.PERMISSION_DENIED:
     //     alert("User denied the request for Geolocation.");
