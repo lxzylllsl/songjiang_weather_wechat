@@ -17,23 +17,23 @@
     </div>
     <div id="picture-container" class="col-xs-12 container">
       <div id="scroller" class="picture-canvas">
-        <%= image_tag "test.gif" %>
+        <img src="<%= image_url @radar_images.first[:url] %>" alt="">
       </div>
     </div>
     <div class="col-xs-12 radar-bitmap">
       <%= image_tag "radar_bitmap.png" %>
     </div>
-    <div class="col-xs-12 radar-time-line" id="radar-time-line">
-      <ul>
-        <li class="play"><i class="iconfont icon-bofang"></i></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+    <div class="radar-time-line">
+      <div class="radar-play">
+        <i class="iconfont icon-bofang"></i>
+      </div>
+      <ul class="time-line">
+        <% @radar_images.each_with_index do |item, idx| %>
+          <li data-idx="<%=idx%>" class="<%= 'divide' if idx < 5 %> time radar<%=idx%>" data-url="../images/<%= item[:url] %>"><%= item[:datetime].to_datetime.strftime('%H:%M') %></li>
+        <% end %>
       </ul>
+      <div id="radar-divide">
     </div>
-
-    <div id="touchmove-info">
     </div>
   </div>
   <div role="tabpanel" class="tab-pane" id="satelli">
@@ -49,7 +49,7 @@
       </div>
       <ul class="time-line">
         <% @cloud_img[0,6].each_with_index do |item, idx| %>
-          <li data-idx="<%=idx%>" class="time cloud<%=idx%>" data-url="<%= item['url'] %>"><%= item['datetime'].to_datetime.strftime('%H:%M') %></li>
+          <li data-idx="<%=idx%>" class="<%= 'divide' if idx < 5 %> time cloud<%=idx%>" data-url="<%= item['url'] %>"><%= item['datetime'].to_datetime.strftime('%H:%M') %></li>
         <% end %>
       </ul>
       <div id="cloud-divide"></div>
@@ -87,9 +87,38 @@
       }
     });
 
+    $('.radar-play').on('click', function(){
+      var run_btn = $(this).find('i');
+      if (run_btn.hasClass('icon-bofang')) {
+        $(this).find('i').removeClass('icon-bofang').addClass('icon-zanting');
+        var i = 0
+        run_thread = setInterval(function() {
+          if (i == 0) {
+            $('.radar-time-line').find('li.radar5').removeClass('active');  
+          }
+          $('.radar-time-line').find('li.radar'+(i-1)).removeClass('active');
+          radar_active(i);
+          $('.radar-time-line').find('li.radar'+i).addClass('active');
+          $('.picture-canvas img').attr('src', $('.radar-time-line').find('li.radar'+i).attr('data-url'));    
+          i++;
+          if (i >= 6) {
+            i = 0;
+          }
+        }, 200);
+      } else {
+        clearInterval(run_thread);
+        $(this).find('i').removeClass('icon-zanting').addClass('icon-bofang');
+      }
+    });
+
     function cloud_active(i) {
       var w = $('.cloud-time-line').find('li').width();
       $('#cloud-divide').css('left', (w * i) + (w / 2) + 40);
+    }
+
+    function radar_active(i) {
+      var w = $('.radar-time-line').find('li').width();
+      $('#radar-divide').css('left', (w * i) + (w / 2) + 40); 
     }
 
     $('.time-line').on('click', 'li', function(evt){
@@ -119,6 +148,10 @@
     }).on("touchend", function(evt){
       base_x -= (startX - endX);
       base_y -= (startY - endY);
+    });
+
+    $("ul.tab").on("click", "li", function(){
+      clearInterval(run_thread);
     });
     $(document).on('touchmove', function (e) { e.preventDefault(); }, false);
   });

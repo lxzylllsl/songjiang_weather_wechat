@@ -58,13 +58,18 @@ defaults: &defaults
     api_path: '/api/v1/typhoons/'
     remote: 'http://61.152.122.112:8080/'
   Radar::RadarEcho:
-    appid: 'LV08MwglXetHcxdaUTIR'
-    appkey: '3LpFnUP84xhj5HaIcmKGAC2yezMgY9'
+    appid: 'bFLKk0uV7IZvzcBoWJ1j'
+    appkey: 'mXwnhDkYIG6S9iOyqsAW7vPVQ5ZxBe'
     api_path: '/api/city_weathers/radars/up_to'
     remote: 'http://61.152.122.112:8080/'
   Image::CloudData:
-    appid: 'LV08MwglXetHcxdaUTIR'
-    appkey: '3LpFnUP84xhj5HaIcmKGAC2yezMgY9'
+    appid: 'bFLKk0uV7IZvzcBoWJ1j'
+    appkey: 'mXwnhDkYIG6S9iOyqsAW7vPVQ5ZxBe'
+    api_path: '/api/v1/images'
+    remote: 'http://61.152.122.112:8080/'
+  Radar::RadarImageProcess:
+    appid: 'bFLKk0uV7IZvzcBoWJ1j'
+    appkey: 'mXwnhDkYIG6S9iOyqsAW7vPVQ5ZxBe'
     api_path: '/api/v1/images'
     remote: 'http://61.152.122.112:8080/'
 development:

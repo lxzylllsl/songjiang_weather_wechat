@@ -5,14 +5,7 @@ class RadarSatellisController < ApplicationController
   end
 
   def show
-    _type = params[:id]
-    
-    if _type.eql?('radar')
-
-    else
-    end
-    Radar.locate location_params
-
+    @radar_images = Radar.locate location_params
     @cloud_img = Image::CloudData.new.fetch
   end
 

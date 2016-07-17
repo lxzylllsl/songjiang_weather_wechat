@@ -20,19 +20,11 @@ module NetworkMiddleware
   private
   def use_post(params={}, head_params={})
     request_params = params[:data] || params['data']
-    i_type = params[:i_type] || params['i_type'] || 'User'
-
+    
     response = @connect.post do |request|
       request.url @api_path
       request.headers['Content-Type'] = 'application/json'
       request.headers['Accept'] = 'application/json'
-      if head_params.present?
-        phone = head_params[:phone] || head_params['phone']
-        token = head_params[:token] || head_params['token']
-        # token = 'NhqbqsiFr56tCz2DKaYZ'
-        request.headers["X-#{i_type}-Phone"] = phone
-        request.headers["X-#{i_type}-Token"] = token
-      end
       request.body = request_params.to_json
     end
     MultiJson.load(response.body)
@@ -44,12 +36,17 @@ module NetworkMiddleware
       request.headers['Content-Type'] = 'application/json'
       request.headers['Accept'] = 'application/json'
       request_params = params[:data] || params['data']
-      p request_params
+      
       if request_params.present?  
         request.body = request_params.to_json
       end
     end
-    MultiJson.load(response.body)
+    if params[:type].eql?('image')
+      return response
+    else  
+      return MultiJson.load(response.body)
+    end
+    
   end
 
 end
