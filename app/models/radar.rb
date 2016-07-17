@@ -83,7 +83,8 @@ class Radar
     end
 
     def write_image data, name
-      file_path = "tmp/radar/#{DateTime.now.to_date}"
+      _time = DateTime.parse(name).strftime("%F")
+      file_path = "tmp/radar/#{_time}"
       FileUtils.makedirs(file_path) unless File.exist?(file_path)
       file = File.new("#{file_path}/#{name}.png", 'wb')
       file.write(data)
