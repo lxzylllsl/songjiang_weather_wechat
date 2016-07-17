@@ -33,3 +33,18 @@
     }
   }
 }
+.page-content{
+  padding: 20px 15px 15px;
+  .title {
+    margin-bottom: 10px;
+    line-height: 1.4;
+    font-weight: 400;
+    font-size: 24px;
+  }
+  .datetime,
+  .author {
+    margin-right: 8px;
+    color: #8c8c8c;
+  }
+}
+
