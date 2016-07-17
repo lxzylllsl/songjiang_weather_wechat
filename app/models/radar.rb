@@ -7,15 +7,13 @@ class Radar
   def self.locate location
     _lon = location[:lon].to_f
     _lat = location[:lat].to_f
-    p "location: >>> #{_lon} <<<  >>> #{_lat} <<<"
-    
+
     offset_x, offset_y = calculate _lon, _lat
-    p "offset_x: #{offset_x}, offset_y: #{offset_y}"
     list = $redis.lrange "radar_image_cache", 0, 5
     radar_images = []
     list.each do |item|
       _item = MultiJson.load(item)
-      p _item
+
       image = Magick::Image.read(_item['img']).first
 
       # 松江区域图叠加
@@ -38,7 +36,7 @@ class Radar
       tri.draw(image)
       file_name = "radar/#{_item['time']}_#{_lon}_#{_lat}.png"
       image.write("public/images/#{file_name}")  
-      radar_images << {datetime: _item['time'], url: file_name}
+      radar_images.unshift({datetime: _item['time'], url: file_name})
     end
     radar_images
   end
@@ -89,7 +87,7 @@ class Radar
       file = File.new("#{file_path}/#{name}.png", 'wb')
       file.write(data)
       file.close
-      $redis.lpush @redis_key, {img: "#{file_path}/#{name}.png", time: name}.to_json
+      $redis.rpush @redis_key, {img: "#{file_path}/#{name}.png", time: name}.to_json
     end
   end
 

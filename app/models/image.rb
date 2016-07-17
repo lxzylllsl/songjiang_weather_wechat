@@ -9,12 +9,13 @@ class Image
     end
 
     def fetch
-      _result = get_data({method: 'get', data: {
+      response = get_data({method: 'get', data: {
         appid: @appid,
         appkey: @appkey,
         type: 'cloud'
       }}, {});
-      _result['result']
+      _result = response['result']
+      _result.sort! { |a, b| a['datetime'] <=> b['datetime'] }
     end
   end
 end
