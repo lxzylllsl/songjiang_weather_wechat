@@ -17,7 +17,7 @@
     </div>
     <div id="picture-container" class="col-xs-12 container">
       <div id="scroller" class="picture-canvas">
-        <img src="<%= image_url @radar_images.first[:url] %>" alt="">
+        <img src="<%= image_url @radar_images.last[:url] %>" alt="">
       </div>
     </div>
     <div class="col-xs-12 radar-bitmap">
@@ -38,10 +38,10 @@
   </div>
   <div role="tabpanel" class="tab-pane" id="satelli">
     <div class="col-xs-10 col-xs-offset-1 info">
-      <div class="col-xs-7 date-time">更新时间: <%= @cloud_img.first['datetime'].to_datetime.strftime('%F %H:%M') %></div>
+      <div class="col-xs-7 date-time">更新时间: <%= @cloud_img.last['datetime'].to_datetime.strftime('%F %H:%M') %></div>
     </div>
     <div class="cloud-container">
-      <%= image_tag @cloud_img.first['url'] %>
+      <%= image_tag @cloud_img.last['url'] %>
     </div> 
     <div class="cloud-time-line">
       <div class="cloud-play player-btn">
