@@ -59,7 +59,6 @@
       var count = $("ul.time-line").children().length;
       run_thread = setInterval(function() {
         $("#dem-"+now_target + ' > img').attr('src', $("ul.time-line > li:eq("+i+")").attr('data-type'));
-        console.log($("ul.time-line > li:eq("+i+")").attr('data-type'));
         i += 1;
         if (i > count - 1) i = 0;
       }, 1000);
