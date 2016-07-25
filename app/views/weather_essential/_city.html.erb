@@ -1,0 +1,105 @@
+<div class="city-tab-bar col-xs-12">
+  <ul class="col-xs-12 tab">
+    <a href="#dem-tempe" aria-controls="dem-tempe" role="tab" data-toggle="tab"><li role="presentation" page='tempe' class="active">温度</li></a>
+    <a href="#dem-rain" aria-controls="dem-rain" role="tab" data-toggle="tab"><li role="presentation" page='rain'>雨量</li></a>
+    <a href="#dem-air" aria-controls="dem-air" role="tab" data-toggle="tab"><li role="presentation" page='air'>气压</li></a>
+    <a href="#dem-vis" aria-controls="dem-vis" role="tab" data-toggle="tab"><li role="presentation" page='vis'>能见度</li></a>
+    <a href="#dem-wind" aria-controls="dem-wind" role="tab" data-toggle="tab"><li role="presentation" page='wind'>湿度、风</li></a>
+  </ul>
+</div>
+
+<div class="row tab-content">
+  <div role="tabpanel" class="tab-pane col-xs-12 active" id="dem-tempe">
+    <img src="<%= @dems['tempe'].last['file'] %>" alt="">
+  </div>
+  <div role="tabpanel" class="tab-pane col-xs-12" id="dem-rain">
+    <img src="<%= @dems['rain'].last['file'] %>" alt="">
+  </div>
+  <div role="tabpanel" class="tab-pane col-xs-12" id="dem-air">
+    <img src="<%= @dems['air'].last['file'] %>" alt="">
+  </div>
+  <div role="tabpanel" class="tab-pane col-xs-12" id="dem-vis">
+    <img src="<%= @dems['vis'].last['file'] %>" alt="">
+  </div>
+  <div role="tabpanel" class="tab-pane col-xs-12" id="dem-wind">
+    <img src="<%= @dems['wind'].last['file'] %>" alt="">
+  </div>
+</div>
+<div class="time-line-container">
+  <div class="player-btn-container">
+    <div class="player-btn">
+      <i class="iconfont icon-bofang"></i>  
+    </div>
+  </div>
+  <ul class="time-line">
+    <% @dems['tempe'].each do |item| %>
+      <li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>
+      <% end %>
+  </ul>  
+  <div id="dem-divide"></div>
+</div>
+
+<script type="text/javascript">
+  var now_target = 'tempe';
+  $("#city .city-tab-bar").on('click', 'li', function(){
+    clearInterval(run_thread);
+    $('.player-btn').find('i').removeClass('icon-zanting').addClass('icon-bofang');  
+    clear_selected();
+    $(this).addClass('active');
+    now_target = $(this).attr('page');
+    build_player();
+  });
+
+  var run_thread;
+
+  $(".player-btn").on('click', function() {
+    clearInterval(run_thread);
+    if ($(this).find('i').hasClass('icon-bofang')) {
+      var i = 0;
+      var count = $("ul.time-line").children().length;
+      run_thread = setInterval(function() {
+        $("#dem-"+now_target + ' > img').attr('src', $("ul.time-line > li:eq("+i+")").attr('data-type'));
+        console.log($("ul.time-line > li:eq("+i+")").attr('data-type'));
+        i += 1;
+        if (i > count - 1) i = 0;
+      }, 1000);
+      $(this).find('i').removeClass('icon-bofang').addClass('icon-zanting');  
+    } else {
+      $(this).find('i').removeClass('icon-zanting').addClass('icon-bofang');  
+    }
+    
+  });
+
+  function build_player() {
+    var content = "";
+    if (now_target == 'tempe') {
+      <% @dems['tempe'].each do |item| %>
+      content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
+      <% end %>
+    } else if (now_target == 'rain') {
+      <% @dems['rain'].each do |item| %>
+      content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
+      <% end %>
+    } else if (now_target == 'air') {
+      <% @dems['air'].each do |item| %>
+      content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
+      <% end %>
+    } else if (now_target == 'vis') {
+      <% @dems['vis'].each do |item| %>
+      content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
+      <% end %>
+    } else if (now_target == 'wind') {
+      <% @dems['wind'].each do |item| %>
+      content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
+      <% end %>
+    }
+    $('ul.time-line').empty();
+    $('ul.time-line').append(content);
+  }
+
+  function clear_selected() {
+    $("#city > .city-tab-bar > ul > a").children('li').each(function(index, el) {
+      $(el).removeClass('active'); 
+    });
+  }
+</script>

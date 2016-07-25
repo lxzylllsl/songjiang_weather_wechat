@@ -29,10 +29,8 @@ class StationInfo < ActiveRecord::Base
   end
 
   def self.get_by_sitenumber sitenumber
-    p sitenumber
     station_json = $redis.hget("station_infos_cache", sitenumber)
-    p station_json
-    item = MultiJson.load(station_json)
+    item = MultiJson.load(station_json) rescue {}
     StationInfo.new(item)
   end
 

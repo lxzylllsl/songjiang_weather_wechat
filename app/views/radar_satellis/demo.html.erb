@@ -1,0 +1,65 @@
+<canvas id="canvas">
+  
+</canvas>
+
+<script>
+  
+  $(function(){
+    var _canvas, context;
+    var img,
+    imgIsLoaded,
+    imgX=0,
+    imgY=0,
+    imgScale=1;
+
+    function init(){
+      _canvas = document.getElementById('canvas');
+      context = _canvas.getContext('2d');
+      loadImg();
+    }
+
+    function loadImg() {
+      img = new Image();
+      img.onload = function(){
+        imgIsLoaded = true;
+        drawImage();
+      }
+      img.src = "http://172.168.1.8:3000/images/radar/201607180039_121.33270876765943_31.09048504244029.png";
+    }
+
+    function drawImage() {
+      context.clearRect(0,0,canvas.width,canvas.height);
+      context.drawImage(img,0,0,img.width,img.height,imgX,imgY,img.width*imgScale,img.height*imgScale);
+    }
+
+    $(canvas).on('onmousewheel', function(){
+      wheel();
+    });
+    $(canvas).on('onwheel', function(){``
+      wheel();
+    });
+    function wheel(event){
+      var pos=windowToCanvas(canvas,event.clientX,event.clientY);
+      event.wheelDelta=event.wheelDelta?event.wheelDelta:(event.deltaY*(-40));
+      if(event.wheelDelta>0){
+        imgScale*=2;
+        imgX=imgX*2-pos.x;
+        imgY=imgY*2-pos.y;
+      }else{
+        imgScale/=2;
+        imgX=imgX*0.5+pos.x*0.5;
+        imgY=imgY*0.5+pos.y*0.5;
+      }
+      drawImage();
+    }
+
+    $("#canvas").tcanvas({});
+    // init();
+  });
+
+  
+
+  // init();
+  // 关闭页面动作监听
+  document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+</script>

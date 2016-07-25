@@ -1,0 +1,228 @@
+// Place all the styles related to the weather_essential controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.col-xs-4,
+.col-xs-5,
+.col-xs-6,
+.col-xs-7,
+.col-xs-8 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.col-xs-12 {
+  padding-left: 5px;
+  padding-right: 5px; 
+}
+.top-container {
+  position: relative;
+  background-color: #fff;
+  z-index: 99;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #000;
+  .location-info {
+    padding: 10px 10px 10px 20px;
+    font-size: 18px;
+    img {
+      width: 20px;
+    }
+  }
+  .real-time-content {
+    font-size: 12px;
+    .real-tempe {
+      font-size: 32px;
+    }
+    .right-container {
+      .right-content {
+        padding: 8px 5px 0 5px;
+        border-bottom: 1px solid #979797;
+        .col-xs-6 {
+          padding: 0;
+        }
+      }
+    }
+    .divide {
+      border-right: 1px solid #979797;
+    }
+  }
+}
+.bottom-container {
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  .tab-bar {
+    height: 44px;
+    background-color: #333;
+    .col-xs-offset-1 {
+      margin-left: 8.3333333%;
+    }
+    .col-xs-3 {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    bottom: 0px;
+    position: absolute;
+    ul.tab {
+      height: 36px;
+      line-height: 36px;
+      margin-bottom: 0;
+      list-style: none;
+      text-align: center;
+      li {
+        font-size: 16px;
+        cursor: pointer;
+        .iconfont {
+          margin-right: 5px;
+        }
+      }
+      a {
+        color: #fff;
+      }
+      a.active {
+        color: #88cc42;  
+      }
+    
+    }
+  }
+  .tab-content {
+    .tab-pane {
+      top: 0;
+      bottom: 46px;
+      position: absolute;
+      overflow-y: scroll;
+    }
+  }
+}
+.table {
+  font-size: 12px;
+  thead {
+    height: 34px;
+    line-height: 34px;
+    color: #fff;
+    background-color: #8CB265;
+  }
+  td {
+    text-align: center;
+  }
+}
+.table-hover > tbody > tr:hover {
+  border-radius: 5px;
+  color: #fff;
+  background-color: #8CB265;
+}
+.site-id {
+  display: none;
+}
+#float-window {
+  position: absolute;
+  top: 180px;
+  width: 100%;
+  height: 280px;
+  // left: 5%;
+  display: none;
+  background-color: rgba(0,0,0,.7);
+  .header {
+    margin-top: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    .iconfont {
+      color: #fff;
+      font-size: 24px;
+    }
+  }
+}
+.main-station {
+  outline: 1px solid #8CB265;
+}
+#viewDiv {
+  top: 116px;
+  bottom: 42px;
+  width: 100%;
+  position: absolute;
+}
+.logo-med,
+.logo-sm {
+  display: none!important;
+}
+.thermometer {
+  top: 116px;
+  bottom: 166px;
+  right: 0;
+  position: absolute;
+  z-index: 99;
+  img {
+    height: 100%;
+  }
+  img.mark {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    height: 10px;
+    display: none;
+  }
+}
+.time-line-container {
+  width: 96%;
+  height: 28px;
+  left: 2%;
+  bottom: 52px;
+  position: relative;
+  /*line-height: 28px;*/
+  text-align: center;
+  float: left;
+  background-color: #fff;
+  border-radius: 20px;
+  /*border-left: 1px solid #ddd;*/
+  box-shadow: 0 0 0 5px #f3f3f3;
+}
+.player-btn-container {
+  width: 28px;
+  height: 28px;
+  text-align: center;
+  float: left;
+  background-color: #fff;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-right: 1px solid #ddd;
+}
+.player-btn {
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  border-radius: 8px;
+  background-color: #d3d3d3;
+  margin: 6px auto;
+  .iconfont {
+    font-size: 12px;
+    color: #666;
+  }
+}
+.time-line {
+  height: 26px;
+  line-height: 26px;
+  padding-left: 0;
+  padding-top: 2px;
+  margin-top: 0;
+  overflow: hidden;
+  list-style: none;
+  font-size: 12px;
+  li {
+    float: left;
+    width: 12.1%;
+  }
+  li.border-line {
+    border-right: 1px solid #ddd;
+  }
+}
+#dem-divide {
+  width: 2px;
+  height: 20px;
+  position: absolute;
+  float: left;
+  top: 4px;
+  left: 40px;
+  background-color: #f90e0e;
+}
+.esriSimpleSlider {
+  display: none;
+}

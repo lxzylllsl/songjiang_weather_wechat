@@ -1,0 +1,209 @@
+<% content_for :title do %>
+  气象要素
+<% end %>
+<div class="row top-container">
+  <%= render 'share/topper' %>
+</div>
+<div id="viewDiv"></div>
+<div class="thermometer">
+  <%= image_tag 'thermometer.png' %>
+  <%= image_tag 'mark.png', :class => 'mark' %>
+</div>
+<div class="bottom-container">
+  <div class="time-line-container">
+    <div class="player-btn-container">
+      <div class="player-btn">
+        <i class="iconfont icon-bofang"></i>  
+      </div>
+    </div>
+    <ul class="time-line">
+      
+    </ul>  
+    <div id="dem-divide"></div>
+  </div>
+  <%= render 'share/bottom_bar' %>  
+</div>
+<script type="text/javascript">
+  require([
+        "esri/map", 
+        "./assets/map/geodeLayer.js",
+        "esri/geometry/Point",
+        "esri/geometry/Polygon",
+        "esri/layers/GraphicsLayer",
+        "esri/graphic",
+        "esri/symbols/SimpleFillSymbol", 
+        "esri/symbols/SimpleLineSymbol",
+        "esri/symbols/PictureMarkerSymbol",
+        "esri/Color",
+        "dojo/dom", 
+        "dojo/on",
+        "dojo/domReady!"
+      ], function (Map, gaodeLayer, Point, Polygon, GraphicsLayer, Graphic, SimpleFillSymbol, SimpleLineSymbol, PictureMarkerSymbol, Color, dom, on) {
+        var map;
+        map = new Map("viewDiv", {
+          center: [121.41, 31.23],
+          zoom: 10
+        });
+        
+        // map.on("load", create_dem);
+
+        var tempe_color_ramps = [
+          new Color([254, 33, 254, 0.8]),
+          new Color([225, 34, 253, 0.8]),
+          new Color([187, 34, 253, 0.8]),
+          new Color([149, 34, 253, 0.8]),
+          new Color([158, 62, 255, 0.8]),
+          new Color([170, 85, 255, 0.8]),
+          new Color([181, 106, 255, 0.8]),
+          new Color([193, 132, 255, 0.8]),
+          new Color([201, 147, 255, 0.8]),
+          new Color([201, 166, 255, 0.8]),
+          new Color([220, 185, 255, 0.8]),
+          new Color([86, 181, 255, 0.8]),
+          new Color([112, 188, 255, 0.8]),
+          new Color([120, 196, 255, 0.8]),
+          new Color([145, 203, 255, 0.8]),
+          new Color([160, 208, 255, 0.8]),
+          new Color([177, 214, 255, 0.8]),
+          new Color([190, 220, 255, 0.8]),
+          new Color([210, 230, 255, 0.8]),
+          new Color([190, 249, 255, 0.8]),
+          new Color([165, 247, 255, 0.8]),
+          new Color([130, 245, 255, 0.8]),
+          new Color([105, 243, 255, 0.8]),
+          new Color([65, 241, 255, 0.8]),
+          new Color([34, 253, 231, 0.8]),
+          new Color([34, 253, 204, 0.8]),
+          new Color([34, 253, 176, 0.8]),
+          new Color([34, 253, 143, 0.8]),
+          new Color([34, 253, 78, 0.8]),
+          new Color([34, 253, 110, 0.8]),
+          new Color([34, 253, 47, 0.8]),
+          new Color([56, 253, 34, 0.8]),
+          new Color([90, 253, 34, 0.8]),
+          new Color([124, 253, 34, 0.8]),
+          new Color([160, 253, 34, 0.8]),
+          new Color([194, 253, 34, 0.8]),
+          new Color([235, 253, 34, 0.8]),
+          new Color([253, 236, 34, 0.8]),
+          new Color([253, 200, 34, 0.8]),
+          new Color([253, 167, 34, 0.8]),
+          new Color([253, 133, 34, 0.8]),
+          new Color([253, 109, 34, 0.8]),
+          new Color([253, 95, 34, 0.8]),
+          new Color([253, 70, 34, 0.8]),
+          new Color([253, 55, 34, 0.8]),
+          new Color([253, 30, 34, 0.8]),
+          new Color([253, 2, 39, 0.8])
+        ]
+
+        var baselayer = new gaodeLayer({layertype: 'road'});
+        map.addLayer(baselayer);
+
+        var ringGraphic;
+        var fillSymbol;
+        
+        get_data_list();
+
+        var dem_list;
+        var dem_storage = {};
+        function get_data_list() {
+          $.ajax({
+            type: 'get',
+            async: false,
+            url: 'http://61.152.122.112:8080/api/city_weathers/dems?type=tempe&appid=LV08MwglXetHcxdaUTIR&appkey=3LpFnUP84xhj5HaIcmKGAC2yezMgY9',
+            headers: {Accept: 'application/json'},
+            success: function(json) {
+              dem_list = json.result;
+              var newest_obj = json.result[json.result.length - 1];
+              var date_time_format = newest_obj;
+              console.log(json.result);
+              build_player(json.result);
+              create_dem(newest_obj.datetime, newest_obj.data);
+              setTimeout(pull_dem_data, 3000);
+              // setInterval(pull_dem_data, 3000);
+            },
+            fail: function(json) {
+              console.log(json);
+            }
+          });
+        }
+
+        
+
+        function pull_dem_data() {
+          var result;
+          for (var i = 0; i < dem_list.length; i++) {
+            result = get_data(dem_list[i].data).geometries;
+            dem_storage[dem_list[i].data] = result;
+          }
+        }
+
+        function build_player(data) {
+          var content = ""
+          var data_len = data.length;
+          for (var i = 0; i < data_len; i++) {
+            if (i == data_len - 1) {
+              content += "<li data-lab='"+data[i].datetime+"' data-tag='"+data[i].data+"'>"+data[i].data.substring(8, 10)+":" + data[i].data.substring(10, 12)+"</li>";  
+            } else {
+              content += "<li class='border-line' data-lab='"+data[i].datetime+"' data-tag='"+data[i].data+"'>"+data[i].data.substring(8, 10)+":" + data[i].data.substring(10, 12)+"</li>";  
+            }
+          }
+          $(".time-line").append(content);
+        }
+
+        function create_dem(label, data) {
+          map.graphics.clear();
+          var geometries;
+          if (dem_storage != undefined) {
+            geometries = dem_storage[data];  
+          } else {
+            geometries = get_data(data).geometries;
+          }
+          for (var i = 0; i < geometries.length; i++) {
+            polygon = new Polygon({ 
+              rings: geometries[i].geometry.rings
+            });
+            code = geometries[i].gridCode;
+            fillSymbol = new SimpleFillSymbol(
+              SimpleFillSymbol.STYLE_SOLID,
+              new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255,255,255]), 0.1),
+              tempe_color_ramps[code]
+            );
+            ringGraphic = new Graphic(polygon, fillSymbol);
+            ringGraphic.index = geometries[i].gridCode;
+            map.graphics.add(ringGraphic);
+            $('.datetime').html(label);
+          }
+          // get_location();
+        }
+        map.graphics.on('click', function(evt) {
+          console.log(evt.graphic.index);
+          $('img.mark').animate({'bottom': evt.graphic.index * 2}).show();
+        });
+        
+        $(".time-line").on('click', 'li', function(){
+          create_dem($(this).attr('data-lab'), $(this).attr('data-tag'));
+        });
+      });
+      
+      
+      
+      function get_data(data){
+        var result;
+        $.ajax({
+          type: 'get',
+          async: false,
+          url: 'http://61.152.122.112:8080/api/city_weathers/dems/tempe?appid=LV08MwglXetHcxdaUTIR&appkey=3LpFnUP84xhj5HaIcmKGAC2yezMgY9&datetime=' + data,
+          headers: {Accept: 'application/json'},
+          success: function(json) {
+            result = json;
+          },
+          fail: function(json) {
+            console.log(json);
+          }
+        });
+        return result;
+      }
+    document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+</script>

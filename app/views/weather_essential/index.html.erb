@@ -2,38 +2,12 @@
   气象要素
 <% end %>
 <div class="row top-container">
-  <div class="col-xs-12 location-info">
-    <%= image_tag 'locate.png', class: 'locate-icon' %>
-    <span><%= @real_time_site['name'] %></span>
-  </div>
-  <div class="row real-time-content">
-    <div class="col-xs-4">
-      <div class="real-tempe text-center"><%= @real_time_site['tempe'] %>°</div>
-      <div class="forecast-tempe text-center">22~26℃</div>
-    </div>
-    <div class="col-xs-8 right-container">
-      <div class="col-xs-6 divide">
-        <div class="col-xs-12 right-content"><div class="col-xs-6 text-left">湿度</div><div class="col-xs-6 text-right"><%= @real_time_site['humi'] %>%</div></div>
-        <div class="col-xs-12 right-content"><div class="col-xs-6 text-left">西北风</div><div class="col-xs-6 text-right">2级</div></div>
-      </div>
-      <div class="col-xs-6">
-        <div class="col-xs-12 right-content"><div class="col-xs-6 text-left">能见度</div><div class="col-xs-6 text-right"><%= @real_time_site['visibility'] %>m</div></div>
-        <div class="col-xs-12 right-content"><div class="col-xs-6 text-left">气压</div><div class="col-xs-6 text-right"><%= @real_time_site['pressure'] %>Pa</div></div>
-      </div>
-    </div>
-  </div>
+  <%= render 'share/topper' %>
 </div>
 <div class="row bottom-container">
-  <div class="tab-bar col-xs-12">
-    <ul class="col-xs-12 tab">
-      <li role="presentation" class="col-xs-3 active"><a href="#tempe" aria-controls="tempe" role="tab" data-toggle="tab"><i class="iconfont icon-wenduji"></i>气温</a></li>
-      <li role="presentation" class="col-xs-3"><a href="#wind" aria-controls="wind" role="tab" data-toggle="tab"><i class="iconfont icon-feng"></i>风力</a></li>
-      <li role="presentation" class="col-xs-3"><a href="#rain" aria-controls="rain" role="tab" data-toggle="tab"><i class="iconfont icon-my-yu"></i>降水</a></li>
-      <li role="presentation" class="col-xs-3"><a href="#city" aria-controls="city" role="tab" data-toggle="tab"><i class="iconfont icon-ditu"></i>全市</a></li>
-    </ul>
-  </div>
+  <%= render 'bottom_bar' %>
   <div class="row tab-content">
-    <div role="tabpanel" class="tab-pane col-xs-12 active" id="tempe">
+    <div role="tabpanel" class="tab-pane col-xs-12" id="tempe">
       <table id="tempe-table" class="table table-hover table-striped table-condensed table-fixed-header" role="grid">
         <thead class="header">
           <td>自动站名</td>
@@ -44,7 +18,11 @@
         </thead>
         <tbody>
           <% @statistics.each do |item| %>
+            <% if item['name'].eql? '松江' %>
+            <tr class="main-station" data="tempe_<%= item['sitenumber'] %>">
+            <% else %>
             <tr data="tempe_<%= item['sitenumber'] %>">
+            <% end %>
               <td><%= item['name'] %></td>
               <td><%= filter(item['tempe']) %></td>
               <td><%= item['min_tempe'] %></td>
@@ -68,7 +46,11 @@
         </thead>
         <tbody>
           <% @statistics.each do |item| %>
+            <% if item['name'].eql? '松江' %>
+            <tr class="main-station" data="wind_<%= item['sitenumber'] %>">
+            <% else %>
             <tr data="wind_<%= item['sitenumber'] %>">
+            <% end %>
               <td><%= item['name'] %></td>
               <td><%= item['one_hour_speed'] %></td>
               <td><%= item['three_hour_speed'] %></td>
@@ -92,7 +74,11 @@
         </thead>
         <tbody>
           <% @statistics.each do |item| %>
+            <% if item['name'].eql? '松江' %>
+            <tr class="main-station" data="rain_<%= item['sitenumber'] %>">
+            <% else %>
             <tr data="rain_<%= item['sitenumber'] %>">
+            <% end %>
               <td><%= item['name'] %></td>
               <td><%= item['one_hour_rain'] %></td>
               <td><%= item['three_hour_rain'] %></td>
@@ -104,7 +90,7 @@
       </table>
     </div>
     <div role="tabpanel" class="tab-pane col-xs-12" id="city">
-      4
+      <%= render 'city' %>
     </div>
   </div>
 </div>
@@ -118,6 +104,32 @@
   
 </div>
 <script type="text/javascript">
+  var _page = '<%= @page %>';
+  if (_page != '') {
+    $('#'+_page).addClass('active');
+    change_tab(null);
+  }
+
+  function change_tab(target) {
+    if (target == null) {
+      $('ul.tab').children('a').each(function(index, el) {
+        if ($(el).attr('aria-controls') == _page) {
+          $(el).find('li').addClass('active');
+        } else {
+          $(target).find('li').removeClass('active');    
+        }
+      });
+    } else {
+      $('ul.tab').children('a').each(function(index, el) {
+        if (el == target) {
+          $(el).find('li').css({'color': '#88cc42'});
+        } else {
+          $(el).find('li').css({'color': '#fff'});
+        }
+      });
+    }
+  }
+
   $(function(){
     $('table').dataTable({
       "searching": false,
@@ -147,7 +159,7 @@
             type: 'category',
             axisLabel: {textStyle: {color: '#fff'}},
             splitLine: {show: false},
-            data: [1,2,3,4,5,6,7,8,9,10]
+            data: [0,0,0,0,0,0,0,0,0,0,0,0]
           }
         ],
         yAxis: [{
@@ -157,11 +169,8 @@
         }],
         series: [
           {
-            type: 'line', 
-            x: '10%', showAllSymbol: true,
-            data : [
-              1,2,3,4,5,6,7,8,9,0
-            ]
+            type: 'line', x: '10%', showAllSymbol: true,
+            data: [0,0,0,0,0,0,0,0,0,0,0,0]
           }
         ]
       };
@@ -185,7 +194,7 @@
             type: 'category',
             axisLabel: {textStyle: {color: '#fff'}},
             splitLine: {show: false},
-            data: [1,2,3,4,5,6,7,8,9,10]
+            data: [0,0,0,0,0,0,0,0,0,0,0,0]
           }
         ],
         yAxis: [{
@@ -195,11 +204,8 @@
         }],
         series: [
           {
-            type: 'bar', 
-            x: '10%', showAllSymbol: true,
-            data : [
-              1,2,3,4,5,6,7,8,9,0
-            ]
+            type: 'bar', x: '10%', showAllSymbol: true,
+            data: [0,0,0,0,0,0,0,0,0,0,0,0]
           }
         ]
       };
@@ -236,14 +242,14 @@
     $("#float-window").hide();
   }
 
-  $('.tab-bar').on('click', 'li', function(){
-    var type = $(this).find('a').attr('aria-controls');
+  $('.tab-bar').on('click', 'a', function(){
+    var type = $(this).attr('aria-controls');
     if (type == 'rain') {
       chart_type = 'bar';
     }else{
       chart_type = 'line';
     }
-
+    change_tab(this);
     hide_float_window();
   });
 

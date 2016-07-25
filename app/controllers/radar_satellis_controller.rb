@@ -9,6 +9,10 @@ class RadarSatellisController < ApplicationController
     @cloud_img = Image::CloudData.new.fetch
   end
 
+  def demo
+    
+  end
+  
   private
   def location_params
     params.permit(:lon, :lat)

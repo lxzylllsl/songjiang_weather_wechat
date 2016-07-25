@@ -1,0 +1,16 @@
+<div class="tab-bar col-xs-12">
+  <ul class="col-xs-12 tab">
+    <%= link_to weather_essential_index_path(lon: @lon, lat: @lat, page: 'tempe') do %>
+      <li role="presentation" class="col-xs-3"><i class="iconfont icon-wenduji"></i>气温</li>
+    <% end %>
+    <%= link_to weather_essential_index_path(lon: @lon, lat: @lat, page: 'wind') do %>
+      <li role="presentation" class="col-xs-3"><i class="iconfont icon-feng"></i>风力</li>
+    <% end %>
+    <%= link_to weather_essential_index_path(lon: @lon, lat: @lat, page: 'rain') do %>
+      <li role="presentation" class="col-xs-3"><i class="iconfont icon-my-yu"></i>降水</li>
+    <% end %>
+    <%= link_to dems_path(lon: @lon, lat: @lat), :class => 'active' do %>
+      <li role="presentation" class="col-xs-3 active"><i class="iconfont icon-ditu"></i>全市</li>
+    <% end %>
+  </ul>
+</div>

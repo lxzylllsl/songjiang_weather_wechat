@@ -5,12 +5,20 @@ class WeatherEssentialController < ApplicationController
   end
 
   def index
-    @real_time_site = Weather::RealTimeStation.new.fetch(location_params[:lon], location_params[:lat])
+    @lon = location_params[:lon]
+    @lat = location_params[:lat]
+    @page = params[:page]
+    @real_time_site = Weather::RealTimeStation.new.fetch(@lon, @lat)
     @statistics = AutoStation::Statistic.new.fetch
     @statistics.map do |item|
       _station = StationInfo.get_by_sitenumber item['sitenumber']
-      item['distance'] = _station.calculate_distance(location_params[:lon], location_params[:lat])
+      if _station.lon.blank? or _station.lat.blank?
+        item['distance'] = '-'
+      else
+        item['distance'] = _station.calculate_distance(@lon, @lat)
+      end
     end
+    @dems = Image::DemData.new.fetch
   end
 
   private

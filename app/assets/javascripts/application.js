@@ -9,6 +9,7 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
+// require bootstrap-sprockets
 //
 //= require ./jquery
 //= require ./dataTable/jquery.dataTables.min
@@ -18,4 +19,4 @@
 //= require echarts/echarts
 //= require echarts/chart/line
 //= require echarts/chart/bar
-//= require bootstrap-sprockets
+//= require bootstrap/tab

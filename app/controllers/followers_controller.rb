@@ -20,7 +20,7 @@ class FollowersController < ApplicationController
   # GET /followers/1/edit
   def edit
   end
-
+  
   # POST /followers
   # POST /followers.json
   def create
