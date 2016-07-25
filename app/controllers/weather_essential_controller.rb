@@ -7,7 +7,6 @@ class WeatherEssentialController < ApplicationController
   def index
     @lon = location_params[:lon]
     @lat = location_params[:lat]
-    @page = params[:page]
     @real_time_site = Weather::RealTimeStation.new.fetch(@lon, @lat)
     @statistics = AutoStation::Statistic.new.fetch
     @statistics.map do |item|
