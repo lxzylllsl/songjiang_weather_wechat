@@ -125,10 +125,18 @@
   }
 
   $(function(){
+    var w_height = $(document).height();
+    var table_height = w_height - 220;
     $('table').dataTable({
       "searching": false,
       "paging": false,
-      "info": false
+      "scrollY": table_height,
+      "scrollX": true,
+      "scrollCollapse": true,
+      "info": false,
+      "fixedColumns": {
+        "leftColumns": 1
+      }
     });
   });
   var myChart = null;

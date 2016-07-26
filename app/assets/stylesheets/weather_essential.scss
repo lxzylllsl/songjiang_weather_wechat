@@ -90,7 +90,7 @@
       top: 10px;
       bottom: 46px;
       position: absolute;
-      overflow-y: scroll;
+      overflow: hidden;
     }
   }
 }
@@ -246,4 +246,11 @@ ul {
   li.border-line {
     border-right: 1px solid #ddd;
   }
+}
+.table {
+  width: 100%!important;
+  margin-bottom: 0!important;
+}
+.dataTables_scrollHeadInner {
+  width: 100%!important;
 }
