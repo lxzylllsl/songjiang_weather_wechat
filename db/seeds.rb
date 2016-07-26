@@ -12,7 +12,7 @@ Diymenu.create(id: 4, parent_id: 1, name: '空气质量', url: 'http://cs.tallty
 Diymenu.create(id: 5, parent_id: 1, name: '台风动态', url: 'http://cs.tallty.com/typhoon', is_show: true, sort:1)
 Diymenu.create(id: 6, parent_id: 1, name: '雷达卫星', url: 'http://cs.tallty.com/radar_satellis/locate', is_show: true, sort:2)
 Diymenu.create(id: 7, parent_id: 1, name: '气象要素', url: 'http://cs.tallty.com/weather_essential/locate', is_show: true, sort:3)
-Diymenu.create(id: 8, parent_id: 2, name: '客户端下载', key: '客户端下载', is_show: true, sort:0)
+Diymenu.create(id: 8, parent_id: 2, name: '客户端下载', url: 'http://cs.tallty.com/download', is_show: true, sort:0)
 Diymenu.create(id: 10, parent_id: 2, name: '专题信息', url: 'http://cs.tallty.com/articles', is_show: true, sort:1)
 Diymenu.create(id: 11, parent_id: 2, name: '气象预警', url: 'http://cs.tallty.com/warnings', is_show: true, sort:2)
 Diymenu.create(id: 12, parent_id: 2, name: '天气预报', url: 'http://cs.tallty.com/weather_forecast/locate', is_show: true, sort:3)
