@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       get :demo
     end
   end
-  
+  resources :download, only: [:index]  
   resources :weather_essential do
     collection do
       get :locate
