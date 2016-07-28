@@ -87,7 +87,7 @@ class Radar
       file = File.new("#{file_path}/#{name}.png", 'wb')
       file.write(data)
       file.close
-      $redis.rpush @redis_key, {img: "#{file_path}/#{name}.png", time: name}.to_json
+      $redis.lpush @redis_key, {img: "#{file_path}/#{name}.png", time: name}.to_json
     end
   end
 
