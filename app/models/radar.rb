@@ -36,7 +36,7 @@ class Radar
       tri.draw(image)
       file_name = "radar/#{_item['time']}_#{_lon}_#{_lat}.png"
       image.write("public/images/#{file_name}")  
-      radar_images.unshift({datetime: _item['time'], url: file_name})
+      radar_images << {datetime: _item['time'], url: file_name}
     end
     radar_images
   end
