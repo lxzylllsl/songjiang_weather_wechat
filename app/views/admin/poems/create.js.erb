@@ -1,0 +1,7 @@
+<% if @poem.errors.present? %>
+  $("#poemModalContent").html("<%= escape_javascript( render "poems_modal", poem: @poem )%>");
+  $('#poemModal').modal('show');
+  $(".modal-backdrop").remove();
+<% else %>
+  location.href = "<%= admin_poems_path %>"
+<% end  %>

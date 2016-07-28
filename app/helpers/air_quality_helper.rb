@@ -1,7 +1,7 @@
 module AirQualityHelper
 
   def transform_aqi level
-    "<div class='col-xs-10 aqi-level-shadeguide #{translate(level)}'>#{level}</div>"
+    "<div class='col-xs-10 aqi-level-shadeguide #{translate_level(level)}'>#{level}</div>"
   end
 
   def aqi_format kpi
@@ -16,13 +16,13 @@ module AirQualityHelper
   def split_level level
     _levels = level.split('到')
     if _levels.size == 1 
-      "<span class='level-s #{translate(_levels[0])}'>#{level}</span>"
+      "<span class='level-s #{translate_level(_levels[0])}'>#{level}</span>"
     else
-      "<span class='level-m #{translate(_levels[0])}'>#{_levels[0]}</span><span class='level-m #{translate(_levels[-1])}'>#{_levels[-1]}</span>"
+      "<span class='level-m #{translate_level(_levels[0])}'>#{_levels[0]}</span><span class='level-m #{translate_level(_levels[-1])}'>#{_levels[-1]}</span>"
     end
   end
 
-  def translate level
+  def translate_level level
     case level
     when '优'
       'level1'

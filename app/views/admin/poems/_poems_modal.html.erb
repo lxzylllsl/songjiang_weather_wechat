@@ -1,0 +1,47 @@
+<div id="poemModal" class="modal fade poems-modal" aria-hidden="true" style="margin-top: 80px;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title"><span class="text-primary"></span><small>数据设置</small></h3>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <%= form_for [:admin, poem], remote: true, format: :js do |f| %>
+            <div class="form-group">
+              <div class="input-group input-padding" style="width: 100%;">
+                <%= f.text_field :author, class: 'form-control', placeholder: '作者'%>
+              </div>
+              <% if poem.errors[:author].any? %>
+                <dd class="error text-danger"><%= poem.errors[:author][0] %></dd>
+              <% end %>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-padding" style="width: 100%;">
+                <%= f.text_field :content, class: 'form-control', placeholder: '正文'%>
+              </div>
+              <% if poem.errors[:content].any? %>
+                <dd class="error text-danger"><%= poem.errors[:content][0] %></dd>
+              <% end %>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-padding" style="width: 100%;">
+                <%= f.select :solar, Poem.solars, {}, class: "form-control", style: "width:100%", tabindex: "4", prompt: "节气" %>
+              </div>
+              <% if poem.errors[:solar].any? %>
+                <dd class="error text-danger"><%= poem.errors[:solar][0] %></dd>
+              <% end %>
+            </div>
+
+            <div class="text-center"><button class="btn sub-btn btn-primary" type="submit"><strong>提交</strong></button></div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -309,7 +309,7 @@
         async: true,
         url: 'http://61.152.122.112:8080/api/v1/pri_typhoons/'+typhoon_id+'?appid=ZfQg2xyW04X3umRPsi9H&appkey=xWOX5kAYVSduEl38oJctyRgB2NDMpH',
         headers: {Accept: 'application/json'},
-        success: function(json) {
+        success: function(items) {
           current_typhoon = json;
           $('#title .main-title').html(json.name + json.cname + " ("+ json.ename +")");
           if (current_typhoon.status == 'stop') {

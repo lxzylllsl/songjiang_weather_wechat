@@ -1,15 +1,26 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.phone_field :sign_in, required: false, autofocus: true %>
-    <%= f.password_field :password, required: false %>
-    <%= f.check_box :remember_me, as: :boolean if devise_mapping.rememberable? %>
+<div class="main-panel">
+  <div class="title">
+    <h2>上海松江气象局微信管理平台</h2>
   </div>
+  <div class="login-panel">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-inputs">
+        <div class="input-controller">
+          <i class="iconfont icon-denglu"></i><%= f.phone_field :sign_in, required: false, autofocus: true %>  
+        </div>
+        <div class="input-controller">
+          <i class="iconfont icon-mima"></i><%= f.password_field :password, required: false %>  
+        </div>
+        <div class="remember-controller">
+          <%= f.check_box :remember_me, value: 'Remember me', as: :boolean if devise_mapping.rememberable? %>
+          <%= f.label "记住我", for: "user_remember_me", class: "text-muted" %>
+        </div>
+        
+      </div>
 
-  <div class="form-actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+      <div class="form-actions">
+        <%= f.submit "Log in" %>
+      </div>
+    <% end %>  
+</div>
+</div>

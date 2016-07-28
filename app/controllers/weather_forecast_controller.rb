@@ -12,8 +12,7 @@ class WeatherForecastController < ApplicationController
     @real_time_aqi = Aqi::RealTimeAqi.new.fetch
     @warnings = Warning::SongjiangWarning.new.fetch
 
-    # 计算节气
-    solar_term = Solar.analyse DateTime.now
+    @poem = Poem.pick
 
   end
 

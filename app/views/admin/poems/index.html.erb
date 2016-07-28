@@ -1,0 +1,55 @@
+<div class="row">
+  <h1 class="page-title">诗词列表</h1>
+</div>
+<div class="row">
+  <div class="content col-sm-12">
+    <div class="nest">
+      <div class="tool-bar pull-right">
+        <%= link_to new_admin_poem_path, remote: true, format: :js, :class => 'btn btn-primary' do %>
+          <i class="glyphicon glyphicon-plus"></i>创建
+        <% end %>
+      </div>
+      <div class="body-nest">
+        <table class="table table-bordered table-hover table-striped">
+          <thead>
+            <tr>
+              <th>节气</th>
+              <th>作者</th>
+              <th>内容</th>
+              <th>创建时间</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @poems.each do |item| -%>
+            <tr>
+              <td><%= item.solar -%></td>
+              <td><%= item.author -%></td>
+              <td><%= item.content -%></td>
+              <td><%= item.created_at.strftime('%F %H:%M') -%></td>
+              <td>
+                <%= link_to edit_admin_poem_path(item) do %>
+                  <i class="iconfont icon-bianji"></i>
+                <% end %>
+                <%= link_to admin_poem_path(item), method: :delete, title: '删除' do %>
+                  <i class="iconfont icon-shanchu"></i>
+                <% end %>
+              </td>
+            </tr>
+            <% end -%>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5">
+                <div class="pagination pagination-centered pull-right">
+                  <div class='row'><%= will_paginate @poems, :renderer => BootstrapPagination::Rails, :remote => {:update => 'messages'} %></div>
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="poemModalContent"></div>
