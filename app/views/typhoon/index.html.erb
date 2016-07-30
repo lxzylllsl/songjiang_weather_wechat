@@ -109,12 +109,12 @@
 <% end %>
 <script type="text/javascript">
   var useragent = navigator.userAgent;
-  if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
-      alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
-      var opened = window.open('about:blank', '_self');
-      opened.opener = null;
-      opened.close();
-  }
+  // if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+  //     alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+  //     var opened = window.open('about:blank', '_self');
+  //     opened.opener = null;
+  //     opened.close();
+  // }
   $(function(){
     var map = new BMap.Map("viewDiv");
 
@@ -309,7 +309,7 @@
         async: true,
         url: 'http://61.152.122.112:8080/api/v1/pri_typhoons/'+typhoon_id+'?appid=ZfQg2xyW04X3umRPsi9H&appkey=xWOX5kAYVSduEl38oJctyRgB2NDMpH',
         headers: {Accept: 'application/json'},
-        success: function(items) {
+        success: function(json) {
           current_typhoon = json;
           $('#title .main-title').html(json.name + json.cname + " ("+ json.ename +")");
           if (current_typhoon.status == 'stop') {
