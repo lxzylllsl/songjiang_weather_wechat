@@ -514,6 +514,8 @@
       } else {
         show_units.push(_target);
       }
+      clearTimeout(timer);
+      _typhoon.setPath(null);
       draw_typhoon(200);
     });
   });
