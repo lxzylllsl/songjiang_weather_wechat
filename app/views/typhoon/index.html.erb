@@ -62,18 +62,18 @@
     </div>
 
     <div role="tabpanel" class="tab-pane col-xs-12" id="info">
-    <!-- <div class="blur-bg-container"></div> -->
+    <div class="blur-bg-container"></div>
       <div class="top">
         <div class="header">
           预报台
         </div>  
         <div class="content">
-          <div class="bj">━ ━中国</div>  
-          <div class="hk">━ ━中国香港</div>
-          <div class="am">━ ━美国</div>
-          <div class="tw">━ ━中国台湾</div>
-          <div class="jp">━ ━日本</div>
-          <div class="sh">━ ━上海</div>
+          <div data-target="中国" class="item bj">━ ━中国</div>  
+          <div data-target="中国香港" class="item hk">━ ━中国香港</div>
+          <div data-target="美国" class="item am">━ ━美国</div>
+          <div data-target="中国台湾" class="item tw">━ ━中国台湾</div>
+          <div data-target="日本" class="item jp">━ ━日本</div>
+          <div data-target="上海" class="item sh">━ ━上海</div>
         </div>  
       </div>
 
@@ -109,12 +109,12 @@
 <% end %>
 <script type="text/javascript">
   var useragent = navigator.userAgent;
-  if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
-      alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
-      var opened = window.open('about:blank', '_self');
-      opened.opener = null;
-      opened.close();
-  }
+  // if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+  //     alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+  //     var opened = window.open('about:blank', '_self');
+  //     opened.opener = null;
+  //     opened.close();
+  // }
   $(function(){
     var map = new BMap.Map("viewDiv");
 
@@ -126,6 +126,8 @@
     var radar_pic;
     var current_typhoon;
     var can_run = true;
+
+    var show_units = ['上海', '中国', '中国香港', '中国台湾', '美国', '日本'];
     // // 初始化警戒线
     init_map();
 
@@ -150,7 +152,6 @@
           }
           $(this).removeClass('glyphicon-play').addClass('glyphicon-minus');
           clearTimeout(timer);
-          map.clearOverlays();
           _typhoon.setPath(null);
           init_map();
           draw_typhoon(200);
@@ -185,6 +186,7 @@
     }
 
     function init_map() {
+      map.clearOverlays();
       var polyline48 = new BMap.Polyline([
         new BMap.Point(131.984253, 33.947917),
         new BMap.Point(131.984253, 14.923554),
@@ -359,6 +361,7 @@
     var points = [];
     var timer;
     var _typhoon = new BMap.Polyline(points, {strokeColor:"#9B9B9B", strokeWeight:1.5, strokeOpacity:1});
+    
     var _pt_icon;
     var typhoon_gif_mark;
 
@@ -375,9 +378,9 @@
         curr_point_idx = 0;
         points.length = 0;
         clearTimeout(timer);
-        if (current_typhoon.status != 'stop') {
+        // if (current_typhoon.status != 'stop') {
           show_forecast();  
-        }
+        // }
         return;
       }
 
@@ -403,7 +406,8 @@
         draw_typhoon(d);
       }, d); 
     }
-    
+
+    var _typhoon2;
     function show_forecast() {
       var size, _ptm, curr_point_idx2;
       var curr_point_obj = current_typhoon.real_location[current_typhoon.real_location.length - 1];
@@ -411,6 +415,9 @@
       var forecast_location = current_typhoon.forecast_location;
       for (size in forecast_location) {
         var items = forecast_location[size];
+        if ($.inArray(items[0].unit, show_units) < 0) {
+          continue;
+        }
         var _path = [curr_point]
         var curr_path_idx;
         var point;
@@ -457,7 +464,6 @@
     }
 
     
-
     function dept_color(dept) {
       var _color = "";
       if (dept == "中国") {
@@ -498,5 +504,17 @@
       
       return content;
     }
+
+    $("#info").on('click', '.item', function(evt) {
+      var _target = $(this).attr("data-target");
+      $(this).toggleClass('gray');
+      init_map();
+      if ($(this).hasClass('gray')) {
+        show_units.splice($.inArray(_target,show_units),1);
+      } else {
+        show_units.push(_target);
+      }
+      draw_typhoon(200);
+    });
   });
 </script>
