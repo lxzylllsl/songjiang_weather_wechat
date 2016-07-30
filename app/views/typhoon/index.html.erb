@@ -54,7 +54,7 @@
     <div role="tabpanel" class="tab-pane col-xs-12 active" id="list">
       <div class="header"><div class="time">时间</div><div class="narrow">气压</div><div class="narrow">风力</div></div>
       <div class="typhoon-list">
-        <div class="blur-bg-container"></div>
+        <!-- <div class="blur-bg-container"></div> -->
         <ul class="typhoon-items">
           
         </ul>  
@@ -62,7 +62,7 @@
     </div>
 
     <div role="tabpanel" class="tab-pane col-xs-12" id="info">
-    <div class="blur-bg-container"></div>
+    <!-- <div class="blur-bg-container"></div> -->
       <div class="top">
         <div class="header">
           预报台
@@ -109,12 +109,12 @@
 <% end %>
 <script type="text/javascript">
   var useragent = navigator.userAgent;
-  // if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
-  //     alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
-  //     var opened = window.open('about:blank', '_self');
-  //     opened.opener = null;
-  //     opened.close();
-  // }
+  if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+      alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+      var opened = window.open('about:blank', '_self');
+      opened.opener = null;
+      opened.close();
+  }
   $(function(){
     var map = new BMap.Map("viewDiv");
 
@@ -134,7 +134,7 @@
       // alert('zoom');
     });
 
-    get_typhoon('1602');
+    get_typhoon('1603');
 
     // 菜单组事件
     $(".btn-group").on('click', 'div', function(){
@@ -216,7 +216,6 @@
       var label24 = new BMap.Label('24小时警戒线', opts);
       label24.disableMassClear();
       map.addOverlay(label24);
-
     }
 
     var level_names = ['','热带低压', '热带风暴', '强热带风暴', '台风', '强台风', '超强台风'];
@@ -311,6 +310,7 @@
         headers: {Accept: 'application/json'},
         success: function(json) {
           current_typhoon = json;
+
           $('#title .main-title').html(json.name + json.cname + " ("+ json.ename +")");
           if (current_typhoon.status == 'stop') {
             $('#title .main-title').append(' 停止编报');
