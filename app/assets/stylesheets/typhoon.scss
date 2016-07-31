@@ -103,7 +103,7 @@
 .btn-group {
   position: absolute;
   right: 18px;
-  top: 375px;
+  bottom: 20px;
   width: 50px;
   height: 200px;
   z-index: 99;
@@ -112,7 +112,7 @@
   .info-nr-menu {
     width: 50px;
     height: 50px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     padding: 11px;
     font-size: 22px;
     background-color: rgba(49,86,172,.6);
@@ -386,29 +386,19 @@
   }
 }
 
-.legend-container {
-  position: absolute;
-  width: 95px;
-  height: 137px;
-  top: 318px;
-  left: 18px;
-  z-index: 99;
-  border-radius: 7px;
-  box-shadow: 0px 2px 12px rgba(0,0,0,.2);
-  -webkit-backdrop-filter: blur(15px);
-}
 .legend {
   position: absolute;
   width: 95px;
-  height: 137px;
-  top: 318px;
+  bottom: 120px;
   left: 18px;
   z-index: 99;
+  overflow: hidden;
   font-size: 12px;
   font-weight: 700;
   border: 1px solid #5C6F99;
   border-radius: 6px;
   background-color: rgba(255,255,255,.4);
+  box-shadow: 0px 2px 12px rgba(0,0,0,.6);
   .unit {
     padding-top: 6px;
     padding-left: 10px;
@@ -451,4 +441,38 @@
 }
 .gray {
   color: #ddd!important;
+}
+#typhoons_selector {
+  width: 90%;
+  height: 320px;
+  position: relative;
+  top: 80px;
+  left: 5%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 8px 20px rgba(0,0,0,.1);
+  z-index: 99;
+  display: none;
+  ul {
+    height: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+    overflow-y: scroll;
+    list-style: none;
+    li {
+      height: 30px;
+      line-height: 30px;
+      padding-left: 10px;
+      color: #5c6f99;
+      size: 14px;
+      opacity: 0.8;
+      letter-spacing: 0.5px;
+    }
+    li.active {
+      color: #fff;
+      background-color: #acc5ff;
+    }
+  }
 }
