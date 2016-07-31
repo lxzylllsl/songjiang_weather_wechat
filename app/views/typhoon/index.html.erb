@@ -16,7 +16,6 @@
 </div>
 
 <% if @visitor.eql?('shweather') %>
-  <div class="legend-container"></div>
   <div class="legend">
     <div class="content unit">
       <p>预报台</p>
@@ -94,6 +93,13 @@
     </div>
   </div>
 </div>
+<div id="typhoons_selector">
+  <ul></ul>
+</div>
+<script type="text/javascript">
+  define = null;
+  require = null;
+</script>
 <% content_for :scripts do %>
   <%= javascript_tag do %>
     typhoon_level_imgs = ['<%= image_url('level1.png') %>',
@@ -115,7 +121,102 @@
   //     opened.opener = null;
   //     opened.close();
   // }
+  
   $(function(){
+//   wx.config({
+//     debug: false,
+//     appId: 'wxf8b4f85f3a794e77',
+//     timestamp: 1420774989,
+//     nonceStr: '2nDgiWM7gCxhL8v0',
+//     signature: '1f8a6552c1c99991fc8bb4e2a818fe54b2ce7687',
+//     jsApiList: [
+//       'checkJsApi',
+//       'onMenuShareTimeline',
+//       'onMenuShareAppMessage',
+//       'onMenuShareQQ',
+//       'onMenuShareWeibo',
+//       'hideMenuItems',
+//       'showMenuItems',
+//       'hideAllNonBaseMenuItem',
+//       'showAllNonBaseMenuItem',
+//       'translateVoice',
+//       'startRecord',
+//       'stopRecord',
+//       'onRecordEnd',
+//       'playVoice',
+//       'pauseVoice',
+//       'stopVoice',
+//       'uploadVoice',
+//       'downloadVoice',
+//       'chooseImage',
+//       'previewImage',
+//       'uploadImage',
+//       'downloadImage',
+//       'getNetworkType',
+//       'openLocation',
+//       'getLocation',
+//       'hideOptionMenu',
+//       'showOptionMenu',
+//       'closeWindow',
+//       'scanQRCode',
+//       'chooseWXPay',
+//       'openProductSpecificView',
+//       'addCard',
+//       'chooseCard',
+//       'openCard'
+//     ]
+//   });  
+
+//   wx.onMenuShareAppMessage({
+//           title: '123',
+//           desc: 'bac',
+//           link: 'www.baidu.com',
+//           imgUrl: '',
+//           trigger: function (res) {
+//             // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+//             // alert('用户点击发送给朋友');
+//           },
+//           success: function (res) {
+//             // alert('已分享');
+//           },
+//           cancel: function (res) {
+//             // alert('已取消');
+//           },
+//           fail: function (res) {
+//             // alert(JSON.stringify(res));
+//           }
+//         });
+
+//         wx.onMenuShareTimeline({
+//           title: 'abc',
+//           link: '123',
+//           imgUrl: '',
+//           trigger: function (res) {
+//             // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+//             // alert('用户点击分享到朋友圈');
+//           },
+//           success: function (res) {
+//             // alert('已分享');
+//           },
+//           cancel: function (res) {
+//             // alert('已取消');
+//           },
+//           fail: function (res) {
+//             // alert(JSON.stringify(res));
+//           }
+//         });
+
+// wx.checkJsApi({
+//             jsApiList: [
+//                 'getLocation',
+//                 'onMenuShareTimeline',
+//                 'onMenuShareAppMessage'
+//             ],
+//             success: function (res) {
+//                 alert(JSON.stringify(res));
+//             }
+//         });
+
     var map = new BMap.Map("viewDiv");
 
     map.centerAndZoom(new BMap.Point(126.404, 16.915), 5);
@@ -131,12 +232,11 @@
     // // 初始化警戒线
     init_map();
 
+    setTimeout(function() {
+      get_typhoon_list();  
+    }, 1000);
     
-    map.addEventListener('zoomend', function() {
-      // alert('zoom');
-    });
-
-    get_typhoon('1603');
+    get_typhoon('9999');
 
     // 菜单组事件
     $(".btn-group").on('click', 'div', function(){
@@ -152,7 +252,6 @@
           }
           $(this).removeClass('glyphicon-play').addClass('glyphicon-minus');
           clearTimeout(timer);
-          _typhoon.setPath(null);
           init_map();
           draw_typhoon(200);
           break;
@@ -187,6 +286,9 @@
 
     function init_map() {
       map.clearOverlays();
+      if (_typhoon != undefined) {
+        _typhoon.setPath(null);  
+      }
       var polyline48 = new BMap.Polyline([
         new BMap.Point(131.984253, 33.947917),
         new BMap.Point(131.984253, 14.923554),
@@ -225,18 +327,16 @@
       $.ajax({
         type: 'get',
         async: true,
-        url: 'http://61.152.122.112:8080/api/v1/typhoons?appid=ZfQg2xyW04X3umRPsi9H&appkey=xWOX5kAYVSduEl38oJctyRgB2NDMpH',
+        url: 'http://61.152.122.112:8080/api/v1/pri_typhoons?appid=ZfQg2xyW04X3umRPsi9H&appkey=xWOX5kAYVSduEl38oJctyRgB2NDMpH',
         headers: {Accept: 'application/json'},
         success: function(json) {
-          typhoons = json.data;
+          typhoons = json.list;
           var idx;
-          var typhoon_selector = $("#typhoon_selector");
+          var typhoons_list_content = "";
           for (idx in typhoons) {
-            typhoon_selector.append("<option value='"+typhoons[idx].typhoonid+"'>"+typhoons[idx].cnname+"("+typhoons[idx].enname+")</option>")
+            typhoons_list_content += "<li data-target='"+typhoons[idx].serial_number+"'>"+typhoons[idx].cname+"("+typhoons[idx].ename+")</li>";
           }
-          current_typhoon_id = typhoons[0].typhoonid;
-          current_typhoon_name = typhoons[0].cnname;
-          get_typhoon(typhoons[0].typhoonid);
+          $("#typhoons_selector > ul").append(typhoons_list_content);
         },
         fail: function(json) {
           console.log(json);
@@ -305,6 +405,7 @@
     }
 
     function get_typhoon(typhoon_id) {
+      init_map();
       $.ajax({
         type: 'get',
         async: true,
@@ -319,7 +420,11 @@
           }
           $('#tf-name').html("("+json.name+")"+json.cname);
           $("head title").html(build_title(json));
-          draw_typhoon();
+          var first_point = current_typhoon.real_location[0]
+          map.panTo(new BMap.Point(first_point.lon, first_point.lat));
+          setTimeout(function(){
+            draw_typhoon();
+          }, 500);
           var list_datas = json.real_location;
           var table_content = "";
           for (var idx = list_datas.length - 1; idx >= 0; idx--) {
@@ -378,9 +483,9 @@
         curr_point_idx = 0;
         points.length = 0;
         clearTimeout(timer);
-        // if (current_typhoon.status != 'stop') {
+        if (current_typhoon.status != 'stop') {
           show_forecast();  
-        // }
+        }
         return;
       }
 
@@ -510,7 +615,7 @@
       $(this).toggleClass('gray');
       init_map();
       if ($(this).hasClass('gray')) {
-        show_units.splice($.inArray(_target,show_units),1);
+          show_units.splice($.inArray(_target,show_units),1);
       } else {
         show_units.push(_target);
       }
@@ -518,5 +623,32 @@
       _typhoon.setPath(null);
       draw_typhoon(200);
     });
+
+    $('#title').on('click', function(evt) {
+      show_selector();
+    });
+
+    $('#typhoons_selector').on('click', 'li', function() {
+      $(this).parent().children().removeClass('active');
+      $(this).addClass('active');
+      $("#typhoons_selector").hide();
+      get_typhoon($(this).attr("data-target"));
+    })
+
+    function show_selector() {
+      $("#typhoons_selector").show();
+    }
+    map.addEventListener('click', function() {
+      $("#typhoons_selector").hide();  
+    });
+
+    $(document).on('click', function(e){
+      if ($(e.target).closest('#title').length == 0) {
+        $("#typhoons_selector").hide();  
+      } else {
+        show_selector();
+      }
+    });
+
   });
 </script>
