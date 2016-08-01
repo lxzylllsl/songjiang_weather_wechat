@@ -553,8 +553,8 @@
     function show_wind_radius(target) {
       map.removeOverlay(seven_wind_radius);
       map.removeOverlay(ten_wind_radius);
-      var seven_wind_radius = new BMap.Circle(new BMap.Point(target.lon, target.lat), target.seven_radius * 1000, {strokeColor:"#ffce4a", fillColor: '#ffce4a', strokeWeight: 0.5, strokeOpacity:0.1});
-      var ten_wind_radius = new BMap.Circle(new BMap.Point(target.lon, target.lat), target.ten_radius * 1000, {strokeColor:"#b07b5b", fillColor: '#a79f71', strokeWeight: 0.5, strokeOpacity:0.5});
+      var seven_wind_radius = new BMap.Circle(new BMap.Point(target.lon, target.lat), target.seven_radius * 1000, {strokeColor:"#43af4d", fillColor: '#43af4d', fillOpacity: 0.4, strokeWeight: 0.2, strokeOpacity:0.8});
+      var ten_wind_radius = new BMap.Circle(new BMap.Point(target.lon, target.lat), target.ten_radius * 1000, {strokeColor:"#ce6a2d", fillColor: '#ce6a2d', fillOpacity: 0.4, strokeWeight: 0.5, strokeOpacity:0.8});
       map.addOverlay(seven_wind_radius);
       map.addOverlay(ten_wind_radius);
     }
