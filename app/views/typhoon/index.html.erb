@@ -494,7 +494,9 @@
         var _current_pt = real_location[curr_point_idx];
         point = new BMap.Point(_current_pt.lon, _current_pt.lat)
         map.removeOverlay(typhoon_gif_mark);
-        typhoon_gif_mark = new BMap.Marker(point, {icon: new BMap.Icon(typhoon_gif, new BMap.Size(40,40))});
+        var typhoon_gif_icon = new BMap.Icon(typhoon_gif, new BMap.Size(40,40));
+        typhoon_gif_icon.setImageSize(new BMap.Size(40,40));
+        typhoon_gif_mark = new BMap.Marker(point, {icon: typhoon_gif_icon});
         map.addOverlay(typhoon_gif_mark);
         points.push(point);
         _typhoon.setPath(points);
