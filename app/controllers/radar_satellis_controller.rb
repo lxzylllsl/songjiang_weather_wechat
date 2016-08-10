@@ -1,5 +1,6 @@
 class RadarSatellisController < ApplicationController
-
+  layout 'radar'
+  
   def locate
     
   end
