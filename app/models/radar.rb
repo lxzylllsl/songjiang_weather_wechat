@@ -9,7 +9,7 @@ class Radar
     _lat = location[:lat].to_f
 
     offset_x, offset_y = calculate _lon, _lat
-    list = $redis.lrange "radar_image_cache", 0, 5
+    list = $redis.lrange "radar_image_cache", 0, 9
     radar_images = []
     list.each do |item|
       _item = MultiJson.load(item)
@@ -35,7 +35,7 @@ class Radar
       tri.circle(locate_ptx, locate_pty, locate_ptx + 2, locate_pty + 2)
       tri.draw(image)
       file_name = "radar/#{_item['time']}_#{_lon}_#{_lat}.png"
-      image.write("public/images/#{file_name}")  
+      image.write("public/images/#{file_name}")
       radar_images << {datetime: _item['time'], url: file_name}
     end
     radar_images
