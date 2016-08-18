@@ -1,7 +1,7 @@
 class CreateFollowers < ActiveRecord::Migration
   def change
     create_table :followers, :id => false do |t|
-      t.string :openid, lenght: 32, null: false
+      t.string :openid, length: 32, null: false
       t.string :nick_name
       t.integer :sex
       t.string :province

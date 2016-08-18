@@ -26,15 +26,23 @@
 <div class="row bottom-container">
   <div class="tab-bar col-xs-12">
     <ul class="col-xs-12 tab">
-      <li role="presentation" class="col-xs-3 active"><a href="#tempe" aria-controls="tempe" role="tab" data-toggle="tab"><i class="iconfont icon-wenduji"></i>气温</a></li>
-      <li role="presentation" class="col-xs-3"><a href="#wind" aria-controls="wind" role="tab" data-toggle="tab"><i class="iconfont icon-feng"></i>风力</a></li>
-      <li role="presentation" class="col-xs-3"><a href="#rain" aria-controls="rain" role="tab" data-toggle="tab"><i class="iconfont icon-my-yu"></i>降水</a></li>
-      <li role="presentation" class="col-xs-3"><a href="#city" aria-controls="city" role="tab" data-toggle="tab"><i class="iconfont icon-ditu"></i>全市</a></li>
+      <li role="presentation" class="col-xs-3 active">
+        <a href="#tempe" aria-controls="tempe" role="tab" data-toggle="tab"><i class="iconfont icon-wenduji"></i>气温</a>
+      </li>
+      <li role="presentation" class="col-xs-3">
+        <a href="#wind" aria-controls="wind" role="tab" data-toggle="tab"><i class="iconfont icon-feng"></i>风力</a>
+      </li>
+      <li role="presentation" class="col-xs-3">
+        <a href="#rain" aria-controls="rain" role="tab" data-toggle="tab"><i class="iconfont icon-my-yu"></i>降水</a>
+      </li>
+      <li role="presentation" class="col-xs-3">
+        <a href="#city" aria-controls="city" role="tab" data-toggle="tab"><i class="iconfont icon-ditu"></i>全市</a>
+      </li>
     </ul>
   </div>
   <div class="row tab-content">
     <div role="tabpanel" class="tab-pane col-xs-12 active" id="tempe">
-      <table class="table table-hover table-striped table-condensed table-fixed-header">
+      <table class="table table-hover table-striped table-condensed table-fixed-header essential-table">
         <thead class="header">
           <tr>
             <td>自动站名</td>
@@ -57,6 +65,7 @@
         </tbody>
       </table>
     </div>
+
     <div role="tabpanel" class="tab-pane col-xs-12" id="wind">
       <table class="table table-hover table-striped table-condensed table-fixed-header">
         <thead class="header">
@@ -81,6 +90,7 @@
         </tbody>
       </table>
     </div>
+
     <div role="tabpanel" class="tab-pane col-xs-12" id="rain">
       <table class="table table-hover table-striped table-condensed table-fixed-header">
         <thead class="header">
@@ -105,6 +115,7 @@
         </tbody>
       </table>
     </div>
+
     <div role="tabpanel" class="tab-pane col-xs-12" id="city">
       4
     </div>
@@ -123,51 +134,62 @@
   require.config({
     paths: {echarts: '/assets/echarts'}
   });
-  require(
-  ['echarts','echarts/chart/line'],
-  function (ec) {
-    $('#myChart').each(function(){
-      myChart = ec.init($(this).get(0));
-      option = {
-        title: {text: "24小时趋势图", textStyle: {color: '#fff'}, x: 'center', y: 10},
-        grid: {x: 30, y: 50, x2: 10, y2: 30, borderWidth: 0},
-        xAxis: [
-          {
-            type: 'category',
-            axisLabel: {textStyle: {color: '#fff'}},
-            splitLine: {show: false},
-            data: [1,2,3,4,5,6,7,8,9,10]
-          }
-        ],
-        yAxis: [{
-          type: 'value', splitLine: {show: false}, 
-          axisLabel: {textStyle: {color: '#fff'}},
-          scale: true
-        }],
-        series: [
-          {
-            type: 'line', x: '10%',
-            data : [
-              1,2,3,4,5,6,7,8,9,0
-            ]
-          }
-        ]
-      };
 
-      myChart.setOption(option);
-    });
-  });
+  require(
+    ['echarts','echarts/chart/line'],
+
+    function (ec) {
+      $('#myChart').each(function(){
+        myChart = ec.init($(this).get(0));
+        option = {
+          title: {text: "24小时趋势图", textStyle: {color: '#fff'}, x: 'center', y: 10},
+          grid: {x: 30, y: 50, x2: 10, y2: 30, borderWidth: 0},
+          xAxis: [
+            {
+              type: 'category',
+              axisLabel: {textStyle: {color: '#fff'}},
+              splitLine: {show: false},
+              data: [1,2,3,4,5,6,7,8,9,10]
+            }
+          ],
+          yAxis: [{
+            type: 'value', splitLine: {show: false}, 
+            axisLabel: {textStyle: {color: '#fff'}},
+            scale: true
+          }],
+          series: [
+            {
+              type: 'line', x: '10%',
+              data : [
+                1,2,3,4,5,6,7,8,9,0
+              ]
+            }
+          ]
+        };
+
+        myChart.setOption(option);
+      });
+    }
+  );
+
   var _top_container_height = $('.top-container').height();
+
   $(".bottom-container").css({
     top: _top_container_height + 14
   });
+
   $(".header").css({
     top: _top_container_height + 14
   });
+
   $("tr").on('click', function(e){
     var _target = $(this).attr('data');
     var _type = _target.split('_')[0];
     var _site = _target.split('_')[1];
+    // 改变选中样式
+    $("tr").removeClass("tr-active");
+    $(this).addClass("tr-active");
+    // 加载数据
     get_data(_type, _site);
     $("#float-window").show();
   });
@@ -176,7 +198,9 @@
     $("#myChart").hide();
     $("#float-window").hide();
   });
+
   $("#myChart").hide();
+
   function get_data(type, site) {
     $.ajax({
       type: 'get',
@@ -191,6 +215,7 @@
       }
     });
   }
+
   function show_chart(data) {
     var _datas = [];
     var _times = [];
