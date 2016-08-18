@@ -21,3 +21,5 @@
 config/initializers/weixin_rails_middleware.rb
 config/ininializers/weixin_authorize.rb
 public/system/*
+public/assets/*
+public/images/*
