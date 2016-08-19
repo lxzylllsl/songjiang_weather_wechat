@@ -63,11 +63,6 @@
     var $is_run = false;
     var height = $(window).width()
 
-    $('#radar-image').css({
-      "width":height,
-      "height":height*3/4
-    });
-
     $('.radar-time-line').on('click', 'li', function(evt){
       if ($is_run) return;
       var $_target = $(evt.target);
@@ -95,6 +90,11 @@
         });
         $_target.html('').addClass('active');
       }
+    });
+
+    $('#radar-image').css({
+      "width":height,
+      "height":height*3/4
     });
 
     $('#cloud-image').css({
