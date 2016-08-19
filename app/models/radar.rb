@@ -12,7 +12,7 @@ class Radar
     list = $redis.lrange "radar_image_cache", 0, 9
     lists = list.reverse
     radar_images = []
-    lists.each do |item|
+    list.each do |item|
       _item = MultiJson.load(item)
 
       image = Magick::Image.read(_item['img']).first
