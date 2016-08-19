@@ -6,8 +6,8 @@
 </div>
 <div class="row bottom-container">
   <%= render 'bottom_bar' %>
-  <div class="row tab-content">
-    <div role="tabpanel" class="tab-pane col-xs-12 active" id="tempe">
+  <div class="row tab-content main-content">
+    <div role="tabpanel" class="tab-pane main-pane col-xs-12 active" id="tempe">
       <table id="tempe-table" class="table table-hover table-striped table-condensed table-fixed-header" role="grid">
         <thead class="header">
           <td>自动站名</td>
@@ -33,7 +33,7 @@
         </tbody>
       </table>
     </div>
-    <div role="tabpanel" class="tab-pane col-xs-12" id="wind">
+    <div role="tabpanel" class="tab-pane main-pane col-xs-12" id="wind">
       <table class="table table-hover table-striped table-condensed table-fixed-header">
         <thead class="header">
           <tr>
@@ -61,7 +61,7 @@
         </tbody>
       </table>
     </div>
-    <div role="tabpanel" class="tab-pane col-xs-12" id="rain">
+    <div role="tabpanel" class="tab-pane main-pane col-xs-12" id="rain">
       <table class="table table-hover table-striped table-condensed table-fixed-header">
         <thead class="header">
           <tr>
@@ -89,7 +89,7 @@
         </tbody>
       </table>
     </div>
-    <div role="tabpanel" class="tab-pane col-xs-12" id="city">
+    <div role="tabpanel" class="tab-pane main-pane col-xs-12" id="city">
       <%= render 'city' %>
     </div>
   </div>
@@ -126,7 +126,7 @@
 
   $(function(){
     var w_height = $(document).height();
-    var table_height = w_height - 220;
+    var table_height = w_height - 200;
     $('table').dataTable({
       "searching": false,
       "paging": false,
