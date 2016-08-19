@@ -63,6 +63,40 @@
     var $is_run = false;
     var height = $(window).width()
 
+    $('#radar-image').css({
+      "width":height,
+      "height":height*3/4
+    });
+
+    $('.radar-time-line').on('click', 'li', function(evt){
+      if ($is_run) return;
+      var $_target = $(evt.target);
+      if ($_target.hasClass('active')) {
+        $is_run = true;
+        $_target.html($_target.attr('data-cc')).removeClass('active');
+        var i = 0;
+        var $_previous;
+        run_thread = setInterval(function() {
+          if (i == 0) {
+            $_previous = $('.radar-time-line').find('li.radar9');
+          }else {
+            $_previous = $('.radar-time-line').find('li.radar'+(i-1));
+          }
+          $_target = $('.radar-time-line').find('li.radar'+i);
+          $_previous.html($_previous.attr('data-cc')).removeClass('stop');
+          $('.radar-time-line').find('li.radar'+i).html('').addClass('stop');
+          $('#radar > img').attr('src', $_target.attr('data-url'));
+          (i >= 9) ? stop_radar($_target) : i++;
+        }, 600);
+      }else {
+        $('#radar > img').attr('src', $_target.attr('data-url'));
+        $('.radar-time-line').find('li').each(function(index, el) {
+          $(el).html($(el).attr('data-cc')).removeClass('active');
+        });
+        $_target.html('').addClass('active');
+      }
+    });
+
     $('#cloud-image').css({
       "width":height,
       "height":height*3/4
@@ -92,40 +126,6 @@
       }else {
         $('#cloud img').attr('src', $_target.attr('data-url'));
         $('.cloud-time-line').find('li').each(function(index, el) {
-          $(el).html($(el).attr('data-cc')).removeClass('active');
-        });
-        $_target.html('').addClass('active');
-      }
-    });
-
-    $('#radar-image').css({
-      "width":height,
-      "height":height*3/4
-    });
-
-    $('.radar-time-line').on('click', 'li', function(evt){
-      if ($is_run) return;
-      var $_target = $(evt.target);
-      if ($_target.hasClass('active')) {
-        $is_run = true;
-        $_target.html($_target.attr('data-cc')).removeClass('active');
-        var i = 0;
-        var $_previous;
-        run_thread = setInterval(function() {
-          if (i == 0) {
-            $_previous = $('.radar-time-line').find('li.radar9');
-          }else {
-            $_previous = $('.radar-time-line').find('li.radar'+(i-1));
-          }
-          $_target = $('.radar-time-line').find('li.radar'+i);
-          $_previous.html($_previous.attr('data-cc')).removeClass('stop');
-          $('.radar-time-line').find('li.radar'+i).html('').addClass('stop');
-          $('#radar > img').attr('src', $_target.attr('data-url'));
-          (i >= 9) ? stop_radar($_target) : i++;
-        }, 600);
-      }else {
-        $('#radar > img').attr('src', $_target.attr('data-url'));
-        $('.radar-time-line').find('li').each(function(index, el) {
           $(el).html($(el).attr('data-cc')).removeClass('active');
         });
         $_target.html('').addClass('active');
