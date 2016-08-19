@@ -10,8 +10,9 @@ class Radar
 
     offset_x, offset_y = calculate _lon, _lat
     list = $redis.lrange "radar_image_cache", 0, 9
+    lists = list.reverse
     radar_images = []
-    list.each do |item|
+    lists.each do |item|
       _item = MultiJson.load(item)
 
       image = Magick::Image.read(_item['img']).first
