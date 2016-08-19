@@ -38,7 +38,7 @@ class Radar
       image.write("public/images/#{file_name}")
       radar_images << {datetime: _item['time'], url: file_name}
     end
-    radar_images
+    radar_images.reverse
   end
 
   def self.process
