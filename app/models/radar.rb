@@ -32,7 +32,7 @@ class Radar
       tri.fill(red)
       # tri.circle(300, 300, 302,302) #中心点位置
       locate_ptx = 290 + offset_x
-      locate_pty = 300 + offset_y
+      locate_pty = 302 + offset_y
       tri.circle(locate_ptx, locate_pty, locate_ptx + 2, locate_pty + 2)
       tri.draw(image)
       file_name = "radar/#{_item['time']}_#{_lon}_#{_lat}.png"

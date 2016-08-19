@@ -12,12 +12,12 @@
   <!-- 雷达区 -->
   <div role="tabpanel" class="tab-pane active" id="radar">
     <div class="col-xs-10 col-xs-offset-1 info">
-      <div class="col-xs-7 date-time">更新时间: <%= @radar_images.last[:datetime].to_datetime.strftime("%F %H:%M") %></div>
+      <div class="col-xs-7 date-time">更新时间: <%#= @radar_images.last[:datetime].to_datetime.strftime("%F %H:%M") %></div>
       <div class="col-xs-5 sub-info text-right">红点代表当前位置</div>
     </div>
     <div id="radar-container" class="col-xs-12">
       <div id="radar">
-        <%= image_tag @radar_images.last['url'] , id:"radar-image" %>
+        <%#= image_tag @radar_images.last['url'] , id:"radar-image" %>
       </div>
     </div>
     <div class="col-xs-12 radar-bitmap">
@@ -68,14 +68,10 @@
       "height":height*3/4
     });
 
-    $('#radar-image').css({
-      "width":height,
-      "height":height*3/4
-    });
-
     $('.cloud-time-line').on('click', 'li', function(evt){
       if ($is_run) return;
       var $_target = $(evt.target);
+
       if ($_target.hasClass('active')) {
         $is_run = true;
         $_target.html($_target.attr('data-cc')).removeClass('active');
@@ -100,6 +96,11 @@
         });
         $_target.html('').addClass('active');
       }
+    });
+
+    $('#radar-image').css({
+      "width":height,
+      "height":height*3/4
     });
 
     $('.radar-time-line').on('click', 'li', function(evt){
