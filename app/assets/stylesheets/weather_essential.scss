@@ -41,14 +41,14 @@
     .right-container {
       .right-content {
         padding: 8px 5px 0 5px;
-        border-bottom: 1px solid #979797;
+        border-bottom: 1px solid #c6c6c6;
         .col-xs-6 {
           padding: 0;
         }
       }
     }
     .divide {
-      border-right: 1px solid #979797;
+      border-right: 1px solid #c6c6c6;
     }
   }
 }
@@ -162,7 +162,8 @@
     height: 36px;
     line-height: 36px;
     position: relative;
-    margin-top: 14px;
+    margin-top: 4px;
+    padding: 0 2px;
     background-color: #8CB265;
     border-radius: 2px;
     ul {
@@ -198,8 +199,8 @@
   }
   .time-line-container {
     width: 96%;
-    height: 28px;
-    line-height: 28px;
+    height: 30px;
+    line-height: 30px;
     left: 2%;
     top: 20px;
     position: relative;
@@ -209,17 +210,17 @@
     .player-btn-container {
       background-color: #fff;
       width: 10%;
-      height: 28px;
+      height: 30px;
       border-radius: 50%;
       position: absolute;
       top: 0px;
       left: 90%;
       .player-btn {
-        width: 24px;
-        height: 24px;
-        line-height: 24px;
+        width: 26px;
+        height: 26px;
+        line-height: 26px;
         text-align: center;
-        border-radius: 12px;
+        border-radius: 13px;
         background-color: #d3d3d3;
         margin: 2px auto;
         .iconfont {
@@ -229,15 +230,15 @@
       }
     }
     .time-line {
-      height: 28px;
-      line-height: 26px;
+      height: 30px;
+      line-height: 30px;
       padding-left: 0;
       overflow: hidden;
       font-size: 10px;
       margin: 0;
       padding: 0;
       li {
-        height: 28px;
+        height: 30px;
         float: left;
         width: 10%;
         font-size: 10px;
