@@ -11,8 +11,9 @@ class Radar
     offset_x, offset_y = calculate _lon, _lat
     list = $redis.lrange "radar_image_cache", 0, 9
     lists = list.reverse
+    p lists
     radar_images = []
-    lists.each do |item|
+    list.each do |item|
       _item = MultiJson.load(item)
 
       image = Magick::Image.read(_item['img']).first
@@ -31,8 +32,8 @@ class Radar
       tri.stroke_width(6)
       tri.fill(red)
       # tri.circle(300, 300, 302,302) #中心点位置
-      locate_ptx = 290 + offset_x
-      locate_pty = 304 + offset_y
+      locate_ptx = 280 + offset_x
+      locate_pty = 310 + offset_y
       tri.circle(locate_ptx, locate_pty, locate_ptx + 2, locate_pty + 2)
       tri.draw(image)
       file_name = "radar/#{_item['time']}_#{_lon}_#{_lat}.png"
