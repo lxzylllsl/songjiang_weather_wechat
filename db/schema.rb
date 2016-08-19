@@ -80,13 +80,6 @@ ActiveRecord::Schema.define(version: 20160728032741) do
     t.string   "solar",      limit: 255
   end
 
-  create_table "solars", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.date     "date"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "station_infos", force: :cascade do |t|
     t.string   "sitenumber", limit: 255
     t.string   "name",       limit: 255

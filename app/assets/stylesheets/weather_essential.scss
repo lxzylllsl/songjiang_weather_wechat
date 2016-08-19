@@ -69,8 +69,8 @@
     bottom: 0px;
     position: absolute;
     ul.tab {
-      height: 36px;
-      line-height: 36px;
+      height: 44px;
+      line-height: 44px;
       margin-bottom: 0;
       list-style: none;
       text-align: center;
@@ -95,6 +95,9 @@
       bottom: 46px;
       position: absolute;
       overflow: hidden;
+      table {
+        margin-bottom: 0px;
+      }
     }
   }
 }
@@ -111,10 +114,10 @@
     border: 0!important;
   }
 }
-.table-hover > tbody > tr:hover {
+.tr-active {
   border-radius: 5px;
   color: #fff;
-  background-color: #8CB265;
+  background-color: #8CB265 !important;
 }
 .site-id {
   display: none;

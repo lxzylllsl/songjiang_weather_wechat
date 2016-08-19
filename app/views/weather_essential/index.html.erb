@@ -139,6 +139,7 @@
       }
     });
   });
+
   var myChart = null;
   var barChart = null;
   var chart_type = 'line';
@@ -146,83 +147,88 @@
   require.config({
     paths: {echarts: '/assets/echarts'}
   });
-  require(
-  ['echarts','echarts/chart/line'],
-  function (ec) {
-    $('#myChart').each(function(){
-      myChart = ec.init($(this).get(0));
-      option = {
-        title: {text: "24小时趋势图", textStyle: {color: '#fff'}, x: 'center', y: 10},
-        legend: {show: false, data: []},
-        grid: {x: 30, y: 50, x2: 10, y2: 30, borderWidth: 0},
-        tooltip: {show: true, trigger: 'axis', formatter: "时间: {b}<br/>{a} : {c}"},
-        xAxis: [
-          {
-            type: 'category',
-            axisLabel: {textStyle: {color: '#fff'}},
-            splitLine: {show: false},
-            data: [0,0,0,0,0,0,0,0,0,0,0,0]
-          }
-        ],
-        yAxis: [{
-          type: 'value', splitLine: {show: false}, 
-          axisLabel: {textStyle: {color: '#fff'}},
-          scale: true
-        }],
-        series: [
-          {
-            type: 'line', x: '10%', showAllSymbol: true,
-            data: [0,0,0,0,0,0,0,0,0,0,0,0]
-          }
-        ]
-      };
-
-      myChart.setOption(option);
-    });
-  });
 
   require(
-  ['echarts','echarts/chart/bar'],
-  function (ec) {
-    $('#barChart').each(function(){
-      barChart = ec.init($(this).get(0));
-      bar_option = {
-        title: {text: "24小时趋势图", textStyle: {color: '#fff'}, x: 'center', y: 10},
-        legend: {show: false, data: []},
-        grid: {x: 30, y: 50, x2: 10, y2: 30, borderWidth: 0},
-        tooltip: {show: true, trigger: 'axis', formatter: "时间: {b}<br/>{a} : {c}"},
-        xAxis: [
-          {
-            type: 'category',
+    ['echarts','echarts/chart/line'],
+    function (ec) {
+      $('#myChart').each(function(){
+        myChart = ec.init($(this).get(0));
+        option = {
+          title: {text: "24小时趋势图", textStyle: {color: '#fff'}, x: 'center', y: 10},
+          legend: {show: false, data: []},
+          grid: {x: 30, y: 50, x2: 10, y2: 30, borderWidth: 0},
+          tooltip: {show: true, trigger: 'axis', formatter: "时间: {b}<br/>{a} : {c}"},
+          xAxis: [
+            {
+              type: 'category',
+              axisLabel: {textStyle: {color: '#fff'}},
+              splitLine: {show: false},
+              data: [0,0,0,0,0,0,0,0,0,0,0,0]
+            }
+          ],
+          yAxis: [{
+            type: 'value', splitLine: {show: false}, 
             axisLabel: {textStyle: {color: '#fff'}},
-            splitLine: {show: false},
-            data: [0,0,0,0,0,0,0,0,0,0,0,0]
-          }
-        ],
-        yAxis: [{
-          type: 'value', splitLine: {show: false}, 
-          axisLabel: {textStyle: {color: '#fff'}},
-          scale: true
-        }],
-        series: [
-          {
-            type: 'bar', x: '10%', showAllSymbol: true,
-            data: [0,0,0,0,0,0,0,0,0,0,0,0]
-          }
-        ]
-      };
+            scale: true
+          }],
+          series: [
+            {
+              type: 'line', x: '10%', showAllSymbol: true,
+              data: [0,0,0,0,0,0,0,0,0,0,0,0]
+            }
+          ]
+        };
 
-      barChart.setOption(bar_option);
-    });
-  });
+        myChart.setOption(option);
+      });
+    }
+  );
+
+  require(
+    ['echarts','echarts/chart/bar'],
+    function (ec) {
+      $('#barChart').each(function(){
+        barChart = ec.init($(this).get(0));
+        bar_option = {
+          title: {text: "24小时趋势图", textStyle: {color: '#fff'}, x: 'center', y: 10},
+          legend: {show: false, data: []},
+          grid: {x: 30, y: 50, x2: 10, y2: 30, borderWidth: 0},
+          tooltip: {show: true, trigger: 'axis', formatter: "时间: {b}<br/>{a} : {c}"},
+          xAxis: [
+            {
+              type: 'category',
+              axisLabel: {textStyle: {color: '#fff'}},
+              splitLine: {show: false},
+              data: [0,0,0,0,0,0,0,0,0,0,0,0]
+            }
+          ],
+          yAxis: [{
+            type: 'value', splitLine: {show: false}, 
+            axisLabel: {textStyle: {color: '#fff'}},
+            scale: true
+          }],
+          series: [
+            {
+              type: 'bar', x: '10%', showAllSymbol: true,
+              data: [0,0,0,0,0,0,0,0,0,0,0,0]
+            }
+          ]
+        };
+
+        barChart.setOption(bar_option);
+      });
+    }
+  );
 
   var _top_container_height = $('.top-container').height();
   $(".bottom-container").css({
     top: _top_container_height + 14
   });
+
   $(".header").css({
     top: _top_container_height + 14
   });
+
   $("#myChart").hide();
   $("#barChart").hide();
 
@@ -230,6 +236,10 @@
     var _target = $(this).attr('data');
     var _type = _target.split('_')[0];
     var _site = _target.split('_')[1];
+    // 改变选中样式
+    $("tr").removeClass("tr-active");
+    $(this).addClass("tr-active");
+    // 加载数据
     get_data(_type, _site);
     $("#float-window").show();
   });
@@ -269,6 +279,7 @@
       }
     });
   }
+
   function show_chart(data) {
     var _datas = [];
     var _times = [];
