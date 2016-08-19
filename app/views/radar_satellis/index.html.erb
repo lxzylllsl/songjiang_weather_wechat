@@ -59,6 +59,7 @@
 
 <script>
   $(function(){
+    var run_thread_bar;
     var run_thread;
     var $is_run = false;
     var height = $(window).width()
@@ -111,7 +112,7 @@
         $_target.html($_target.attr('data-cc')).removeClass('active');
         var i = 0;
         var $_previous;
-        run_thread = setInterval(function() {
+        run_thread_bar = setInterval(function() {
           if (i == 0) {
             $_previous = $('.radar-time-line').find('li.radar9');
           }else {
