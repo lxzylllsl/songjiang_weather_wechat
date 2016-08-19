@@ -25,7 +25,7 @@
     </div>
     <ul class="radar-time-line time-line">
       <% @radar_images.each_with_index do |item, idx| %>
-        <% if idx == 9 %>
+        <% if idx == 0 %>
           <li data-cc="<%= item[:datetime].to_datetime.strftime('%H:%M') %>" class="time radar<%=idx%> active" data-url="../images/<%= item[:url] %>"></li>
         <% else %>
           <li data-cc="<%= item[:datetime].to_datetime.strftime('%H:%M') %>" class="time radar<%=idx%>" data-url="../images/<%= item[:url] %>"><%= item[:datetime].to_datetime.strftime('%H:%M') %></li>
