@@ -35,68 +35,86 @@
   <ul class="time-line">
     <% @dems['tempe'].each do |item| %>
       <li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>
-      <% end %>
-  </ul>  
-  <div id="dem-divide"></div>
+    <% end %>
+  </ul>
 </div>
 
 <script type="text/javascript">
+  // 定时任务
+  var run_thread;
+  // 当前Tab
   var now_target = 'tempe';
+  // 播放状态
+  var player_state = 0;
+  // 播放按钮
+  var player_btn = $(".player-btn-container");
+  // 播放长度
+  var count = $("ul.time-line").children().length;
+
+  // 切换tab事件
   $("#city .city-tab-bar").on('click', 'li', function(){
     clearInterval(run_thread);
-    $('.player-btn').find('i').removeClass('icon-zanting').addClass('icon-bofang');  
+    player_state = 0;
     clear_selected();
     $(this).addClass('active');
+    // 当前tab类别 
     now_target = $(this).attr('page');
     build_player();
   });
 
-  var run_thread;
-
+  // 播放按钮点击事件
   $(".player-btn").on('click', function() {
     clearInterval(run_thread);
     if ($(this).find('i').hasClass('icon-bofang')) {
-      var i = 0;
-      var count = $("ul.time-line").children().length;
+      // 定时任务
       run_thread = setInterval(function() {
-        $("#dem-"+now_target + ' > img').attr('src', $("ul.time-line > li:eq("+i+")").attr('data-type'));
-        i += 1;
-        if (i > count - 1) i = 0;
+        $("#dem-"+now_target + ' > img').attr('src', $("ul.time-line > li:eq("+player_state+")").attr('data-type'));
+        player_state++;
+        // 播放完毕，重新播放
+        if (player_state > count - 1) player_state = 0;
+        // 移动播放按钮
+        player_btn.css("left", player_state*100/count+"%");
       }, 1000);
+      // 显示暂停按钮
       $(this).find('i').removeClass('icon-bofang').addClass('icon-zanting');  
     } else {
       $(this).find('i').removeClass('icon-zanting').addClass('icon-bofang');  
     }
-    
   });
 
+  // 构建播放器
   function build_player() {
+    // 播放按钮
+    player_btn.css("left", player_state*100/count+"%");
+    $('.player-btn').find('i').removeClass('icon-zanting').addClass('icon-bofang');
+    // 播放轴时间线
     var content = "";
     if (now_target == 'tempe') {
       <% @dems['tempe'].each do |item| %>
-      content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
+        content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
       <% end %>
     } else if (now_target == 'rain') {
       <% @dems['rain'].each do |item| %>
-      content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
+        content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
       <% end %>
     } else if (now_target == 'air') {
       <% @dems['air'].each do |item| %>
-      content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
+        content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
       <% end %>
     } else if (now_target == 'vis') {
       <% @dems['vis'].each do |item| %>
-      content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
+        content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
       <% end %>
     } else if (now_target == 'wind') {
       <% @dems['wind'].each do |item| %>
-      content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
+        content += "<li data-type='<%= item['file'] %>'><%= item['datetime'].split(' ')[-1] %></li>"
       <% end %>
     }
     $('ul.time-line').empty();
     $('ul.time-line').append(content);
   }
 
+  // 重置tab选择状态
   function clear_selected() {
     $("#city > .city-tab-bar > ul > a").children('li').each(function(index, el) {
       $(el).removeClass('active'); 
