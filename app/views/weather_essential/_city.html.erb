@@ -44,17 +44,17 @@
   var run_thread;
   // 当前Tab
   var now_target = 'tempe';
-  // 播放状态
-  var player_state = 0;
   // 播放按钮
   var player_btn = $(".player-btn-container");
   // 播放长度
   var count = $("ul.time-line").children().length;
+    // 播放状态
+  var player_state = count - 1;
 
   // 切换tab事件
   $("#city .city-tab-bar").on('click', 'li', function(){
     clearInterval(run_thread);
-    player_state = 0;
+    player_state = count - 1;
     clear_selected();
     $(this).addClass('active');
     // 当前tab类别 
