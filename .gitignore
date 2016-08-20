@@ -23,3 +23,9 @@ config/ininializers/weixin_authorize.rb
 public/system/*
 public/assets/*
 public/images/*
+
+
+.DS_Store
+app/.DS_Store
+app/assets/.DS_Store
+app/assets/images/.DS_Store
