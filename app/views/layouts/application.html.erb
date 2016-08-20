@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag    "#{controller.controller_name}", media: 'all', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1471694838_9872584.css">
   <%= javascript_include_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag "#{controller.controller_name}", media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -12,7 +13,7 @@
 <body>
 
 <div class="container-fluid">
-  <%= yield %>      
+  <%= yield %>
 </div>
 <%= yield :scripts %>
 </body>

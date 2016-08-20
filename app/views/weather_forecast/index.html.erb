@@ -44,7 +44,7 @@
     <% end %>
   </div>
   <div class="row main-top-container-4">
-    <%= @poem.content %> --<%= @poem.solar %>
+    <%#= @poem.content %> --<%#= @poem.solar %>
   </div>
 </div>
 <div id="bottom-container" class="main-bottom-container">
@@ -55,13 +55,14 @@
           <p class="week"><%= t(item['week']) %></p>
           <p class="date-time"><%= item['datatime'] %></p>
           <p class="weather"><%= item['weather'] %></p>
-          <%= image_tag "small_icon/#{item['first_icon']}" %>
+          <div><span class="iconfont <%= weather_icon item['first_icon'] %>"></span></div>
           <p class="tempe"><%= item['tempe'] %></p>
-          <%= image_tag "small_icon/#{item['second_icon']}" %>
+          <div><span class="iconfont <%= weather_icon item['second_icon'] %>"></span></div>
         </li>
       <% end %>
     </ul>
   </div>
+
   <div class="scroll-marker">
     <i class="iconfont icon-xiaoyuan iconfont1 selected"></i><i class="iconfont icon-xiaoyuan iconfont2"></i>
   </div>
