@@ -1,7 +1,5 @@
 <div class="page-content">
-  <div class="row title">
-    <h4><%= @article.title %></h4>
-  </div>
+  <div class="row title"><%= @article.title %></div>
   <div class="row">
     <em class="datetime"><%= @article.created_at.strftime("%F %H:%M")%></em>
     <span class="author"><%= @article.author %></span>
@@ -9,5 +7,4 @@
   <div class="row content">
     <%= @article.content.html_safe %>
   </div>
-  
 </div>

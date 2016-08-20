@@ -9,10 +9,6 @@ module Admin
       @article = Article.new
     end
 
-    def edit
-      @article = Article.find_by(id: params[:id])
-    end
-
     def create
       @article = Article.new(article_params)
       p @article
@@ -22,6 +18,21 @@ module Admin
       else
         flash[:notice] = "创建失败"
         render :new
+      end
+    end
+
+    def edit
+      @article = Article.find(params[:id])
+    end
+
+    def update
+      @article = Article.find(params[:id])
+      if @article.update(article_params)
+        flash[:notice] = "更新成功"
+        redirect_to admin_articles_path
+      else
+        flash[:notice] = "更新失败"
+        render :edit
       end
     end
 
