@@ -9,14 +9,19 @@ class Radar
     _lat = location[:lat].to_f
 
     offset_x, offset_y = calculate _lon, _lat
+    # offset_x, offset_y = calculate
     list = $redis.lrange "radar_image_cache", 0, 9
-    lists = list.reverse
+    lists = [{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"}].map{|i| i.to_json}
     radar_images = []
     lists.each do |item|
+
+      p "++++++++++++++++++++++"
+      p item
+
       _item = MultiJson.load(item)
 
-      image = Magick::Image.read(_item['img']).first
-
+      # image = Magick::Image.read(_item['img']).first
+      image = Magick::Image.read("./app/assets/images/WechatIMG4.jpeg").first
       # 松江区域图叠加
       sj_bg = Magick::Image.read("./app/assets/images/songjiang.png").first
       sj_bg = sj_bg.resize(45, 34)
@@ -31,15 +36,22 @@ class Radar
       tri.stroke_width(6)
       tri.fill(red)
       # tri.circle(300, 300, 302,302) #中心点位置
-      locate_ptx = 292 + offset_x
-      locate_pty = 302 + offset_y
+      locate_ptx = 301 + offset_x
+      locate_pty = 300 + offset_y
       tri.circle(locate_ptx, locate_pty, locate_ptx + 2, locate_pty + 2)
       tri.draw(image)
-      file_name = "radar/#{_item['time']}_#{_lon}_#{_lat}.png"
+      file_name = "radar/#{_item['time']}_#{_lon}_#{_lat}.jpeg"
+
+      p "===================="
+      p file_name
+
       image.write("public/images/#{file_name}")
       radar_images << {datetime: _item['time'], url: file_name}
     end
     radar_images
+
+    p "----------------"
+    p radar_images
   end
 
   def self.process
@@ -110,10 +122,14 @@ class Radar
   end
 
   private
+  # def self.calculate lon, lat
+  #   _lon_idx = (lon - @radar_lon) / 0.0102
+  #   _lat_idx = (@radar_lat - lat) / 0.0072
+  #   [_lon_idx, _lat_idx]
+  # end
   def self.calculate lon, lat
-    _lon_idx = (lon - @radar_lon) / 0.0102
-    _lat_idx = (@radar_lat - lat) / 0.0072
+    _lon_idx = (lon - @radar_lon) * 118.206320981112
+    _lat_idx = (@radar_lat - lat) * 138.888888888889
     [_lon_idx, _lat_idx]
   end
-
 end

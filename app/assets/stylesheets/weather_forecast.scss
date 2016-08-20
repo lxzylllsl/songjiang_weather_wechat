@@ -32,6 +32,10 @@ body {
     .container-left {
       color: #fff;
       font-weight: 100;
+      a {
+        text-decoration: none;
+        color: #fff;
+      }
       .real-time-tempe {
         font-weight: 100;
         padding-left: 34px;
@@ -61,6 +65,10 @@ body {
       padding-left: 22px;
       padding-right: 18px;
       color: rgba(38,38,38,0.8);
+      a {
+        text-decoration: none;
+        color: rgba(38,38,38,0.8);
+      }
       .auto-station-info {
         font-size: 14px;
         div {
