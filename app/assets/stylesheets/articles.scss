@@ -6,7 +6,7 @@
   }
 }
 .articles-container {
-  margin-top: 22px;
+  margin-top: 10px;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -16,14 +16,14 @@
   padding-bottom: 10px;
   border-bottom: 1px solid #ccc;
   .thumb {
-    width: 100px;
-    height: 75px;
+    width: 100%;
+    min-height: 55px;
   }
   .explain {
-    padding-left: 15px;
+    padding-left: 10px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     overflow: hidden;
     h3 {
       color: #333;
