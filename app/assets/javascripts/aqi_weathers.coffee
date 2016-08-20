@@ -29,7 +29,7 @@ drawAqi = (ec)->
         formatter: (value)->
           "#{value.getHours()}时\n#{value.getMonth()+1}-#{value.getDate()}"
         textStyle:
-          color: "#fff"
+          color: "#4a4a4a"
       axisLine:
         lineStyle:
           color: '#fff'
@@ -47,21 +47,21 @@ drawAqi = (ec)->
       splitNumber: 7
       axisLabel:
         textStyle:
-          color: "#fff"
+          color: 'rgba(74,74,74,0.47)'
       axisLine:
         show: false
         lineStyle:
-          color: '#b6b5b5'
+          color: 'rgba(155,155,155,0.54)'
       splitLine:
         onGap: true
         lineStyle:
-          color: '#b6b5b5'
+          color: 'rgba(155,155,155,0.54)'
     ]
     series: [
       name: '空气质量'
       type: 'line'
       showAllSymbol: true
-      symbolSize: 4
+      symbolSize: 3
       itemStyle:
         normal:
           lineStyle:
@@ -97,7 +97,7 @@ drawPm25 = (ec)->
         formatter: (value)->
           "#{value.getHours()}时\n#{value.getMonth()+1}-#{value.getDate()}"
         textStyle:
-          color: "#fff"
+          color: "#4a4a4a"
       axisLine:
         lineStyle:
           color: '#fff'
@@ -115,15 +115,15 @@ drawPm25 = (ec)->
       splitNumber: 7
       axisLabel:
         textStyle:
-          color: "#fff"
+          color: 'rgba(74,74,74,0.47)'
       axisLine:
         show: false
         lineStyle:
-          color: '#657398'
+          color: 'rgba(155,155,155,0.54)'
       splitLine:
         onGap: true
         lineStyle:
-          color: '#657398'
+          color: 'rgba(155,155,155,0.54)'
     ]
     series: [
       name: 'PM10'
@@ -165,7 +165,7 @@ drawO3 = (ec)->
         formatter: (value)->
           "#{value.getHours()}时\n#{value.getMonth()+1}-#{value.getDate()}"
         textStyle:
-          color: "#fff"
+          color: "#4a4a4a"
       axisLine:
         lineStyle:
           color: '#fff'
@@ -183,15 +183,15 @@ drawO3 = (ec)->
       splitNumber: 7
       axisLabel:
         textStyle:
-          color: "#fff"
+          color: 'rgba(74,74,74,0.47)'
       axisLine:
         show: false
         lineStyle:
-          color: '#657398'
+          color: 'rgba(155,155,155,0.54)'
       splitLine:
         onGap: true
         lineStyle:
-          color: '#657398'
+          color: 'rgba(155,155,155,0.54)'
     ]
     series: [
       name: '空气质量'
@@ -233,7 +233,7 @@ drawPm10 = (ec)->
         formatter: (value)->
           "#{value.getHours()}时\n#{value.getMonth()+1}-#{value.getDate()}"
         textStyle:
-          color: "#fff"
+          color: "#4a4a4a"
       axisLine:
         lineStyle:
           color: '#fff'
@@ -251,15 +251,15 @@ drawPm10 = (ec)->
       splitNumber: 7
       axisLabel:
         textStyle:
-          color: "#fff"
+          color: 'rgba(74,74,74,0.47)'
       axisLine:
         show: false
         lineStyle:
-          color: '#657398'
+          color: 'rgba(155,155,155,0.54)'
       splitLine:
         onGap: true
         lineStyle:
-          color: '#657398'
+          color: 'rgba(155,155,155,0.54)'
     ]
     series: [
       name: '空气质量'
@@ -302,7 +302,7 @@ drawNo2 = (ec)->
         formatter: (value)->
           "#{value.getHours()}时\n#{value.getMonth()+1}-#{value.getDate()}"
         textStyle:
-          color: "#fff"
+          color: "#4a4a4a"
       axisLine:
         lineStyle:
           color: '#fff'
@@ -320,15 +320,15 @@ drawNo2 = (ec)->
       splitNumber: 7
       axisLabel:
         textStyle:
-          color: "#fff"
+          color: 'rgba(74,74,74,0.47)'
       axisLine:
         show: false
         lineStyle:
-          color: '#657398'
+          color: 'rgba(155,155,155,0.54)'
       splitLine:
         onGap: true
         lineStyle:
-          color: '#657398'
+          color: 'rgba(155,155,155,0.54)'
     ]
     series: [
       name: '空气质量'

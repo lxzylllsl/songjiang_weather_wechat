@@ -4,7 +4,7 @@
 
 body {
   color: #4a4a4a;
-  background-color: rgba(140, 178, 101, .5);
+  background-color: rgba(140, 178, 101, .22);
 }
 .col-xs-6 {
   padding-left: 5px;
@@ -12,8 +12,9 @@ body {
 }
 .real-time-aqi-container {
   background-color: #fff;
+  box-shadow: 0px 1px 11px 0px RGBA(0,0,0,0.5);
   .aqi-info {
-    height: 52px;
+    height: 50px;
     padding-top: 18px;
     padding-left: 10px;
     margin-left: 15px;
@@ -22,7 +23,7 @@ body {
     color: #4a4a4a;
     border-bottom: 1px solid rgba(74,74,74,0.5);
     .title {
-      font-size: 18px;
+      font-size: 16px;
     }
     .sub-info {
       padding-top: 6px;
@@ -37,13 +38,13 @@ body {
       margin-top: 2px;
       margin-bottom: 4px;
       text-align: center;
-      color: #e5da1e;
       font-size: 20px;
     }
     .aqi-level-shadeguide {
       margin-left: 8.33%;
       border-radius: 43px;
       color: #fff;
+      padding: 1px 0;
       text-align: center;
     }
     .aqi-human {
@@ -63,13 +64,12 @@ body {
   box-shadow: 0px 8px 8px rgba(0,0,0,0.2);
 }
 .divider {
-  width: 90%;
   height: 1px;
-  margin-left: 5%;
+  margin: 0 10px;
   border-bottom: 1px solid rgba(155,155,155,.6);
 }
 .air-forecast-container {
-  margin: 8px 6px 10px 6px;
+  margin: 15px 10px 10px;
   overflow: hidden;
   .forecast-container {
     position: relative;
@@ -103,85 +103,98 @@ body {
       display: block;
       float: left;
       height: 100%;
-      border-right: 1px solid rgba(140,178,101,.2);
+      border-right: 1px solid rgba(140,178,101,.4);
       background-color: transparent;
       font-size: 14px;
       .time {
         letter-spacing: 2px;
-        font-size: 16px;
-        margin-bottom: 6px;
+        font-size: 14px;
+        margin-bottom: 4px;
       }
       .side {
         font-size: 12px;
-        margin-bottom: 4px;
+        margin-bottom: 3px;
       }
       .detail {
-        margin-left: 5px;
-        margin-right: 5px;
-        padding-top: 5px;
-        padding-bottom: 5px;
+        margin: 5px;
+        padding: 5px;
         color: #fff;
-        background-color: rgba(169,169,169,.4);
+        background-color: rgba(169,169,169,.45);
         p {
+          font-size: 18px;
           margin-bottom: 8px;
         }
         .level-s {
           padding: 2px 12px;
-          border-radius: 5px;
+          border-radius: 3px;
         }
         .level-m {
          padding: 2px 6px; 
-         border-radius: 5px;
+         border-radius: 3px;
          margin-left: 2px;
         }
         
       }
       .pripoll {
         font-size: 12px;
+        margin-bottom: 0;
       }
     }      
   }
   .scroll-marker {
     position: relative;
-    margin-top: 2px;
+    height: 16px;
     text-align: center;
     .iconfont {
       font-size: 10px;
-      color: #efefef;
+      color: #CCCCCC;
+      margin: 0 2px;
     }
     .selected {
-      color: #ccc;
+      color: #8CB265;
     }
   }
 }
 .air-chart-container {
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
+  margin: 10px 15px 10px;
+  .title {
+    padding: 0 5px;
+  }
 }
-.nav-pills {
-  margin-top: 12px;
+.my-nav {
+  margin: 16px 0;
+  > li + li {
+    margin: 0;
+  }
   li {
-    font-size: 14px;
+    text-align: center;
+    font-size: 12px;
+    width: 20%;
     a {
-      padding: 4px 6px;
+      padding: 3px;
       color: #4a4a4a;
+      border-radius: 1px;
     }
     a:hover,
     a:focus {
-      color: #fff;
+      color: #4a4a4a;
       background-color: transparent!important;
     }
     a:active {
-      background-color: #4a4a4a!important;
+      background-color: rgba(74,74,74,0.5)!important;
     }
   }
   li.active {
     a {
-      background-color: rgba(74,74,74,0.5)!important;
+      color: #4a4a4a;
+      background-color: rgba(74,74,74,0.4)!important;
+      &:hover {
+        color: #4a4a4a;
+      }
     }
   }
 }
+// 质量等级背景色
 .level1 {
   background-color: #7ed321;
 }
@@ -199,6 +212,25 @@ body {
 }
 .level6 {
   background-color: #920012;
+}
+// 质量等级文字颜色
+.aqi1 {
+  color: #7ed321;
+}
+.aqi2 {
+  color: #f8e71c;
+}
+.aqi3 {
+  color: #f5a623;
+}
+.aqi4 {
+  color: #f9233e;
+}
+.aqi5 {
+  color: #b6015c;
+}
+.aqi6 {
+  color: #920012;
 }
 #aqi, #pm25, #o3, #pm10, #no2 {
   background: asset-data-url("colors.png") no-repeat 23px 10px;
@@ -316,10 +348,15 @@ body {
       font-size: 12px;
     }
   }
-  .nav-pills {
+  .my-nav {
     margin-top: 12px;
+    > li + li {
+      margin: 0;
+    }
     li {
-      font-size: 12px;
+      text-align: center;
+      font-size: 10px;
+      width: 20%;
       a {
         padding: 4px 6px;
       }

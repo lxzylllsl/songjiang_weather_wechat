@@ -13,6 +13,16 @@ module AirQualityHelper
     end
   end
 
+  def aqi_level_num item
+    levels = item['level'].split('到')
+    nums = item['aqi'].split('-')
+    if levels.size == 1
+      "<span class='#{level_color(levels[0])}'>#{item['aqi']}</span>"
+    else
+      "<span class='#{level_color(levels[0])}'>#{nums[0]}-</span><span class='#{level_color(levels[-1])}'>#{nums[-1]}</span>"
+    end
+  end
+
   def split_level level
     _levels = level.split('到')
     if _levels.size == 1 
@@ -36,6 +46,23 @@ module AirQualityHelper
       'level5'
     when '严重污染'
       'level6'
+    end
+  end
+
+  def level_color level
+    case level
+    when '优'
+      'aqi1'
+    when '良'
+      'aqi2'
+    when '轻度污染'
+      'aqi3'
+    when '中度污染'
+      'aqi4'
+    when '重度污染'
+      'aqi5'
+    when '严重污染'
+      'aqi6'
     end
   end
 end
