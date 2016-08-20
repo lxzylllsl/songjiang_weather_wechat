@@ -11,17 +11,15 @@ class Radar
     offset_x, offset_y = calculate _lon, _lat
     # offset_x, offset_y = calculate
     list = $redis.lrange "radar_image_cache", 0, 9
-    lists = [{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"}].map{|i| i.to_json}
+    lists = list.reverse
+    # lists = [{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"}].map{|i| i.to_json}
     radar_images = []
     lists.each do |item|
 
-      p "++++++++++++++++++++++"
-      p item
-
       _item = MultiJson.load(item)
 
-      # image = Magick::Image.read(_item['img']).first
-      image = Magick::Image.read("./app/assets/images/WechatIMG4.jpeg").first
+      image = Magick::Image.read(_item['img']).first
+      # image = Magick::Image.read("./app/assets/images/WechatIMG4.jpeg").first
       # 松江区域图叠加
       sj_bg = Magick::Image.read("./app/assets/images/songjiang.png").first
       sj_bg = sj_bg.resize(45, 34)
@@ -42,16 +40,10 @@ class Radar
       tri.draw(image)
       file_name = "radar/#{_item['time']}_#{_lon}_#{_lat}.jpeg"
 
-      p "===================="
-      p file_name
-
       image.write("public/images/#{file_name}")
       radar_images << {datetime: _item['time'], url: file_name}
     end
     radar_images
-
-    p "----------------"
-    p radar_images
   end
 
   def self.process

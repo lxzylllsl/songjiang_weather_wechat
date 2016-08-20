@@ -8,8 +8,6 @@ class RadarSatellisController < ApplicationController
   def index
     @radar_images = Radar.locate location_params
     @cloud_img = Image::CloudData.new.fetch
-    p "======================="
-    p @radar_images
   end
 
   def demo
