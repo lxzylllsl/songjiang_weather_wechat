@@ -34,6 +34,10 @@ body {
     margin-top: 12px;
     margin-bottom: 12px;
     overflow: hidden;
+    .desc {
+      text-align: justify;
+      padding-right: 15px;
+    }
     .aqi-level {
       margin-top: 2px;
       margin-bottom: 4px;
@@ -285,6 +289,8 @@ body {
       }
       .desc {
         font-size: 12px;
+        text-align: justify;
+        padding-right: 10px;
       }
     }
   }

@@ -12,11 +12,12 @@
 // require bootstrap-sprockets
 //
 //= require ./jquery
-//= require ./dataTable/jquery.dataTables.min
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
+//= require ./dataTable/jquery.dataTables.min
 //= require iscroll
 //= require echarts/echarts
 //= require echarts/chart/line
 //= require echarts/chart/bar
 //= require bootstrap/tab
+//= require turbolinks

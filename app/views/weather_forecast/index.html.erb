@@ -32,8 +32,11 @@
           <div class="col-xs-12">东南风 3～4级</div>
           <div class="col-xs-12">气&nbsp;&nbsp;&nbsp;压 <%= @real_time_site['pressure'] %>Pa</div>
         <% end %>
-        <%= link_to air_quality_index_path do %>
-          <div class="col-xs-12"><%= @real_time_aqi['aqi'] %> <span class="air-shadeguide <%= translate_level(@real_time_aqi['level'])%>"><%= @real_time_aqi['level'] %></span></div>
+        <%= link_to air_quality_index_path, 'data-turbolinks' => false do %>
+          <div class="col-xs-12">
+            <%= @real_time_aqi['aqi'] %> 
+            <span class="air-shadeguide <%= translate_level(@real_time_aqi['level'])%>"><%= @real_time_aqi['level'] %></span>
+          </div>
         <% end %>
       </div>
     </div>
@@ -44,7 +47,7 @@
     <% end %>
   </div>
   <div class="row main-top-container-4">
-    <%= @poem.content %> --<%= @poem.solar %>
+    <%#= @poem.content %> --<%#= @poem.solar %>
   </div>
 </div>
 <div id="bottom-container" class="main-bottom-container">

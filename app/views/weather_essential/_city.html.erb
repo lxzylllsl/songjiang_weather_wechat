@@ -75,20 +75,26 @@
   // 播放按钮点击事件
   $(".player-btn").on('click', function() {
     clearInterval(run_thread);
-    if ($(this).find('i').hasClass('icon-bofang')) {
+    var _btn_icon = $(this).find('i');
+    if (_btn_icon.hasClass('icon-bofang')) {
       // 定时任务
       run_thread = setInterval(function() {
         $("#dem-"+now_target + ' > img').attr('src', $("ul.time-line > li:eq("+player_state+")").attr('data-type'));
         player_state++;
         // 播放完毕，重新播放
-        if (player_state > count - 1) player_state = 0;
+        if (player_state == count - 1) {
+          clearInterval(run_thread);
+          _btn_icon.removeClass('icon-zanting').addClass('icon-bofang');
+        } else if (player_state > count - 1) {
+          player_state = 0;
+        }
         // 移动播放按钮
         player_btn.css("left", player_state*100/count+"%");
       }, 1000);
       // 显示暂停按钮
-      $(this).find('i').removeClass('icon-bofang').addClass('icon-zanting');  
+      _btn_icon.removeClass('icon-bofang').addClass('icon-zanting');  
     } else {
-      $(this).find('i').removeClass('icon-zanting').addClass('icon-bofang');  
+      _btn_icon.removeClass('icon-zanting').addClass('icon-bofang'); 
     }
   });
 

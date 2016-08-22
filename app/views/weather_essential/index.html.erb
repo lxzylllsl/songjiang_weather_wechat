@@ -20,6 +20,8 @@
           <% @statistics.each do |item| %>
             <% if item['name'].eql? '松江' %>
             <tr class="main-station" data="tempe_<%= item['sitenumber'] %>">
+            <% elsif item['name'].eql? @real_time_site['name'] %>
+            <tr data="tempe_<%= item['sitenumber'] %>" class="tr-station">
             <% else %>
             <tr data="tempe_<%= item['sitenumber'] %>">
             <% end %>

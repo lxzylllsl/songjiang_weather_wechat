@@ -115,10 +115,15 @@
     border: 0!important;
   }
 }
-.tr-active {
+.tr-station {
   border-radius: 5px;
   color: #fff;
   background-color: #8CB265 !important;
+}
+.tr-active {
+  border-radius: 5px;
+  color: #fff;
+  background-color: rgba(140,178,101,0.5) !important;
 }
 .site-id {
   display: none;
