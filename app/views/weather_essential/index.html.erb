@@ -26,9 +26,9 @@
             <tr data="tempe_<%= item['sitenumber'] %>">
             <% end %>
               <td><%= item['name'] %></td>
-              <td><%= filter(item['tempe']) %></td>
-              <td><%= item['min_tempe'] %></td>
-              <td><%= item['max_tempe'] %></td>
+              <td class="<%= tempe_color item['tempe'] %>"><%= filter(item['tempe']) %></td>
+              <td class="<%= tempe_color item['min_tempe'] %>"><%= item['min_tempe'] %></td>
+              <td class="<%= tempe_color item['max_tempe'] %>"><%= item['max_tempe'] %></td>
               <td><%= item['distance'] %></td>
             </tr>
           <% end %>
@@ -54,10 +54,34 @@
             <tr data="wind_<%= item['sitenumber'] %>">
             <% end %>
               <td><%= item['name'] %></td>
-              <td><%= item['one_hour_speed'] %></td>
-              <td><%= item['three_hour_speed'] %></td>
-              <td><%= item['six_hour_speed'] %></td>
-              <td><%= item['one_day_speed'] %></td>
+              <td>
+                <%= item['one_hour_speed'] %>
+                <% one_level = speed_to_level item['one_hour_speed'] %>
+                <span class="wind_level <%= wind_color one_level %>">
+                  <%= one_level %>
+                </span>
+              </td>
+              <td>
+                <%= item['three_hour_speed'] %>
+                <% three_level = speed_to_level item['three_hour_speed'] %>
+                <span class="wind_level <%= wind_color three_level %>">
+                  <%= three_level %>
+                </span>
+              </td>
+              <td>
+                <%= item['six_hour_speed'] %>
+                <% six_level = speed_to_level item['six_hour_speed'] %>
+                <span class="wind_level <%= wind_color six_level %>">
+                  <%= six_level %>
+                </span>
+              </td>
+              <td>
+                <%= item['one_day_speed'] %>
+                <% day_level = speed_to_level item['one_day_speed'] %>
+                <span class="wind_level <%= wind_color day_level %>">
+                  <%= day_level %>
+                </span>
+              </td>
             </tr>
           <% end %>
         </tbody>
@@ -82,10 +106,10 @@
             <tr data="rain_<%= item['sitenumber'] %>">
             <% end %>
               <td><%= item['name'] %></td>
-              <td><%= item['one_hour_rain'] %></td>
+              <td class="<%= "text-danger" if item['one_hour_rain'].to_i >= 20 %>"><%= item['one_hour_rain'] %></td>
               <td><%= item['three_hour_rain'] %></td>
               <td><%= item['six_hour_rain'] %></td>
-              <td><%= item['one_day1_rain'] %></td>
+              <td class="<%= "text-danger" if item['one_day1_rain'].to_i >= 50 %>"><%= item['one_day1_rain'] %></td>
             </tr>
           <% end %>
         </tbody>

@@ -104,22 +104,36 @@
 }
 .table {
   font-size: 12px;
+  tbody {
+    tr {
+      outline: 1px solid transparent;
+    }
+  }
   thead {
     height: 34px;
     line-height: 34px;
     color: #fff;
     background-color: #8CB265;
-    td > span {
-      font-size: 10px;
-      
-    }
+    td {
+      > span {
+        font-size: 10px;
+      }
+    } 
     .glyphicon-sort {
       color: rgba(255,255,255,0.5);
     }
   }
   td {
     text-align: center;
-    border: 0!important;
+    border: 0 !important;
+    height: 36px;
+    padding: 0 !important;
+    line-height: 38px !important;
+    .wind_level {
+      font-size: 10px;
+      vertical-align: sub;
+      margin: 10px 0 0 0;
+    }
   }
 }
 .tr-station {
@@ -160,7 +174,7 @@
   height: 250px;
 }
 .main-station {
-  outline: 1px solid #8CB265;
+  outline: 1px solid #8CB265 !important;
 }
 #viewDiv {
   height: 100%;
