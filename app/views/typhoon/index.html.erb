@@ -34,12 +34,12 @@
 <% end %>
 <div id="tflist">
   <!-- 耳朵 -->
-  <div class="tab-bar col-xs-12">
+  <div class="tab-bar col-xs-12" id="ear_list">
     <ul class="tab">
-      <li role="presentation" class="active">
+      <!-- <li role="presentation" class="active">
         <a href="#list" aria-controls="list" role="tab" data-toggle="tab"><span id="tf-name">列表</span></a>
-      </li>
-      <li role="presentation" class="">
+      </li> -->
+      <li role="presentation" class="active">
         <a href="#info" aria-controls="info" role="tab" data-toggle="tab">图例</a>
       </li>
     </ul>
@@ -49,18 +49,9 @@
   </div>
 
   <!-- 内容 -->
-  <div class="row tab-content">
-    <div role="tabpanel" class="tab-pane col-xs-12 active" id="list">
-      <div class="header"><div class="time">时间</div><div class="narrow">气压</div><div class="narrow">风力</div></div>
-      <div class="typhoon-list">
-        <!-- <div class="blur-bg-container"></div> -->
-        <ul class="typhoon-items">
-          
-        </ul>  
-      </div>
-    </div>
+  <div class="row tab-content" id="tab-list-content">
 
-    <div role="tabpanel" class="tab-pane col-xs-12" id="info">
+    <div role="tabpanel" class="tab-pane col-xs-12 active" id="info">
     <div class="blur-bg-container"></div>
       <div class="top">
         <div class="header">
@@ -225,18 +216,24 @@
     map.setMinZoom(4);
     map.setMaxZoom(9);
     var radar_pic;
-    var current_typhoon;
+    var current_typhoon = [];
     var can_run = true;
 
     var show_units = ['上海', '中国', '中国香港', '中国台湾', '美国', '日本'];
-    // // 初始化警戒线
+    //初始化警戒线
     init_map();
 
+    $(window).load(function() { 
+      get_more_typhoon_list();
+    }); 
+
     setTimeout(function() {
-      get_typhoon_list();  
+      get_typhoon_list();
     }, 1000);
-    
-    get_typhoon('9999');
+
+    // get_typhoon('1611');
+
+    // get_typhoon('1610');
 
     // 菜单组事件
     $(".btn-group").on('click', 'div', function(){
@@ -253,6 +250,7 @@
           $(this).removeClass('glyphicon-play').addClass('glyphicon-minus');
           clearTimeout(timer);
           init_map();
+          get_more_typhoon_list();
           draw_typhoon(200);
           break;
         case "switch":
@@ -283,7 +281,7 @@
       map.addOverlay(radar_pic);
       $('#switcher').addClass('active')
     }
-
+    // 初始化地图，添加警戒线
     function init_map() {
       map.clearOverlays();
       if (_typhoon != undefined) {
@@ -323,6 +321,97 @@
     }
 
     var level_names = ['','热带低压', '热带风暴', '强热带风暴', '台风', '强台风', '超强台风'];
+
+    // 获取台风列表
+    function get_more_typhoon_list() {
+      init_map();
+      $.ajax({
+        type: 'get',
+        async: true,
+        url: 'http://61.152.122.112:8080/api/v1/pri_typhoons?appid=ZfQg2xyW04X3umRPsi9H&appkey=xWOX5kAYVSduEl38oJctyRgB2NDMpH',
+        headers: {Accept: 'application/json'},
+        success: function(json) {
+          typhoons = json.list;
+          
+          var now_list = [];
+          var now_list_cname = [];
+          var now_list_ename = [];
+          var idx;
+          var typhoons_list_content = "";
+          var typhoons_list_content_detail = "";
+          var list_top_content = "";
+          var list_top_content_text = "";
+
+          for (idx in typhoons) {
+            typhoons_list_content += "<li data-target='"+typhoons[idx].serial_number+"'>"+typhoons[idx].cname+"("+typhoons[idx].ename+")</li>";
+
+            // 获取当前24小时内未停报台风
+            date = typhoons[idx].last_report_time;
+
+            var ddd = new Date((date).replace(/-/g, "/"));
+            var now = Date.now();
+
+            chazhi = (now-ddd)/(36*100000);
+            if (chazhi < 12) {
+              now_list.push(typhoons[idx].serial_number);
+              now_list_cname.push(typhoons[idx].cname);
+              now_list_ename.push(typhoons[idx].ename);
+            }
+          }
+          $("#typhoons_selector > ul").append(typhoons_list_content);
+          $("#ear_list > ul").empty();
+          var cont = "";
+          cont += "<li role='presentation' class='active'><a href='#info' aria-controls='info' role='tab' data-toggle='tab'>图例</a></li>";
+          $("#ear_list > ul").append(cont);
+
+          // 循环显示多台风列表耳朵
+          for (var i = now_list.length - 1; i >= 0; i--) {
+            list_top_content += "<li role='presentation' class=''><a href='#"+now_list_ename[i]+"' aria-controls='"+now_list_ename[i]+"' role='tab' data-toggle='tab'><span id='tf"+now_list_ename[i]+"'>"+now_list_cname[i]+"</span></a></li>";
+            typhoons_list_content_detail += "<div role='tabpanel' class='tab-pane tab-pane-typ col-xs-12' id='"+now_list_ename[i]+"'><div class='header'><div class='time'>时间</div><div class='narrow'>气压</div><div class='narrow'>风力</div></div><div class='typhoon-list'><ul class='typhoon-items'> </ul></div></div>";
+            list_top_content_text += "<strong>"+now_list_cname[i]+"("+now_list[i]+")</strong>&nbsp&nbsp";
+
+            $.ajax({
+              type: 'get',
+              async: true,
+              url: 'http://61.152.122.112:8080/api/v1/pri_typhoons/'+now_list[i]+'?appid=ZfQg2xyW04X3umRPsi9H&appkey=xWOX5kAYVSduEl38oJctyRgB2NDMpH',
+              headers: {Accept: 'application/json'},
+              success: function(json) {
+                var list_datas = json.real_location;
+                var now_ename = json.ename
+                var table_content = "";
+                for (var idx = list_datas.length - 1; idx >= 0; idx--) {
+                  table_content += "<li><div class='time'>"+list_datas[idx].time+"</div><div class='narrow'>"+list_datas[idx].min_pressure+"</div><div class='narrow'>"+list_datas[idx].max_wind+"</div></li>";
+                }
+
+                $("#"+now_ename+" .typhoon-items").append(table_content);
+
+                if (now_list.length > 1) {
+                  $('#title .main-title').html("目前在编报台风"+now_list.length+"个:"+list_top_content_text+"");
+                }else{
+                  $('#title .main-title').html(now_list_cname[0]);
+                  $('.current_time').html(list_datas[0].time);
+                  $('#title .sub-title').html("等级:" + level_names[transform_level(list_datas[0].max_wind)]);
+                }
+              },
+              fail: function(json) {
+                console.log(json);
+              }
+            });
+          }
+          $("#info").addClass('active');
+          $("#ear_list > ul").append(list_top_content);
+          $("#tab-list-content").append(typhoons_list_content_detail);
+
+          // 初始化
+          get_more_typhoon(now_list)
+
+        },
+        fail: function(json) {
+          console.log(json);
+        }
+      });
+    }
+
     function get_typhoon_list() {
       $.ajax({
         type: 'get',
@@ -412,16 +501,28 @@
         url: 'http://61.152.122.112:8080/api/v1/pri_typhoons/'+typhoon_id+'?appid=ZfQg2xyW04X3umRPsi9H&appkey=xWOX5kAYVSduEl38oJctyRgB2NDMpH',
         headers: {Accept: 'application/json'},
         success: function(json) {
-          current_typhoon = json;
+          current_typhoon.first = json;
 
           $('#title .main-title').html(json.name + json.cname + " ("+ json.ename +")");
-          if (current_typhoon.status == 'stop') {
+          if (current_typhoon.first.status == 'stop') {
             $('#title .main-title').append(' 停止编报');
           }
-          $('#tf-name').html("("+json.name+")"+json.cname);
+          //点击列表按钮弹框耳朵，文字设置（台风名称）
+          $("#ear_list > ul").empty();
+          var content = "";
+          var typhoons_list_content_detail = "";
+
+          content += "<li role='presentation' class='active'><a href='#info' aria-controls='info' role='tab' data-toggle='tab'>图例</a></li><li role='presentation' class=''><a href='#"+json.ename+"' aria-controls='"+json.ename+"' role='tab' data-toggle='tab'><span id='tf"+json.ename+"'>"+json.cname+"</span></a></li>";
+          typhoons_list_content_detail += "<div role='tabpanel' class='tab-pane tab-pane-typ col-xs-12' id='"+json.ename+"'><div class='header'><div class='time'>时间</div><div class='narrow'>气压</div><div class='narrow'>风力</div></div><div class='typhoon-list'><ul class='typhoon-items'> </ul></div></div>";
+
+          $("#info").addClass('active');
+          $("#ear_list > ul").append(content);
+          $("#tab-list-content").append(typhoons_list_content_detail);
+          // 设置浏览器标题显示信息
           $("head title").html(build_title(json));
-          var first_point = current_typhoon.real_location[0]
+          var first_point = current_typhoon.first.real_location[0]
           map.panTo(new BMap.Point(first_point.lon, first_point.lat));
+          // 动态打点添加台风路径
           setTimeout(function(){
             draw_typhoon();
           }, 500);
@@ -430,8 +531,7 @@
           for (var idx = list_datas.length - 1; idx >= 0; idx--) {
             table_content += "<li><div class='time'>"+list_datas[idx].time+"</div><div class='narrow'>"+list_datas[idx].min_pressure+"</div><div class='narrow'>"+list_datas[idx].max_wind+"</div></li>";
           }
-          
-          $("#list .typhoon-items").append(table_content);
+          $("#"+json.ename+" .typhoon-items").append(table_content);
         },
         fail: function(json) {
           console.log(json);
@@ -439,6 +539,151 @@
       });
     }
 
+
+
+
+
+
+
+    // 初始化多台风路径显示
+
+    var _typhoon1 = [];
+    var curr_more_point_idx = [0,0,0];
+    var timer1 = [];
+    
+    function get_more_typhoon(typhoons) {
+      init_map();
+      var points1 = new Array(); 
+      for (var idx = typhoons.length - 1; idx >= 0; idx--) {
+        $.ajax({
+          type: 'get',
+          async: true,
+          url: 'http://61.152.122.112:8080/api/v1/pri_typhoons/'+typhoons[idx]+'?appid=ZfQg2xyW04X3umRPsi9H&appkey=xWOX5kAYVSduEl38oJctyRgB2NDMpH',
+          headers: {Accept: 'application/json'},
+          success: function(json) {
+            points1[idx]= new Array();
+            current_typhoon[idx] = json;
+            // $('#title .main-title').html(json.name + json.cname + " ("+ json.ename +")");
+            if (current_typhoon[idx].status == 'stop') {
+              $('#title .main-title').append(' 停止编报');
+            }
+            //点击列表按钮弹框耳朵，文字设置（台风名称）
+            // $('#tf-name').html("("+json.name+")"+json.cname);
+            // 设置浏览器标题显示信息
+            $("head title").html(build_title(json));
+            var first_point = current_typhoon[idx].real_location[0]
+            map.panTo(new BMap.Point(first_point.lon, first_point.lat));
+
+            _typhoon1[idx] = new BMap.Polyline(points1[idx], {strokeColor:"#9B9B9B", strokeWeight:1.5, strokeOpacity:1});
+
+            var typ = _typhoon1[idx];
+            var c_typ = current_typhoon[idx];
+            var pot = points1[idx];
+            var i = idx;
+
+            timer1[idx] = json.ename
+
+            var time = timer1[idx]
+            var _pt_icon1;
+            var typhoon_gif_mark1;
+
+            // 动态打点添加台风路径
+            draw_more_typhoon(50,typ,c_typ,pot,0, _pt_icon1, typhoon_gif_mark1, time);
+
+          },
+          fail: function(json) {
+            console.log(json);
+          }
+        });
+
+      }
+    }
+
+    function draw_more_typhoon(d,typhoon_more,current_more_typhoon,points1_more,idx, _pt_icon1, typhoon_gif_mark1, time) {
+      can_run = false;
+      if (d == undefined) {
+        d = 50;
+      }
+
+      var _ptm;
+      var real_location = current_more_typhoon.real_location;
+      if (real_location[curr_more_point_idx[idx]] == undefined) {
+        // show_wind_radius(real_location[curr_more_point_idx[idx] - 1]);
+        curr_more_point_idx[idx] = 0;
+        points1_more.length = 0;
+        // clearTimeout(time);
+        if (current_more_typhoon.status != 'stop') {
+          show_more_forecast(current_more_typhoon);  
+        }
+        return;
+      }
+
+      // 动态打点，添加台风路径
+      // time = setTimeout(function(){
+        map.addOverlay(typhoon_more);
+        var _current_pt = real_location[curr_more_point_idx[idx]];
+        point = new BMap.Point(_current_pt.lon, _current_pt.lat)
+        map.removeOverlay(typhoon_gif_mark1);
+        // 设置台风图标
+        var typhoon_gif_icon = new BMap.Icon(typhoon_gif, new BMap.Size(40,40));
+        typhoon_gif_icon.setImageSize(new BMap.Size(40,40));
+        typhoon_gif_mark1 = new BMap.Marker(point, {icon: typhoon_gif_icon});
+
+        map.addOverlay(typhoon_gif_mark1);
+        points1_more.push(point);
+        typhoon_more.setPath(points1_more);
+        _pt_icon1 = new BMap.Icon(typhoon_level_imgs[transform_level(_current_pt.max_wind)], new BMap.Size(10,10));
+        _pt_icon1.setImageSize(new BMap.Size(10,10));
+        _ptm = new BMap.Marker(point, {icon: _pt_icon1});
+        // $('.current_time').html(_current_pt.time);
+        // $('#title .sub-title').html("等级:" + level_names[transform_level(_current_pt.max_wind)]);
+        var content = build_content(_current_pt);
+
+        addClickHandler(content, _ptm, current_more_typhoon);
+        map.addOverlay(_ptm);
+        curr_more_point_idx[idx] += 1;
+        draw_more_typhoon(d,typhoon_more,current_more_typhoon,points1_more,idx,_pt_icon1, typhoon_gif_mark1, time);
+      // }, d); 
+    }
+
+
+    var _typhoon3;
+    function show_more_forecast(current_more_typhoon) {
+      var size, _ptm, curr_point_idx2;
+      var curr_point_obj = current_more_typhoon.real_location[current_more_typhoon.real_location.length - 1];
+      var curr_point = new BMap.Point(curr_point_obj.lon, curr_point_obj.lat);
+      var forecast_location = current_more_typhoon.forecast_location;
+      for (size in forecast_location) {
+        var items = forecast_location[size];
+        if ($.inArray(items[0].unit, show_units) < 0) {
+          continue;
+        }
+        var _path = [curr_point]
+        var curr_path_idx;
+        var point;
+
+        var _typhoon3 = new BMap.Polyline(_path, {strokeColor: dept_color(forecast_location[size][0].unit), strokeStyle: 'dashed', strokeWeight:2, strokeOpacity:1});
+        var _current_pt, content;
+        for (curr_point_idx2 in items) {
+          _current_pt = items[curr_point_idx2];
+          point = new BMap.Point(_current_pt.lon, _current_pt.lat)
+          _path.push(point);
+          _typhoon3.setPath(_path);
+          _pt_icon = new BMap.Icon(typhoon_level_imgs[transform_level(_current_pt.max_wind)], new BMap.Size(10,10));
+          _pt_icon.setImageSize(new BMap.Size(10,10));
+          _ptm = new BMap.Marker(point, {icon: _pt_icon});
+          content = build_content(_current_pt);
+          addClickHandler(content, _ptm, current_more_typhoon);
+          map.addOverlay(_ptm);
+        }
+        map.addOverlay(_typhoon3);
+      }
+      can_run = true;
+      $('.btn-group > .glyphicon-minus').removeClass('glyphicon-minus').addClass('glyphicon-play');
+    }
+
+
+    // 设置浏览器标题显示信息
     function build_title(json) {
       var current_location = json.real_location[json.real_location.length - 1];
       var content = "";
@@ -476,27 +721,30 @@
         d = 50;
       }
       var _ptm;
-      var real_location = current_typhoon.real_location;
+      var real_location = current_typhoon.first.real_location;
       if (real_location[curr_point_idx] == undefined) {
         
         show_wind_radius(real_location[curr_point_idx - 1]);
         curr_point_idx = 0;
         points.length = 0;
         clearTimeout(timer);
-        if (current_typhoon.status != 'stop') {
-          show_forecast();  
+        if (current_typhoon.first.status != 'stop') {
+          show_forecast();
         }
         return;
       }
 
+      // 动态打点，添加台风路径
       timer = setTimeout(function(){
         map.addOverlay(_typhoon);
         var _current_pt = real_location[curr_point_idx];
         point = new BMap.Point(_current_pt.lon, _current_pt.lat)
         map.removeOverlay(typhoon_gif_mark);
+        // 设置台风图标
         var typhoon_gif_icon = new BMap.Icon(typhoon_gif, new BMap.Size(40,40));
         typhoon_gif_icon.setImageSize(new BMap.Size(40,40));
         typhoon_gif_mark = new BMap.Marker(point, {icon: typhoon_gif_icon});
+
         map.addOverlay(typhoon_gif_mark);
         points.push(point);
         _typhoon.setPath(points);
@@ -507,7 +755,7 @@
         $('#title .sub-title').html("等级:" + level_names[transform_level(_current_pt.max_wind)]);
         var content = build_content(_current_pt);
 
-        addClickHandler(content, _ptm);
+        addClickHandler(content, _ptm, current_typhoon.first);
         map.addOverlay(_ptm);
         curr_point_idx += 1;
         draw_typhoon(d);
@@ -517,9 +765,9 @@
     var _typhoon2;
     function show_forecast() {
       var size, _ptm, curr_point_idx2;
-      var curr_point_obj = current_typhoon.real_location[current_typhoon.real_location.length - 1];
+      var curr_point_obj = current_typhoon.first.real_location[current_typhoon.first.real_location.length - 1];
       var curr_point = new BMap.Point(curr_point_obj.lon, curr_point_obj.lat);
-      var forecast_location = current_typhoon.forecast_location;
+      var forecast_location = current_typhoon.first.forecast_location;
       for (size in forecast_location) {
         var items = forecast_location[size];
         if ($.inArray(items[0].unit, show_units) < 0) {
@@ -540,7 +788,7 @@
           _pt_icon.setImageSize(new BMap.Size(10,10));
           _ptm = new BMap.Marker(point, {icon: _pt_icon});
           content = build_content(_current_pt);
-          addClickHandler(content, _ptm);
+          addClickHandler(content, _ptm, current_typhoon.first);
           map.addOverlay(_ptm);
         }
         map.addOverlay(_typhoon2);
@@ -559,14 +807,14 @@
       map.addOverlay(ten_wind_radius);
     }
 
-    function addClickHandler(content, marker) {
+    function addClickHandler(content, marker, typhoon_more) {
       marker.addEventListener('click', function(e) {
-        show_tips(content, e);
+        show_tips(content, e, typhoon_more);
       });
     }
 
-    function show_tips(content, e){
-      var infowindow = new BMap.InfoWindow(content,{width:100,height:210,title: "[" + current_typhoon.name + "] " + current_typhoon.cname});
+    function show_tips(content, e, typhoon_more){
+      var infowindow = new BMap.InfoWindow(content,{width:100,height:210,title: "[" + typhoon_more.name + "] " + typhoon_more.cname});
       map.openInfoWindow(infowindow,e.target.point);
     }
 
@@ -646,7 +894,7 @@
 
     $(document).on('click', function(e){
       if ($(e.target).closest('#title').length == 0) {
-        $("#typhoons_selector").hide();  
+        $("#typhoons_selector").hide();
       } else {
         show_selector();
       }
