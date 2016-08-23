@@ -159,7 +159,7 @@ StationInfo.create(name:"枫泾",sitenumber:98115,area:"金山",address:"金山�
 StationInfo.create(name:"廊下",sitenumber:98116,area:"金山",address:"金山区廊下农业园区",lon:121.0845,lat:30.4724)
 StationInfo.create(name:"张堰",sitenumber:98102,area:"金山",address:"金山区嘉乐金张公路288号",lon:121.1707,lat:30.4816)
 StationInfo.create(name:"吕巷",sitenumber:98117,area:"金山",address:"金山区朱吕公路6969号",lon:121.1032,lat:30.5)
-StationInfo.create(name:"松江",sitenumber:58462,area:"松江",address:"松江",lon:121.25,lat:31.0)
+StationInfo.create(name:"松江",sitenumber:58462,area:"松江",address:"松江",lon:121.23,lat:31.03)
 StationInfo.create(name:"叶榭",sitenumber:"98203",area:"松江",address:"叶榭镇政府",lon: 121.3169444,lat: 30.945)
 StationInfo.create(name:"五厍",sitenumber:"98210",area:"松江",address:"五厍农展馆",lon: 121.1277778,lat: 30.93472222)
 StationInfo.create(name:"天马山",sitenumber:"98212",area:"松江",address:"九江路近沈砖公路",lon: 121.1283333,lat: 31.09138889)
