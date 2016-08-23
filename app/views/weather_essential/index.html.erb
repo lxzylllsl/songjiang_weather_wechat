@@ -313,18 +313,22 @@
       $("#myChart").show();
     }
   }
-</script>
 
-<script>
-  // 设置排序图标
+  <!-- // 设置排序图标 -->
   $(function() {
     $(".header td").click(function() {
       var _td_class = $(this).attr("class");
+      // 重置class
+      $(".header td").children("span").removeClass("glyphicon-triangle-bottom glyphicon-triangle-top");
+      $(".header td").children("span").addClass("glyphicon-sort");
+      // 隐藏图表
+      hide_float_window();
+      // 设置点击的class
       if (_td_class == "sorting_asc") {
         $(this).children("span").removeClass("glyphicon-sort glyphicon-triangle-bottom");
         $(this).children("span").addClass("glyphicon-triangle-top");
       } else if (_td_class == "sorting_desc") {
-        $(this).children("span").removeClass("glyphicon-triangle-top");
+        $(this).children("span").removeClass("glyphicon-sort glyphicon-triangle-top");
         $(this).children("span").addClass("glyphicon-triangle-bottom");
       } 
     });
