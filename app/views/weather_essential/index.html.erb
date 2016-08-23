@@ -313,5 +313,13 @@
       $("#myChart").show();
     }
   }
-  
+
+  // 取出url参数
+  function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+  }
+
+  alert("经度(lon)："+getQueryString("lon")+"\n"+"纬度(lat)："+getQueryString("lat"));
 </script>
