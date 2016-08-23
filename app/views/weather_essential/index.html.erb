@@ -11,10 +11,10 @@
       <table id="tempe-table" class="table table-hover table-striped table-condensed table-fixed-header" role="grid">
         <thead class="header">
           <td>自动站名</td>
-          <td>即时气温</td>
-          <td>今日最低</td>
-          <td>今日最高</td>
-          <td>离你距离</td>
+          <td>即时气温 <span class="glyphicon glyphicon-sort"></span></td>
+          <td>今日最低 <span class="glyphicon glyphicon-sort"></span></td>
+          <td>今日最高 <span class="glyphicon glyphicon-sort"></span></td>
+          <td>离你距离 <span class="glyphicon glyphicon-sort"></span></td>
         </thead>
         <tbody>
           <% @statistics.each do |item| %>
@@ -40,10 +40,10 @@
         <thead class="header">
           <tr>
             <td>自动站名</td>
-            <td>1小时</td>
-            <td>3小时</td>
-            <td>6小时</td>
-            <td>24小时</td>
+            <td>1小时 <span class="glyphicon glyphicon-sort"></span></td>
+            <td>3小时 <span class="glyphicon glyphicon-sort"></span></td>
+            <td>6小时 <span class="glyphicon glyphicon-sort"></span></td>
+            <td>24小时 <span class="glyphicon glyphicon-sort"></span></td>
           </tr>
         </thead>
         <tbody>
@@ -68,10 +68,10 @@
         <thead class="header">
           <tr>
             <td>自动站名</td>
-            <td>1小时</td>
-            <td>3小时</td>
-            <td>6小时</td>
-            <td>24小时</td>
+            <td>1小时 <span class="glyphicon glyphicon-sort"></span></td>
+            <td>3小时 <span class="glyphicon glyphicon-sort"></span></td>
+            <td>6小时 <span class="glyphicon glyphicon-sort"></span></td>
+            <td>24小时 <span class="glyphicon glyphicon-sort"></span></td>
           </tr>
         </thead>
         <tbody>
@@ -313,13 +313,20 @@
       $("#myChart").show();
     }
   }
+</script>
 
-  // 取出url参数
-  function getQueryString(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]); return null;
-  }
-
-  alert("经度(lon)："+getQueryString("lon")+"\n"+"纬度(lat)："+getQueryString("lat"));
+<script>
+  // 设置排序图标
+  $(function() {
+    $(".header td").click(function() {
+      var _td_class = $(this).attr("class");
+      if (_td_class == "sorting_asc") {
+        $(this).children("span").removeClass("glyphicon-sort glyphicon-triangle-bottom");
+        $(this).children("span").addClass("glyphicon-triangle-top");
+      } else if (_td_class == "sorting_desc") {
+        $(this).children("span").removeClass("glyphicon-triangle-top");
+        $(this).children("span").addClass("glyphicon-triangle-bottom");
+      } 
+    });
+  })
 </script>
