@@ -504,11 +504,17 @@
         headers: {Accept: 'application/json'},
         success: function(json) {
           current_typhoon.first = json;
+          // 获取当前12小时内未停报台风
+            date = current_typhoon.first.last_report_time;
+            var ddd = new Date((date).replace(/-/g, "/"));
+            var now = Date.now();
 
-          $('#title .main-title').html(json.name + json.cname + " ("+ json.ename +")");
-          if (current_typhoon.first.status == 'stop') {
-            $('#title .main-title').append(' 停止编报');
-          }
+            chazhi = (now-ddd)/(36*100000);
+            if (chazhi < 12) {
+              $('#title .main-title').html(json.name + json.cname + " ("+ json.ename +")");
+            }else{
+              $('#title .main-title').html(json.name + json.cname + " ("+ json.ename +")-[停编]");
+            }
           //点击列表按钮弹框耳朵，文字设置（台风名称）
           $("#ear_list > ul").empty();
           var content = "";
