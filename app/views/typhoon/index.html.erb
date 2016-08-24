@@ -332,7 +332,7 @@
         headers: {Accept: 'application/json'},
         success: function(json) {
           typhoons = json.list;
-          
+
           var now_list = [];
           var now_list_cname = [];
           var now_list_ename = [];
@@ -343,8 +343,6 @@
           var list_top_content_text = "";
 
           for (idx in typhoons) {
-            typhoons_list_content += "<li data-target='"+typhoons[idx].serial_number+"'>"+typhoons[idx].cname+"("+typhoons[idx].ename+")</li>";
-
             // 获取当前24小时内未停报台风
             date = typhoons[idx].last_report_time;
 
@@ -356,8 +354,12 @@
               now_list.push(typhoons[idx].serial_number);
               now_list_cname.push(typhoons[idx].cname);
               now_list_ename.push(typhoons[idx].ename);
+              typhoons_list_content += "<li data-target='"+typhoons[idx].serial_number+"'>"+typhoons[idx].cname+"("+typhoons[idx].ename+")</li>";
+            }else{
+              typhoons_list_content += "<li data-target='"+typhoons[idx].serial_number+"'>"+typhoons[idx].cname+"("+typhoons[idx].ename+")－[停编]</li>";
             }
           }
+
           $("#typhoons_selector > ul").append(typhoons_list_content);
           $("#ear_list > ul").empty();
           var cont = "";
@@ -425,7 +427,7 @@
           for (idx in typhoons) {
             typhoons_list_content += "<li data-target='"+typhoons[idx].serial_number+"'>"+typhoons[idx].cname+"("+typhoons[idx].ename+")</li>";
           }
-          $("#typhoons_selector > ul").append(typhoons_list_content);
+          // $("#typhoons_selector > ul").append(typhoons_list_content);
         },
         fail: function(json) {
           console.log(json);
