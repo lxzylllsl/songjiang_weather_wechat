@@ -583,7 +583,7 @@
             //点击列表按钮弹框耳朵，文字设置（台风名称）
             // $('#tf-name').html("("+json.name+")"+json.cname);
             // 设置浏览器标题显示信息
-            $("head title").html(build_title(json));
+            $("head title").html("台风路径实时发布系统");
             var first_point = current_typhoon[idx].real_location[0]
             map.panTo(new BMap.Point(first_point.lon, first_point.lat));
 
@@ -640,7 +640,33 @@
         // 设置台风图标
         var typhoon_gif_icon = new BMap.Icon(typhoon_gif, new BMap.Size(40,40));
         typhoon_gif_icon.setImageSize(new BMap.Size(40,40));
-        typhoon_gif_mark1 = new BMap.Marker(point, {icon: typhoon_gif_icon});
+
+        var opts = {
+          position : point,    // 指定文本标注所在的地理位置
+          offset   : new BMap.Size(0, 30)    //设置文本偏移量
+        }
+        var typhoon_label = new BMap.Label("<div class='typhoon_label'>"+current_more_typhoon.cname+"</div>", opts)
+        typhoon_label.setStyle({
+             color : "black",
+             fontSize : "12px",
+             height : "20px",
+             lineHeight : "20px",
+             fontFamily:"微软雅黑",
+         });
+        // map.addOverlay(typhoon_label);
+
+        var typ_opts = {
+          icon: typhoon_gif_icon
+        }
+        typhoon_gif_mark1 = new BMap.Marker(point, typ_opts);
+
+        typhoon_gif_mark1.setLabel(typhoon_label) 
+        // //添加标注
+        // var sContent =current_more_typhoon.cname;
+        // var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象 
+        // console.log(current_more_typhoon);
+        // map.openInfoWindow(infoWindow,point); //开启信息窗口
+
 
         map.addOverlay(typhoon_gif_mark1);
         points1_more.push(point);
