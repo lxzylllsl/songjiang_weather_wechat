@@ -7,7 +7,7 @@
     geolocation.getLocation( (r) => {
       lat=r.lat;
       lon=r.lng;
-      location.href = "../weather_forecast?lon="+lon+"&lat="+lat;
+      location.href = "../weather_essential?lon="+lon+"&lat="+lat;
     }, { enableHighAccuracy: true } )
   }else {
     alert("Geolocation is not supported by this browser.");
