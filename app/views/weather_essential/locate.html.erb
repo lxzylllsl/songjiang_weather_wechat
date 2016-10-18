@@ -3,9 +3,13 @@
     navigator.geolocation.getCurrentPosition(showPosition,showError);
     lat=position.coords.latitude;
     lon=position.coords.longitude;
-  }
-  else {
-    alert("Geolocation is not supported by this browser.");
+  }else{
+    var geolocation = new qq.maps.Geolocation("OZBBZ-ZQLC3-MKF3U-3VCU4-DFWO7-AGFPB", "weather_survey")
+    geolocation.getLocation( (r) => {
+      lat=r.lat;
+      lon=r.lng;
+      location.href = "../weather_forecast?lon="+lon+"&lat="+lat;
+    }, { enableHighAccuracy: true } )
   }
 
   function showPosition(position) {
