@@ -1,54 +1,56 @@
-<script>
-  var u = navigator.userAgent, app = navigator.appVersion;
-  // 初始化地图，并加载灾情点
-  var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-  if (isIOS) {
-    init_five_data_ios();
-    console.log('-----IOS------');
-  }else{
-    init_five_data();
-    console.log('-----web------');
-  }
+<% content_for :scripts %>
+  <script>
+    var u = navigator.userAgent, app = navigator.appVersion;
+    // 初始化地图，并加载灾情点
+    var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if (isIOS) {
+      init_five_data_ios();
+      console.log('-----IOS------');
+    }else{
+      init_five_data();
+      console.log('-----web------');
+    }
 
-  // ===========IOS端地图初始化=============
-  function init_five_data_ios() {
-    console.log("====")
-    var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent")
-    // 获取当前定位
-    geolocation.getLocation(showPosition, showErr, options)
-    var positionNum = 0;
-    var options = {timeout: 80000};
-    function showPosition(r) {
-      console.log(r);
-      // 解析成百度坐标
-      var x_pi=3.14159265358979324;
-      var x = r.lng;
-      var y = r.lat;
-      var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * x_pi);
-      var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * x_pi);
-      var bd_lon = z * Math.cos(theta) + 0.0065;
-      var bd_lat = z * Math.sin(theta) + 0.00670;
-      // 重定向
-      window.location.href = "../radar_satellis?lon="+bd_lon+"&lat="+bd_lat;
-    };
-    function showErr() {
-      document.getElementById("map_container").innerHTML = "定位失败！";
-    };
-  }
-
-  // ===========android 或 web 端地图初始化=============
-  function init_five_data() {
-    console.log("=++++++++++++")
-    var geolocation = new BMap.Geolocation();
-    // 获取当前定位
-    geolocation.getCurrentPosition(function(r){
-      if(this.getStatus() == BMAP_STATUS_SUCCESS){
+    // ===========IOS端地图初始化=============
+    function init_five_data_ios() {
+      console.log("====")
+      var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent");
+      // 获取当前定位
+      geolocation.getLocation(showPosition, showErr, options);
+      var positionNum = 0;
+      var options = {timeout: 80000};
+      function showPosition(r) {
+        console.log(r);
+        // 解析成百度坐标
+        var x_pi=3.14159265358979324;
+        var x = r.lng;
+        var y = r.lat;
+        var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * x_pi);
+        var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * x_pi);
+        var bd_lon = z * Math.cos(theta) + 0.0065;
+        var bd_lat = z * Math.sin(theta) + 0.00670;
         // 重定向
-        window.location.href = "../radar_satellis?lon="+r.point.lng+"&lat="+r.point.lat;
-      }
-      else {
-        alert('定位失败'+this.getStatus());
-      }        
-    },{enableHighAccuracy: true})
-  }
-</script>
+        window.location.href = "http://cs.tallty.com/radar_satellis?lon="+bd_lon+"&lat="+bd_lat;
+      };
+      function showErr() {
+        document.getElementById("map_container").innerHTML = "定位失败！";
+      };
+    }
+
+    // ===========android 或 web 端地图初始化=============
+    function init_five_data() {
+      console.log("=++++++++++++")
+      var geolocation = new BMap.Geolocation();
+      // 获取当前定位
+      geolocation.getCurrentPosition(function(r){
+        if(this.getStatus() == BMAP_STATUS_SUCCESS){
+          // 重定向
+          window.location.href = "http://cs.tallty.com/radar_satellis?lon="+r.point.lng+"&lat="+r.point.lat;
+        }
+        else {
+          alert('定位失败'+this.getStatus());
+        }        
+      },{enableHighAccuracy: true})
+    }
+  </script>
+<% end %>
