@@ -1,4 +1,5 @@
 <!-- <script>
+<<<<<<< b6131d60afcf2b45c182d7111d7bc395e0e00191
   if (navigator.geolocation) {
     // navigator.geolocation.getCurrentPosition(showPosition,showError);
     // lat=position.coords.latitude;
@@ -42,6 +43,8 @@
 <script type="text/javascript" src=http://api.map.baidu.com/api?v=2.0&ak=8SWaIs2cE83Ssvv90yXPUEQQhnkG368u></script>
 <script type="text/javascript" src="http://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script> -->
 <script>
+=======
+>>>>>>> fix issue
   var u = navigator.userAgent, app = navigator.appVersion;
   // 初始化地图，并加载灾情点
   var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -94,4 +97,24 @@
       }        
     },{enableHighAccuracy: true})
   }
-</script>
+</script> -->
+
+<% content_for :scripts do %>
+  <script>
+    var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent");
+    // 获取当前定位
+    geolocation.getLocation(showPosition, showErr, options);
+    var positionNum = 0;
+    var options = {timeout: 80000};
+
+    function showPosition(r) {
+      console.log(r);
+      // 重定向
+      window.location.href = "../weather_essential?lon="+r.lng+"&lat="+r.lat;
+    };
+
+    function showErr() {
+      document.getElementById("map_container").innerHTML = "定位失败！";
+    };
+  </script>
+<% end %>
