@@ -311,12 +311,13 @@
 
     // 雷达图图例
     function radarLegend() {
-      let colors = ["#AD90F0","#9600B4","#FF00F0","#C00000","#D60000","#FF0000","#FF9000","#E7C000","#FFFF00","#019000","#00D800","#00ECEC","#01A0F6"]
-      let value = [70,65,60,55,50,45,40,35,30,25,20,15,10]
-      let list = ""
+      var colors = ["#AD90F0","#9600B4","#FF00F0","#C00000","#D60000","#FF0000","#FF9000","#E7C000","#FFFF00","#019000","#00D800","#00ECEC","#01A0F6"];
+      var value = [70,65,60,55,50,45,40,35,30,25,20,15,10];
+      var list = "";
 
-      for(let i = 0; i < colors.length; i++) {
-        let color = colors[i]
+      for(var i = 0; i < colors.length; i++) {
+        var color = colors[i]
+        console.log(value[i]);
         list += "<li key='"+i+"'>"
               +"<div class='legend_color' style='background:"+color+"'></div>"
               +"<div class='legend_number'>"+value[i]+"</div>"
@@ -403,8 +404,6 @@
           for (idx in typhoons) {
             // 获取当前24小时内未停报台风
             date = typhoons[idx].last_report_time;
-            console.log("====================");
-            console.log(typhoons[idx]);
             var ddd = new Date((date).replace(/-/g, "/"));
             var now = Date.now();
 
