@@ -9,4 +9,5 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-//
+//= require panzoom/jquery.panzoom
+//= require panzoom/jquery.mousewheel

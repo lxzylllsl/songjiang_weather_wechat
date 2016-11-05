@@ -24,20 +24,56 @@
   color: #f5915f;
   background-color: initial!important;
 }
+
+.BMap_pop {
+  div:first-child {
+    width: 0!important;
+    height: 0!important;
+    border: 0!important;
+  }
+
+  div:first-child.BMap_bubble_title {
+    padding-left: 5px;
+    width: 190px!important;
+    height: 24px!important;
+  }
+
+  [src="http://api0.map.bdimg.com/images/iw_close1d3.gif"]{
+    top: 5px!important;
+    left: 188px!important;
+  }
+  [style="box-sizing: content-box; width: 220px; height: 130px; position: absolute; left: 16px; top: 16px; z-index: 10; overflow: hidden;"]{
+    width: auto!important;
+    height: auto!important;
+    top: 0px!important;
+  }
+}
+
+.BMap_top, .BMap_center, .BMap_bottom {
+  width: 0!important;
+  height: 0!important;
+}
+
 .BMap_bubble_title {
+  background-color: #fff;
   margin-bottom: 4px;
   border-bottom: 1px solid #d3d3d4;
   font-size: 12px;
 }
+
 .BMap_bubble_content {
+  background-color: #fff!important;
+  padding: 5px;
+  width: 190px!important;
+  // height: 130px!important;
   font-size: 12px;
   p {
     margin-top: 3px;
     margin-bottom: 3px;
-    padding-top: 4px;
+    // padding-top: 4px;
     font-size: 12px;
     color: #9e9e9f;
-    border-bottom: 1px solid #d3d3d3;
+    // border-bottom: 1px solid #d3d3d3;
   }
 }
 .title-container {
@@ -127,6 +163,83 @@
     border: 3px solid #fff;
     cursor: pointer;
     // -webkit-appearance: button;
+  }
+}
+
+.list_btn {
+  position: absolute;
+  right: 18px;
+  top: 20px;
+  li{
+    list-style: none;
+    margin-bottom: 1px;
+    height: 15px;
+    width: 38px;
+    .legend_color{
+      width: 19px;
+      height: 15px;
+      float: left;
+    }
+    .legend_number{
+      width: 19px;
+      height: 15px;
+      float: left;
+      font-size: 10px;
+      text-align: center;
+      color: #333;
+    }
+  }
+}
+
+.help_btn {
+  position: absolute;
+  left: 18px;
+  bottom: 35px;
+  div {
+    font-size: 14px;
+    color: #fff;
+    width: 48px;
+    height: 48px;
+    line-height: 44px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: rgba(140, 178, 101, 0.7);
+    border: 3px solid #fff;
+  }
+}
+
+.typhoon_list_d_c {
+  position: absolute;
+  bottom: 84px;
+  left: 18px;
+  z-index: 100;
+  .typhoon_list_d{
+    margin-bottom: 0;
+    width: 79vw;
+    height: 60vh;
+    background-color: rgba(0,0,0,0.6);
+    color: #fff;
+    text-align: center;
+    font-size: 10px;
+    overflow: scroll;
+    .title {
+      font-size: 12px;
+      margin: 20px auto 20px auto;
+    }
+    table {
+      th, tr, td {
+        text-align: center;
+        vertical-align: middle;
+      }
+    }
+  }
+  #triangle-down {
+    margin-left: 16px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 14px solid rgba(0,0,0,0.6);
   }
 }
 
@@ -481,4 +594,21 @@
       background-color: #acc5ff;
     }
   }
+}
+.active_list {
+  -webkit-transition: opacity 0.4s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  -o-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+  opacity:0;
+  filter: alpha(opacity=0);
+  visibility: hidden;
+}
+.hide_list {
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.3s ease-in-out;
+  -o-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+  opacity:1;
+  filter: alpha(opacity=1);
 }

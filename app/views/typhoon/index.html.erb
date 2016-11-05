@@ -8,6 +8,127 @@
 </div>  
 
 <div id="viewDiv"></div>
+<!-- 图例、帮助按钮 -->
+<div class="list_btn">
+  <div id="list_btn"><ul class="active_list"></ul></div>
+</div>
+<div class="help_btn">
+  <div id="help_btn">帮助</div>
+</div>
+<div id="typhoon_list_d_c" class="typhoon_list_d_c active_list">
+  <div class="typhoon_list_d table-responsive">
+    <div class="title">热带气旋、风级、风速对照表</div>
+    <table class="table table-condensed table-bordered ">
+      <tr>
+        <th rowspan="2">热带气旋分类</th>
+        <td rowspan="2">风力等级</td>
+        <td colspan="2">风速</td>
+      </tr>
+      <tr>
+        <td>m/s</td>
+        <td>km/h</td>
+      </tr>
+      <tr>
+        <th rowspan="6">————</th>
+        <td>0</td>
+        <td>0.0-0.2</td>
+        <td><1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>0.3-1.5</td>
+        <td>1-5</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>1.6-3.3</td>
+        <td>6-11<1</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>3.4-5.4</td>
+        <td>12-19</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td>5.5-7.9</td>
+        <td>20-28</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td>8.0-10.7</td>
+        <td>29-38</td>
+      </tr>
+      <tr>
+        <th rowspan="2">热带低压TD</th>
+        <td> </td>
+        <td>10.8-13.8</td>
+        <td>39-49</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td>13.9-17.1</td>
+        <td>50-61</td>
+      </tr>
+      <tr>
+        <th rowspan="2">热带风暴TS</th>
+        <td> </td>
+        <td>17.2-20.7</td>
+        <td>62-74</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td>20.8-24.4</td>
+        <td>75-88</td>
+      </tr>
+      <tr>
+        <th rowspan="2">强热带风暴STS</th>
+        <td> </td>
+        <td>24.5-28.4</td>
+        <td>89-102</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td>28.5-32.6</td>
+        <td>103-117</td>
+      </tr>
+      <tr>
+        <th rowspan="2">台风TY</th>
+        <td> </td>
+        <td>32.7-36.9</td>
+        <td>118-133</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td>37.0-41.4</td>
+        <td>134-149</td>
+      </tr>
+      <tr>
+        <th rowspan="2">强台风STY</th>
+        <td> </td>
+        <td>41.5-46.1</td>
+        <td>150-166</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td>46.2-50.9</td>
+        <td>167-183</td>
+      </tr>
+      <tr>
+        <th rowspan="2">超强台风SuperTY</th>
+        <td> </td>
+        <td>51.0-56.0</td>
+        <td>184-201</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td>56.1-61.2</td>
+        <td>202-220</td>
+      </tr>
+    </table>
+  </div>
+  <div id="triangle-down"></div>
+</div>
 <!-- 按钮组 -->
 <div class="btn-group">
   <div id="btn-list" data-target="list" class="info-nr-menu glyphicon glyphicon-menu-hamburger"></div>
@@ -106,107 +227,8 @@
 <% end %>
 <script type="text/javascript">
   var useragent = navigator.userAgent;
-  // if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
-  //     alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
-  //     var opened = window.open('about:blank', '_self');
-  //     opened.opener = null;
-  //     opened.close();
-  // }
   
   $(function(){
-//   wx.config({
-//     debug: false,
-//     appId: 'wxf8b4f85f3a794e77',
-//     timestamp: 1420774989,
-//     nonceStr: '2nDgiWM7gCxhL8v0',
-//     signature: '1f8a6552c1c99991fc8bb4e2a818fe54b2ce7687',
-//     jsApiList: [
-//       'checkJsApi',
-//       'onMenuShareTimeline',
-//       'onMenuShareAppMessage',
-//       'onMenuShareQQ',
-//       'onMenuShareWeibo',
-//       'hideMenuItems',
-//       'showMenuItems',
-//       'hideAllNonBaseMenuItem',
-//       'showAllNonBaseMenuItem',
-//       'translateVoice',
-//       'startRecord',
-//       'stopRecord',
-//       'onRecordEnd',
-//       'playVoice',
-//       'pauseVoice',
-//       'stopVoice',
-//       'uploadVoice',
-//       'downloadVoice',
-//       'chooseImage',
-//       'previewImage',
-//       'uploadImage',
-//       'downloadImage',
-//       'getNetworkType',
-//       'openLocation',
-//       'getLocation',
-//       'hideOptionMenu',
-//       'showOptionMenu',
-//       'closeWindow',
-//       'scanQRCode',
-//       'chooseWXPay',
-//       'openProductSpecificView',
-//       'addCard',
-//       'chooseCard',
-//       'openCard'
-//     ]
-//   });  
-
-//   wx.onMenuShareAppMessage({
-//           title: '123',
-//           desc: 'bac',
-//           link: 'www.baidu.com',
-//           imgUrl: '',
-//           trigger: function (res) {
-//             // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
-//             // alert('用户点击发送给朋友');
-//           },
-//           success: function (res) {
-//             // alert('已分享');
-//           },
-//           cancel: function (res) {
-//             // alert('已取消');
-//           },
-//           fail: function (res) {
-//             // alert(JSON.stringify(res));
-//           }
-//         });
-
-//         wx.onMenuShareTimeline({
-//           title: 'abc',
-//           link: '123',
-//           imgUrl: '',
-//           trigger: function (res) {
-//             // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
-//             // alert('用户点击分享到朋友圈');
-//           },
-//           success: function (res) {
-//             // alert('已分享');
-//           },
-//           cancel: function (res) {
-//             // alert('已取消');
-//           },
-//           fail: function (res) {
-//             // alert(JSON.stringify(res));
-//           }
-//         });
-
-// wx.checkJsApi({
-//             jsApiList: [
-//                 'getLocation',
-//                 'onMenuShareTimeline',
-//                 'onMenuShareAppMessage'
-//             ],
-//             success: function (res) {
-//                 alert(JSON.stringify(res));
-//             }
-//         });
 
     var map = new BMap.Map("viewDiv");
 
@@ -225,6 +247,7 @@
 
     $(window).load(function() { 
       get_more_typhoon_list();
+      radarLegend();
     });
 
     setTimeout(function() {
@@ -271,6 +294,8 @@
       if ($('#switcher').hasClass('active')) {
         map.removeOverlay(radar_pic);
         $('#switcher').removeClass('active');
+        $("#list_btn > ul").addClass('active_list');
+        $("#list_btn > ul").removeClass('hide_list');
         return;
       }
       var SW = new BMap.Point(71.993044552411,3.9647143346677);
@@ -280,7 +305,40 @@
       radar_pic.setImageURL('<%= @radar_echo%>');
       map.addOverlay(radar_pic);
       $('#switcher').addClass('active')
+      $("#list_btn > ul").removeClass('active_list');
+      $("#list_btn > ul").addClass('hide_list');
     }
+
+    // 雷达图图例
+    function radarLegend() {
+      let colors = ["#AD90F0","#9600B4","#FF00F0","#C00000","#D60000","#FF0000","#FF9000","#E7C000","#FFFF00","#019000","#00D800","#00ECEC","#01A0F6"]
+      let value = [70,65,60,55,50,45,40,35,30,25,20,15,10]
+      let list = ""
+
+      for(let i = 0; i < colors.length; i++) {
+        let color = colors[i]
+        list += "<li key='"+i+"'>"
+              +"<div class='legend_color' style='background:"+color+"'></div>"
+              +"<div class='legend_number'>"+value[i]+"</div>"
+              +"</li>"
+          // <li key={i}>
+          //   <div className={styles.legend_color} style={{background: color}}></div>
+          //   <div className={styles.legend_number}>{value[i]}</div>
+          // </li>
+      }
+      $("#list_btn > ul").append(list);
+    }
+
+    // 帮助图例
+    $("#help_btn").on('click', function() {
+      if ($('#typhoon_list_d_c').hasClass('active_list')) {
+        $("#typhoon_list_d_c").removeClass('active_list');
+        $("#typhoon_list_d_c").addClass('hide_list');
+        return;
+      }
+      $("#typhoon_list_d_c").removeClass('hide_list');
+      $("#typhoon_list_d_c").addClass('active_list');
+    });
     // 初始化地图，添加警戒线
     function init_map() {
       map.clearOverlays();
@@ -345,7 +403,8 @@
           for (idx in typhoons) {
             // 获取当前24小时内未停报台风
             date = typhoons[idx].last_report_time;
-
+            console.log("====================");
+            console.log(typhoons[idx]);
             var ddd = new Date((date).replace(/-/g, "/"));
             var now = Date.now();
 
@@ -354,9 +413,9 @@
               now_list.push(typhoons[idx].serial_number);
               now_list_cname.push(typhoons[idx].cname);
               now_list_ename.push(typhoons[idx].ename);
-              typhoons_list_content += "<li data-target='"+typhoons[idx].serial_number+"'>"+typhoons[idx].cname+"("+typhoons[idx].ename+")</li>";
+              typhoons_list_content += "<li data-target='"+typhoons[idx].serial_number+"'>"+typhoons[idx].serial_number+"✪"+typhoons[idx].cname+"("+typhoons[idx].ename+")</li>";
             }else{
-              typhoons_list_content += "<li data-target='"+typhoons[idx].serial_number+"'>"+typhoons[idx].cname+"("+typhoons[idx].ename+")－[停编]</li>";
+              typhoons_list_content += "<li data-target='"+typhoons[idx].serial_number+"'>"+typhoons[idx].serial_number+"✪"+typhoons[idx].cname+"("+typhoons[idx].ename+")－[停编]</li>";
             }
           }
 
@@ -389,10 +448,13 @@
 
                 if (now_list.length > 1) {
                   $('#title .main-title').html("目前在编报台风"+now_list.length+"个:"+list_top_content_text+"");
-                }else{
+                }else if (now_list.length == 1) {
                   $('#title .main-title').html(now_list_cname[0]);
                   $('.current_time').html(list_datas[0].time);
                   $('#title .sub-title').html("等级:" + level_names[transform_level(list_datas[0].max_wind)]);
+                }else{
+                  $('#title .main-title').html("当前无活动台风");
+                  $('.current_time').html("查看台风历史记录->");
                 }
               },
               fail: function(json) {
@@ -853,7 +915,7 @@
     }
 
     function show_tips(content, e, typhoon_more){
-      var infowindow = new BMap.InfoWindow(content,{width:100,height:210,title: "[" + typhoon_more.name + "] " + typhoon_more.cname});
+      var infowindow = new BMap.InfoWindow(content,{width:180,height:130,title: "[" + typhoon_more.name + "] " + typhoon_more.cname});
       map.openInfoWindow(infowindow,e.target.point);
     }
 

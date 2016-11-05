@@ -21,7 +21,7 @@ class Radar
       image = Magick::Image.read(_item['img']).first
       # image = Magick::Image.read("./app/assets/images/WechatIMG4.jpeg").first
       # 松江区域图叠加
-      sj_bg = Magick::Image.read("./app/assets/images/songjiang.png").first
+      sj_bg = Magick::Image.read("./app/assets/images/songjiang1.png").first
       sj_bg = sj_bg.resize(45, 34)
       # 青浦雷达位置
       # image.composite!(sj_bg, 304, 281, Magick::SrcOverCompositeOp)

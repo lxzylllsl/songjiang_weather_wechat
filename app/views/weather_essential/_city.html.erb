@@ -20,19 +20,19 @@
 
 <div class="row tab-content sub-content">
   <div role="tabpanel" class="tab-pane sub-pane col-xs-12 active" id="dem-tempe">
-    <img src="<%= @dems['tempe'].last['file'] %>" alt="">
+    <img src="<%= @dems['tempe'].last['file'] %>" alt="" id="dem-tempe-img">
   </div>
   <div role="tabpanel" class="tab-pane sub-pane col-xs-12" id="dem-rain">
-    <img src="<%= @dems['rain'].last['file'] %>" alt="">
+    <img src="<%= @dems['rain'].last['file'] %>" alt="" id="dem-rain-img">
   </div>
   <div role="tabpanel" class="tab-pane sub-pane col-xs-12" id="dem-air">
-    <img src="<%= @dems['air'].last['file'] %>" alt="">
+    <img src="<%= @dems['air'].last['file'] %>" alt="" id="dem-air-img">
   </div>
   <div role="tabpanel" class="tab-pane sub-pane col-xs-12" id="dem-vis">
-    <img src="<%= @dems['vis'].last['file'] %>" alt="">
+    <img src="<%= @dems['vis'].last['file'] %>" alt="" id="dem-vis-img">
   </div>
   <div role="tabpanel" class="tab-pane sub-pane col-xs-12" id="dem-wind">
-    <img src="<%= @dems['wind'].last['file'] %>" alt="">
+    <img src="<%= @dems['wind'].last['file'] %>" alt="" id="dem-wind-img">
   </div>
 </div>
 
@@ -58,9 +58,43 @@
   var player_btn = $(".player-btn-container");
   // 播放长度
   var count = $("ul.time-line").children().length;
-    // 播放状态
+  // 播放状态
   var player_state = count - 1;
+  // 图片放大缩小
+  $('#dem-tempe-img').panzoom({
+    startTransform: 'scale(1)',
+    increment: 3,
+    minScale: 0.8,
+    contain: 'automatic'
+  });
 
+  $('#dem-rain-img').panzoom({
+    startTransform: 'scale(1)',
+    increment: 3,
+    minScale: 0.8,
+    contain: 'automatic'
+  });
+
+  $('#dem-air-img').panzoom({
+    startTransform: 'scale(1)',
+    increment: 3,
+    minScale: 0.8,
+    contain: 'automatic'
+  });
+
+  $('#dem-vis-img').panzoom({
+    startTransform: 'scale(1)',
+    increment: 3,
+    minScale: 0.8,
+    contain: 'automatic'
+  });
+
+  $('#dem-wind-img').panzoom({
+    startTransform: 'scale(1)',
+    increment: 3,
+    minScale: 0.8,
+    contain: 'automatic'
+  });
   // 切换tab事件
   $("#city .city-tab-bar").on('click', 'li', function(){
     clearInterval(run_thread);

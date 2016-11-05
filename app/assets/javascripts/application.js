@@ -16,6 +16,8 @@
 //= require jquery_ujs
 //= require ./dataTable/jquery.dataTables.min
 //= require iscroll
+//= require panzoom/jquery.panzoom
+//= require panzoom/jquery.mousewheel
 //= require echarts/echarts
 //= require echarts/chart/line
 //= require echarts/chart/bar
