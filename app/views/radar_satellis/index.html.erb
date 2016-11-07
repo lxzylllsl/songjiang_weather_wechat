@@ -16,8 +16,11 @@
       <div class="col-xs-5 sub-info text-right">红点代表当前位置</div>
     </div>
     <div id="radar-container" class="col-xs-12">
+      <div id="img_time" class="img_time"></div>
       <div id="radar-img-content">
-        <%= image_tag @radar_images.last['url'] , id:"radar-image" %>
+        <div id="radar-img-scrool">
+          <%= image_tag @radar_images.last['url'] , id:"radar-image" %>
+        </div>
       </div>
     </div>
     <div class="col-xs-12 radar-bitmap">
@@ -30,7 +33,6 @@
         <% else %>
           <li data-cc="<%= item[:datetime].to_datetime.strftime('%H:%M') %>" class="time radar<%=idx%>" data-url="../images/<%= item[:url] %>"><%= item[:datetime].to_datetime.strftime('%H:%M') %></li>
         <% end %>
-        
       <% end %>
     </ul>
   </div>
@@ -44,13 +46,13 @@
       <div id="cloud">
         <%= image_tag @cloud_img.last['url'], id:"cloud-image" %>
       </div>
-    </div> 
+    </div>
     <ul class="cloud-time-line time-line">
       <% @cloud_img.each_with_index do |item, idx| %>
         <% if idx == 9 %>
-          <li data-cc="<%= item['datetime'].to_datetime.strftime('%H:%M') %>" class="active time cloud<%=idx%>" data-url="<%= item['url'] %>"></li>
+          <li data-cc="<%= item['datetime'].to_datetime.strftime('%H:%M') %>" pic-time="<%= item['datetime'].to_datetime.strftime('%F %H:%M:%S') %>" class="active time cloud<%=idx%>" data-url="<%= item['url'] %>"></li>
         <% else %>
-          <li data-cc="<%= item['datetime'].to_datetime.strftime('%H:%M') %>" class="time cloud<%=idx%>" data-url="<%= item['url'] %>"><%= item['datetime'].to_datetime.strftime('%H:%M') %></li>
+          <li data-cc="<%= item['datetime'].to_datetime.strftime('%H:%M') %>" pic-time="<%= item['datetime'].to_datetime.strftime('%F %H:%M:%S') %>" class="time cloud<%=idx%>" data-url="<%= item['url'] %>"><%= item['datetime'].to_datetime.strftime('%H:%M') %></li>
         <% end %>
       <% end %>
     </ul>
@@ -64,6 +66,9 @@
     var height = $(window).width()
 
     $_target = $('.radar-time-line').find('li.radar9');
+    $('#radar-image').attr('src', $_target.attr('data-url'));
+
+    var node=document.createTextNode("这是新段落。");
     $('#radar-image').attr('src', $_target.attr('data-url'));
 
     $('.radar-time-line').on('click', 'li', function(evt){
@@ -84,10 +89,12 @@
           $_previous.html($_previous.attr('data-cc')).removeClass('stop');
           $('.radar-time-line').find('li.radar'+i).html('').addClass('stop');
           $('#radar-image').attr('src', $_target.attr('data-url'));
+          document.getElementById('img_time').innerHTML=$_target.attr('pic-time');
           (i >= 9) ? stop_radar($_target) : i++;
         }, 600);
       }else {
         $('#radar-image').attr('src', $_target.attr('data-url'));
+        document.getElementById('img_time').innerHTML=$_target.attr('pic-time');
         $('.radar-time-line').find('li').each(function(index, el) {
           $(el).html($(el).attr('data-cc')).removeClass('active');
         });
@@ -95,7 +102,12 @@
       }
     });
 
-    $('#cloud-image, #radar-image').css({
+    $('#radar-image').css({
+      "width":height*4/3,
+      "height":height
+    });
+
+    $('#cloud-image').css({
       "width":height,
       "height":height*3/4
     });
@@ -136,17 +148,17 @@
       $is_run = false;
     }
 
-    $('#radar-image').panzoom({
+    $('#radar-img-scrool').panzoom({
       startTransform: 'scale(1)',
       increment: 1,
-      minScale: 0.5,
+      minScale: 1,
       contain: 'automatic'
     });
 
     $('#cloud-image').panzoom({
       startTransform: 'scale(1)',
       increment: 1,
-      minScale: 0.5,
+      minScale: 1,
       contain: 'automatic'
     });
     

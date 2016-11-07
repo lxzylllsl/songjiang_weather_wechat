@@ -97,6 +97,17 @@
 <% end %>
 
 <script>
+  var chartHeight = $(document.body).outerHeight(true)-380
+  $("#aqi, #pm25, #o3, #pm10, #no2").height(chartHeight)
+
+  var gheight = $("#aqi, #pm25, #o3, #pm10, #no2").height()-50
+  var heightString = "115px ".concat(gheight.toString())
+  console.log(heightString);
+  $("#aqi, #pm25, #o3, #pm10, #no2").height(chartHeight)
+  $("#aqi, #pm25, #o3, #pm10, #no2").css({
+    "background-size": heightString.concat("px")
+  })
+  
   var myScroll;
   var _window_width = $('#bottom-container').width();
   var _item_width = _window_width / 3;

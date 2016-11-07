@@ -1,7 +1,7 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-
+console.log(aqi_datas)
 drawAqi = (ec)->
   dataConfigs = for data in aqi_datas
     {
@@ -15,9 +15,10 @@ drawAqi = (ec)->
     }
 
   aqiChart = ec.init(document.getElementById('aqi'))
+  gheight = $("#aqi").height()-50
   option = 
     grid:
-      height: 220
+      height: gheight
       x: 30
       x2: 16
       y: 10
@@ -84,9 +85,10 @@ drawPm25 = (ec)->
     }
 
   pm10Chart = ec.init(document.getElementById('pm25'))
+  gheight = $("#pm25").height()-50
   option = 
     grid:
-      height: 220
+      height: gheight
       x: 30
       x2: 16
       y: 10
@@ -152,9 +154,10 @@ drawO3 = (ec)->
     }
 
   aqiChart = ec.init(document.getElementById('o3'))
+  gheight = $("#o3").height()-50
   option = 
     grid:
-      height: 220
+      height: gheight
       x: 30
       x2: 16
       y: 10
@@ -220,9 +223,10 @@ drawPm10 = (ec)->
     }
 
   aqiChart = ec.init(document.getElementById('pm10'))
+  gheight = $("#pm10").height()-50
   option = 
     grid:
-      height: 220
+      height: gheight
       x: 30
       x2: 16
       y: 10
@@ -288,9 +292,10 @@ drawNo2 = (ec)->
     }
 
   no2Chart = ec.init(document.getElementById('no2'))
+  gheight = $("#no2").height()-50
   option = 
     grid:
-      height: 220
+      height: gheight
       x: 30
       x2: 16
       y: 10
