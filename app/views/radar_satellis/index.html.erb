@@ -29,9 +29,9 @@
     <ul class="radar-time-line time-line">
       <% @radar_images.each_with_index do |item, idx| %>
         <% if idx == 9 %>
-          <li data-cc="<%= item[:datetime].to_datetime.strftime('%H:%M') %>" class="active time radar<%=idx%>" data-url="../images/<%= item[:url] %>"></li>
+          <li data-cc="<%= item[:datetime].to_datetime.strftime('%H:%M') %>" pic-time="<%= item['datetime'].to_datetime.strftime('%F %H:%M:%S') %>" class="active time radar<%=idx%>" data-url="../images/<%= item[:url] %>"></li>
         <% else %>
-          <li data-cc="<%= item[:datetime].to_datetime.strftime('%H:%M') %>" class="time radar<%=idx%>" data-url="../images/<%= item[:url] %>"><%= item[:datetime].to_datetime.strftime('%H:%M') %></li>
+          <li data-cc="<%= item[:datetime].to_datetime.strftime('%H:%M') %>" pic-time="<%= item['datetime'].to_datetime.strftime('%F %H:%M:%S') %>" class="time radar<%=idx%>" data-url="../images/<%= item[:url] %>"><%= item[:datetime].to_datetime.strftime('%H:%M') %></li>
         <% end %>
       <% end %>
     </ul>
@@ -50,9 +50,9 @@
     <ul class="cloud-time-line time-line">
       <% @cloud_img.each_with_index do |item, idx| %>
         <% if idx == 9 %>
-          <li data-cc="<%= item['datetime'].to_datetime.strftime('%H:%M') %>" pic-time="<%= item['datetime'].to_datetime.strftime('%F %H:%M:%S') %>" class="active time cloud<%=idx%>" data-url="<%= item['url'] %>"></li>
+          <li data-cc="<%= item['datetime'].to_datetime.strftime('%H:%M') %>" class="active time cloud<%=idx%>" data-url="<%= item['url'] %>"></li>
         <% else %>
-          <li data-cc="<%= item['datetime'].to_datetime.strftime('%H:%M') %>" pic-time="<%= item['datetime'].to_datetime.strftime('%F %H:%M:%S') %>" class="time cloud<%=idx%>" data-url="<%= item['url'] %>"><%= item['datetime'].to_datetime.strftime('%H:%M') %></li>
+          <li data-cc="<%= item['datetime'].to_datetime.strftime('%H:%M') %>" class="time cloud<%=idx%>" data-url="<%= item['url'] %>"><%= item['datetime'].to_datetime.strftime('%H:%M') %></li>
         <% end %>
       <% end %>
     </ul>
