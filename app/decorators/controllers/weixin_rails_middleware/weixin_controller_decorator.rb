@@ -3,7 +3,7 @@
 # 2, @weixin_public_account: 如果配置了public_account_class选项,则会返回当前实例,否则返回nil.
 # 3, @keyword: 目前微信只有这三种情况存在关键字: 文本消息, 事件推送, 接收语音识别结果
 WeixinRailsMiddleware::WeixinController.class_eval do
-
+  before_filter :set_keyword, only: :reply
   def reply
     render xml: send("response_#{@weixin_message.MsgType}_message", {})
   end
@@ -48,11 +48,12 @@ WeixinRailsMiddleware::WeixinController.class_eval do
     # <MediaId><![CDATA[media_id]]></MediaId>
     # <Format><![CDATA[Format]]></Format>
     def response_voice_message(options={})
-      @media_id = @weixin_message.MediaId # 可以调用多媒体文件下载接口拉取数据。
+      @media_id = @weixin_message.MediaId # 可以调用多媒体文件下载接口拉取>数据。
       @format   = @weixin_message.Format
       # 如果开启了语音翻译功能，@keyword则为翻译的结果
       # reply_text_message("回复语音信息: #{@keyword}")
-      reply_voice_message(generate_voice(@media_id))
+      # reply_voice_message(generate_voice(@media_id))
+      reply_text_message(WeatherRobot.get_reply(@keyword))      
     end
 
     # <MediaId><![CDATA[media_id]]></MediaId>
@@ -257,6 +258,11 @@ WeixinRailsMiddleware::WeixinController.class_eval do
     # 未定义的事件处理
     def handle_undefined_event
       Rails.logger.info("回调事件处理")
+    end
+    def set_keyword
+      @keyword = @weixin_message.Content    || # 文本消息
+                 @weixin_message.EventKey   || # 事件推送
+                 @weixin_message.Recognition # 接收语音识别结果
     end
 
 end
