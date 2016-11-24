@@ -103,7 +103,10 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
     # 点击菜单拉取消息时的事件推送
     def handle_click_event
-      reply_text_message("你点击了: #{@keyword}")
+      # reply_text_message("你点击了: #{@keyword}")
+      if @keyword == '问问'
+        reply_text_message("Hi，您好！我是机器人大师，很高兴为您服务！\n以下问题是您关心的吗？\n上海天气；\n预警信号；\n国际国内城市天气预报；\n空气质量；")
+      end
     end
 
     # 点击菜单跳转链接时的事件推送
