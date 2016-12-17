@@ -3,7 +3,8 @@
     // 解决页面返回后，重新载入的问题
     if(window.sessionStorage.getItem('now_url') === "/weather_essential") {
       window.sessionStorage.removeItem('now_url');
-      window.history.go(-2);
+      window.history.go(-(history.length - 2));
+      window.history.back();
     } else {
       var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent");
       // 获取当前定位
