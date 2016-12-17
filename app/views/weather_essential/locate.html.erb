@@ -1,10 +1,15 @@
 <% content_for :scripts do %>
   <script>
-    var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent");
-    // 获取当前定位
-    geolocation.getLocation(showPosition, showErr, options);
-    var positionNum = 0;
-    var options = {timeout: 80000};
+    // 解决页面返回后，重新载入的问题
+    if(history.length > 2) {
+      history.go(-(history.length - 2));
+    } else {
+      var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent");
+      // 获取当前定位
+      geolocation.getLocation(showPosition, showErr, options);
+      var positionNum = 0;
+      var options = {timeout: 80000};
+    }
 
     function showPosition(r) {
       console.log(r);
