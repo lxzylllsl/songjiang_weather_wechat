@@ -145,6 +145,8 @@
 <script type="text/javascript">
   <!-- // 设置排序图标 -->
   $(function(){
+    // 保存当前页面地址，返回时判断使用，防止locate重新进入本页面
+    sessionStorage.setItem('now_url', window.location.pathname);
     $(".header td").click(function(e) {
       // 重置class
       $(".header td span").removeClass("glyphicon-triangle-bottom glyphicon-triangle-top");

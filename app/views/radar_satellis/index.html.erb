@@ -64,7 +64,8 @@
   $(function(){
     var run_thread;
     var $is_run = false;
-    var height = $(window).width()
+    var height = $(window).width();
+    sessionStorage.setItem('now_url', window.location.pathname);
 
     $_target = $('.radar-time-line').find('li.radar9');
     $('#radar-image').attr('src', $_target.attr('data-url'));
