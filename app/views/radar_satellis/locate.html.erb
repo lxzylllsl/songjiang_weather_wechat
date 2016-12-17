@@ -4,6 +4,7 @@
     // 解决雷达卫星页面返回后，重新载入的问题
     if(sessionStorage.getItem('now_url') === "/radar_satellis") {
       sessionStorage.removeItem('now_url');
+      alert("要关闭了");
       wx.closeWindow();
     } else {
       var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent");
@@ -12,6 +13,7 @@
       var positionNum = 0;
       var options = {timeout: 80000};
     }
+
     function showPosition(r) {
       console.log(r);
       // 重定向
