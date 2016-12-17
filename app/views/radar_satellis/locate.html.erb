@@ -4,14 +4,7 @@
     // 解决雷达卫星页面返回后，重新载入的问题
     if(sessionStorage.getItem('now_url') === "/radar_satellis") {
       sessionStorage.removeItem('now_url');
-      var userAgent = navigator.userAgent;
-      if (userAgent.indexOf("Firefox") != -1 || userAgent.indexOf("Chrome") !=-1) {
-         window.location.href="about:blank";
-      } else {
-         window.opener = null;
-         window.open("", "_self");
-         window.close();
-      };
+      history.back();
     } else {
       var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent");
       // 获取当前定位
