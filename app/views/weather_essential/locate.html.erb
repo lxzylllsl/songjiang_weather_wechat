@@ -2,15 +2,17 @@
   <script>
     // 解决页面返回后，重新载入的问题
     if(sessionStorage.getItem('now_url') === "/weather_essential") {
+      alert(sessionStorage.getItem('now_url'));
       sessionStorage.removeItem('now_url');
       wx.closeWindow();
-    } else {
-      var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent");
-      // 获取当前定位
-      geolocation.getLocation(showPosition, showErr, options);
-      var positionNum = 0;
-      var options = {timeout: 80000};
-    }
+      return;
+    } 
+
+    var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent");
+    // 获取当前定位
+    geolocation.getLocation(showPosition, showErr, options);
+    var positionNum = 0;
+    var options = {timeout: 80000};
 
     function showPosition(r) {
       console.log(r);
