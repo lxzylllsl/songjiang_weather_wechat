@@ -8,8 +8,11 @@
 
     function showPosition(r) {
       console.log(r);
-      // 重定向
-      window.location.href = "../weather_essential?lon="+r.lng+"&lat="+r.lat;
+      if(r.district === '松江区') {
+        window.location.href = "../weather_essential?lon="+r.lng+"&lat="+r.lat;
+      } else {
+        window.location.href = "../weather_essential?lon=121.235323&lat=31.036755";
+      }
     };
 
     function showErr() {
