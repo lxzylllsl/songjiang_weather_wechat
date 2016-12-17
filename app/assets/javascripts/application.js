@@ -22,4 +22,5 @@
 //= require echarts/chart/line
 //= require echarts/chart/bar
 //= require bootstrap/tab
+//= require jweixin
 //= require turbolinks

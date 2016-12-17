@@ -1,13 +1,14 @@
 <% content_for :scripts do %>
   <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <script type="text/javascript" src="http://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
   <script>
+    var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent");
     // 解决雷达卫星页面返回后，重新载入的问题
     if(sessionStorage.getItem('now_url') === "/radar_satellis") {
       sessionStorage.removeItem('now_url');
       alert("要关闭了");
       wx.closeWindow();
     } else {
-      var geolocation = new qq.maps.Geolocation("O2KBZ-EILW5-NOJIH-QWO7L-VLF25-QFFDV", "community_disaster_prevent");
       // 获取当前定位
       geolocation.getLocation(showPosition, showErr, options);
       var positionNum = 0;
