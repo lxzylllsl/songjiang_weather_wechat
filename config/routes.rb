@@ -12,8 +12,10 @@ Rails.application.routes.draw do
       get :locate
     end
   end
+  
   resources :dems, only: [:index]
   resources :air_quality, only: [:index]
+
   resources :radar_satellis, only: [:index] do
     collection do
       get :locate
