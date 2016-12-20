@@ -59,24 +59,33 @@
           <p class="date-time"><%= item['datatime'] %></p>
           <p class="weather"><%= item['weather'] %></p>
           <div><span class="iconfont <%= weather_icon item['first_icon'] %>"></span></div>
-          <p class="tempe"><%= item['tempe'] %></p>
           <div><span class="iconfont <%= weather_icon item['second_icon'] %>"></span></div>
+          <p class="tempe"><%= item['tempe'] %></p>
         </li>
       <% end %>
     </ul>
+    <!-- 温度变化趋势 -->
+    <div id="tempe_chart"></div>
   </div>
 
   <div class="scroll-marker">
     <i class="iconfont icon-xiaoyuan iconfont1 selected"></i><i class="iconfont icon-xiaoyuan iconfont2"></i>
   </div>
 </div>
+
+
 <script>
   var myScroll;
   var _window_width = $(window).width();
   var _item_width = (_window_width / 5) - 6;
-  $("#scroller").width((_item_width * <%= @weather_forecasts_size %>) + <%= @weather_forecasts_size * 7 %>);
+  var container_width = _item_width * <%= @weather_forecasts_size %> + <%= @weather_forecasts_size * 7 %>
+  // 温度列表
+  $("#scroller").width(container_width);
   $("#scroller li").width(_item_width);
   myScroll = new IScroll('#bottom-container', { scrollX: true, scrollY: false, mouseWheel: true });
+  // 图表
+  $("#tempe_chart").width(container_width);
+  $("#tempe_chart").height(250);
 
   myScroll.on('scrollEnd', updatePosition);
   function updatePosition() {
@@ -89,4 +98,56 @@
     }
   }
   // document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+</script>
+
+<script>
+  weather_data = <%= initChartData(@weather_forecasts).to_json.html_safe %>
+  console.log(weather_data)
+
+  require.config({
+    paths: {echarts: '/assets/echarts'}
+  });
+
+  require(
+    ['echarts','echarts/chart/line'],
+    function (ec) {
+      $('#tempe_chart').each(function(){
+        myChart = ec.init($("#tempe_chart").get(0));
+        option = {
+          grid: {x: 5, y: 30, x2: 5, y2: 30, borderWidth: 0},
+          xAxis: [
+            {
+              type: 'category', show: false,
+              axisLabel: {textStyle: {color: '#fff'}},
+              splitLine: {show: false},
+              data: weather_data.ticks
+            }
+          ],
+          yAxis: [{
+            type: 'value', splitLine: {show: false}, show: false,
+            axisLabel: {textStyle: {color: '#fff'}},
+            scale: true
+          }],
+          series: [
+            {
+              type: 'line', x: '10%', showAllSymbol: true,
+              data: weather_data.high,
+              markPoint: {
+                data: weather_data.high_point
+              }
+            },
+            {
+              type: 'line', x: '10%', showAllSymbol: true,
+              data: weather_data.low,
+              markPoint: {
+                data: weather_data.low_point,
+                symbol: 'droplet'
+              }
+            }
+          ]
+        };
+        myChart.setOption(option);
+      });
+    }
+  );
 </script>

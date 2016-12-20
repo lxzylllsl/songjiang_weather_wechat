@@ -37,4 +37,22 @@ module WeatherForecastHelper
     }
   	_icons[image_name]
   end
+
+  # 整理天气预报图表数据
+  def initChartData weather_data
+  	ticks = []
+  	low = []
+  	low_point = []
+  	high = []
+  	high_point = []
+  	weather_data.each_with_index do |item, index|
+  		cache = item['tempe'][0...-1].split('~')
+  		ticks << index
+  		low << cache[0].to_i
+  		high << cache[1].to_i
+  		low_point.push({ value: cache[0].to_i, xAxis: index, yAxis: cache[0].to_i - 1.6 })
+  		high_point.push({ value: cache[1].to_i, xAxis: index, yAxis: cache[1].to_i })
+  	end
+  	{ticks: ticks, low: low, high: high, low_point: low_point, high_point: high_point}
+  end
 end
