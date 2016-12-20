@@ -97,12 +97,11 @@
 <% end %>
 
 <script>
-  var chartHeight = $(document.body).outerHeight(true)-380
+  var chartHeight = $(document.body).outerHeight(true)-360
   $("#aqi, #pm25, #o3, #pm10, #no2").height(chartHeight)
 
   var gheight = $("#aqi, #pm25, #o3, #pm10, #no2").height()-50
   var heightString = "115px ".concat(gheight.toString())
-  console.log(heightString);
   $("#aqi, #pm25, #o3, #pm10, #no2").height(chartHeight)
   $("#aqi, #pm25, #o3, #pm10, #no2").css({
     "background-size": heightString.concat("px")
