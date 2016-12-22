@@ -18,6 +18,7 @@ class WeatherEssentialController < ApplicationController
       end
     end
     @dems = Image::DemData.new.fetch
+    @cimiss = Cimiss.get
   end
 
   private
