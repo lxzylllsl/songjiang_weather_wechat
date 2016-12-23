@@ -8,7 +8,7 @@ class Cimiss
     time = ( Time.now.gmtime - 3.minute ).strftime("%Y%m%d%H%M") + "00"
     time2 = Time.now.gmtime.strftime("%Y%m%d%H%M") + "00"
 
-    uri = URI.parse("http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,Q_TEM,WIN_D_Avg_1mi,Q_WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_WIN_S_Avg_1mi&limitCnt=30&dataFormat=json")
+    uri = URI.parse("http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_TEM,Q_WIN_D_Avg_1mi,Q_WIN_S_Avg_1mi&dataFormat=json")
     https = Net::HTTP.new(uri.host,uri.port)
 
     _body = Net::HTTP.get(uri)
@@ -18,7 +18,7 @@ class Cimiss
 
     _output = _newest.map do |item|
       _result = {}
-      _result["name"] = item["Station_Name"]
+      _result["name"] = item["Station_Name"] == "桐泾" ? "洞泾" : item["Station_Name"] 
       _result["datetime"] = item["Datetime"].to_datetime.getlocal.strftime("%Y-%m-%d %H:%M")
       _result["tempe"] = item["Q_TEM"].in?(["0","3","4"]) ? item["TEM"] : nil
       _result["wind_direction"] = item["Q_WIN_D_Avg_1mi"].in?(["0","3","4"]) ? Cimiss.wind_direction(item["WIN_D_Avg_1mi"].to_f) : nil
