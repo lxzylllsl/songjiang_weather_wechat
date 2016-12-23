@@ -4,13 +4,19 @@
   <span class="datetime pull-right"><%= @real_time_station['datetime'] %></span>
 </div>
 <div class="row real-time-content">
-  <div class="col-xs-4">
+  <div class="col-xs-3">
     <div class="real-tempe text-center"><%= @real_time_site['tempe'] %>°</div>
   </div>
-  <div class="col-xs-8 right-container">
+  <div class="col-xs-9 right-container">
     <div class="col-xs-6 divide">
-      <div class="col-xs-12 right-content"><div class="col-xs-6 text-left">湿度</div><div class="col-xs-6 text-right"><%= @real_time_site['humi'] %>%</div></div>
-      <div class="col-xs-12 right-content"><div class="col-xs-6 text-left"><%= @real_time_station["wind_direction"] %>风</div><div class="col-xs-6 text-right"><%= @real_time_station["wind_speed"]%></div></div>
+      <div class="col-xs-12 right-content">
+        <div class="col-xs-6 text-left">湿度</div>
+        <div class="col-xs-6 text-right"><%= @real_time_site['humi'] %>%</div>
+      </div>
+      <div class="col-xs-12 right-content">
+        <div class="col-xs-8 text-left" style="padding: 0px;"><%= @real_time_station["wind_direction"] %>风</div>
+        <div class="col-xs-4 text-right" style="padding: 0px;"><%= @real_time_station["wind_speed"]%></div>
+      </div>
     </div>
     <div class="col-xs-6">
       <div class="col-xs-12 right-content"><div class="col-xs-6 text-left">能见度</div><div class="col-xs-6 text-right"><%= @real_time_site['visibility'] %>m</div></div>
