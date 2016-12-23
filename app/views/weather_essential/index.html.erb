@@ -24,11 +24,11 @@
         <tbody>
           <% @statistics.each do |item| %>
             <% if item['name'].eql? '松江' %>
-            <tr class="main-station" data="tempe_<%= item['sitenumber'] %>">
+              <tr class="main-station" data="tempe_<%= item['sitenumber'] %>">
             <% elsif item['name'].eql? @real_time_site['name'] %>
-            <tr data="tempe_<%= item['sitenumber'] %>" class="tr-station">
+              <tr data="tempe_<%= item['sitenumber'] %>" class="tr-station">
             <% else %>
-            <tr data="tempe_<%= item['sitenumber'] %>">
+              <tr data="tempe_<%= item['sitenumber'] %>">
             <% end %>
               <td><%= item['name'] %></td>
               <td class="<%= tempe_color item['tempe'] %>"><%= filter(item['tempe']) %></td>
@@ -247,7 +247,7 @@
 
   $(function(){
     var w_height = $(document).height();
-    var table_height = w_height - 178;
+    var table_height = w_height - 205;
     $('#tempe_table').dataTable({
       "order": [[ 1, 'asc' ]],
       "searching": false,

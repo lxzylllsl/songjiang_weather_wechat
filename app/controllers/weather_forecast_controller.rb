@@ -8,7 +8,12 @@ class WeatherForecastController < ApplicationController
     # site = LocationUtil.new.reverse(location_params)
     @weather_forecasts = Weather::WeatherForecasts.new.fetch
     @weather_forecasts_size = @weather_forecasts.size
+    # 所有站的即时信息
+    @cimiss = Cimiss.get
+    # 当前站即时信息
     @real_time_site = Weather::RealTimeStation.new.fetch(location_params[:lon], location_params[:lat])
+    @real_time_station = Cimiss.getNowStation @cimiss, @real_time_site["name"]
+
     @real_time_aqi = Aqi::RealTimeAqi.new.fetch
     @warnings = Warning::SongjiangWarning.new.fetch
 

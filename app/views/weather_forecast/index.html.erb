@@ -8,7 +8,7 @@
       <span><%= @real_time_site['name'] %></span>
     </div>
     <div class="col-xs-5 date-time-info text-right">
-      <%= @real_time_site['datetime'] %>
+      <%= @real_time_station['datetime'] %>
     </div>
   </div>
 
@@ -29,7 +29,7 @@
         <%= link_to locate_weather_essential_index_path do %>
           <div class="col-xs-12">能见度 <%= @real_time_site['visibility'] %>km</div>
           <div class="col-xs-12">湿&nbsp;&nbsp;&nbsp;度 <%= @real_time_site['humi'] %>%</div>
-          <div class="col-xs-12">东南风 3～4级</div>
+          <div class="col-xs-12"><%= @real_time_station["wind_direction"] %>风 <%= @real_time_station["wind_speed"]%></div>
           <div class="col-xs-12">气&nbsp;&nbsp;&nbsp;压 <%= @real_time_site['pressure'] %>Pa</div>
         <% end %>
         <%= link_to air_quality_index_path, 'data-turbolinks' => false do %>
