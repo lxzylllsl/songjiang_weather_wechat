@@ -19,7 +19,7 @@ class Cimiss
     _output = _newest.map do |item|
       _result = {}
       _result["name"] = item["Station_Name"] == "桐泾" ? "洞泾" : item["Station_Name"] 
-      _result["datetime"] = item["Datetime"].to_time.getlocal.strftime("%Y-%m-%d %H:%M")
+      _result["datetime"] = (item["Datetime"].to_time + 8.hours ).strftime("%Y-%m-%d %H:%M")
       _result["tempe"] = item["Q_TEM"].in?(["0","3","4"]) ? item["TEM"] : nil
       _result["wind_direction"] = item["Q_WIN_D_Avg_1mi"].in?(["0","3","4"]) ? Cimiss.wind_direction(item["WIN_D_Avg_1mi"].to_f) : nil
       _result["wind_speed"] = item["Q_WIN_S_Avg_1mi"].in?(["0","3","4"]) ? Cimiss.wind_level(item["WIN_S_Avg_1mi"].to_f) : nil
