@@ -12,3 +12,7 @@ job_type :runner,  "cd :path && timeout :timeout bin/rails runner -e :environmen
 every 5.minutes do
   runner 'Radar.process', timeout: 50
 end
+
+every 1.minute do 
+	runner 'ApiInfo.get_info', timeout: 50
+end
