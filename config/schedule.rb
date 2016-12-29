@@ -14,5 +14,5 @@ every 5.minutes do
 end
 
 every 1.minute do 
-	runner 'ApiInfo.get_info', timeout: 50
+	runner 'AqiInfo.get_info', timeout: 50
 end

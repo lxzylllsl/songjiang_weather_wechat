@@ -1,7 +1,6 @@
 class AirQualityController < ApplicationController
 
   def index
-  	AqiInfo.get_info
     # @real_time = Aqi::RealTimeAqi.new.fetch
     @forecast_air_quality = Aqi::ForecastAirQuality.new.fetch
     # @aqi_weathers = Aqi::AqiHistory.new.fetch
