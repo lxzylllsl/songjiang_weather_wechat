@@ -162,5 +162,7 @@ class AqiInfo < ActiveRecord::Base
 	private
 		def save_into_redis
 			$redis.lpush "aqi_info", self.info
+			#保留48小时记录
+			$redis.ltrim "aqi_info", 0, 47
 		end
 end
