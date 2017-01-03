@@ -54,7 +54,7 @@ class AqiInfo < ActiveRecord::Base
 	end
 
 	def self.aqi_weathers
-		_list = $redis.lrange "aqi_info", 0, 6
+		_list = $redis.lrange "aqi_info", 0, 23
 		_list.map do |i|
 			_decode =  AqiInfo.decode(i)
 			{
