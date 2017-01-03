@@ -20,7 +20,7 @@ class Cimiss
 
       _output = _newest.map do |item|
         _result = {}
-        _result["name"] = item["Station_Name"] == "桐泾" ? "洞泾" : item["Station_Name"] 
+        _result["name"] = item["Station_Name"]
         _result["datetime"] = (item["Datetime"].to_time + 8.hours ).strftime("%Y-%m-%d %H:%M")
         _result["tempe"] = item["Q_TEM"].in?(["0","3","4"]) ? item["TEM"] : nil
         _result["wind_direction"] = item["Q_WIN_D_Avg_1mi"].in?(["0","3","4"]) ? Cimiss.wind_direction(item["WIN_D_Avg_1mi"].to_f) : nil
@@ -35,6 +35,19 @@ class Cimiss
   # 查询当前站信息
   def self.getNowStation stations, now_name
     stations.select{ |o| o["name"] == now_name }[0]
+  end
+
+  # 检查替换站名
+  def self.fix_name datas
+    datas.map do |data|
+      case data["name"]
+      when "桐泾"
+        data["name"] = "洞泾"
+      when "松江"
+        data["name"] = "正泰科沁苑"
+      end
+      data
+    end
   end
 
 	def self.wind_direction angle
