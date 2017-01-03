@@ -39,6 +39,7 @@ class Cimiss
 
   # 检查替换站名
   def self.fix_name datas
+    datas = [datas] if datas.is_a?(Hash)
     datas.map do |data|
       case data["name"]
       when "桐泾"

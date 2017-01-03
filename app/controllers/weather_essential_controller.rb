@@ -9,6 +9,8 @@ class WeatherEssentialController < ApplicationController
     @lat = location_params[:lat]
     # 当前站即时信息
     @real_time_site = Weather::RealTimeStation.new.fetch(@lon, @lat)
+    # 修正站名
+    Cimiss.fix_name(@real_time_site)
     @real_time_station = @real_time_site
     # 气象统计  
     @statistics = AutoStation::Statistic.new.fetch
