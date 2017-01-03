@@ -65,4 +65,21 @@ module AirQualityHelper
       'aqi6'
     end
   end
+
+  def baby_color level
+    case level
+    when '优'
+      '50'
+    when '良'
+      '100'
+    when '轻度', '轻度污染'
+      '150'
+    when '中度', '中度污染'
+      '200'
+    when '重度', '重度污染'
+      '300'
+    when '严重', '严重污染'
+      '500'
+    end
+  end
 end

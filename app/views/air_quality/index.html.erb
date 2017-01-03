@@ -13,7 +13,7 @@
         <%= raw(transform_aqi @real_time['level']) %>
       </div>
       <div class="col-xs-6">
-        <%= image_tag 'aqi/aqi100.png', class: 'aqi-human' %>
+        <%= image_tag "aqi/aqi#{baby_color(@real_time['level'])}.png", class: 'aqi-human' %>
       </div>
       <div class="col-xs-12 aqi-pripoll">
         主要污染物: <%= aqi_format @real_time['pripoll'] %>
