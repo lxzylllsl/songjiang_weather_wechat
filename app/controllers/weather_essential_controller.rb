@@ -25,7 +25,7 @@ class WeatherEssentialController < ApplicationController
       @statistics.map do |item|
         _station = StationInfo.get_by_sitenumber item['sitenumber']
         item['distance'] = (_station.lon.blank? or _station.lat.blank?) ? '-' : _station.calculate_distance(@lon, @lat)
-        cache = Cimiss.getNowStation(@cimiss, item["name"])
+        cache = Cimiss.getNowStation(@cimiss, item)
         item['tempe'] = cache.present? ? cache["tempe"] : '-'
       end
       @real_time_station = Cimiss.getNowStation @cimiss, @real_time_site
