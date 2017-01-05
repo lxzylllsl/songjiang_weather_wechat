@@ -8,7 +8,7 @@ class DemsController < ApplicationController
     @cimiss = Cimiss.get
     # 当前站即时信息
     @real_time_site = Weather::RealTimeStation.new.fetch(@lon, @lat)
-    @real_time_station = Cimiss.getNowStation @cimiss, @real_time_site["name"]
+    @real_time_station = Cimiss.getNowStation @cimiss, @real_time_site
     # @statistics = AutoStation::Statistic.new.fetch
     # @statistics.map do |item|
     #   _station = StationInfo.get_by_sitenumber item['sitenumber']

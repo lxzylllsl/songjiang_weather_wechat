@@ -7,7 +7,6 @@ class Cimiss
 
     time = ( Time.now.gmtime - 3.minute ).strftime("%Y%m%d%H%M") + "00"
     time2 = Time.now.gmtime.strftime("%Y%m%d%H%M") + "00"
-
     uri = URI.parse("http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_TEM,Q_WIN_D_Avg_1mi,Q_WIN_S_Avg_1mi&dataFormat=json")
     https = Net::HTTP.new(uri.host,uri.port)
 
@@ -32,9 +31,9 @@ class Cimiss
     _output
   end
 
-  # 查询当前站信息
-  def self.getNowStation stations, now_name
-    stations.select{ |o| o["name"] == now_name }[0]
+  # 查询当前站信息 判断是否替换
+  def self.getNowStation stations, old_stations
+    stations.select{ |o| o["name"] == old_stations['name'] }[0] || old_stations
   end
 
   # 检查替换站名

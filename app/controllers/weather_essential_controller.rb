@@ -28,7 +28,8 @@ class WeatherEssentialController < ApplicationController
         cache = Cimiss.getNowStation(@cimiss, item["name"])
         item['tempe'] = cache.present? ? cache["tempe"] : '-'
       end
-      @real_time_station = Cimiss.getNowStation @cimiss, @real_time_site["name"]
+      @real_time_station = Cimiss.getNowStation @cimiss, @real_time_site
+      Cimiss.fix_name(@real_time_station)
     end
   end
 

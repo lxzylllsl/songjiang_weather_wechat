@@ -23,7 +23,7 @@
         </thead>
         <tbody>
           <% @statistics.each do |item| %>
-            <% if item['name'].eql? '松江' %>
+            <% if item['name'].eql? '正泰科沁苑' %>
               <tr class="main-station" data="tempe_<%= item['sitenumber'] %>">
             <% elsif item['name'].eql? @real_time_site['name'] %>
               <tr data="tempe_<%= item['sitenumber'] %>" class="tr-station">
@@ -53,7 +53,7 @@
         </thead>
         <tbody>
           <% @statistics.each do |item| %>
-            <% if item['name'].eql? '松江' %>
+            <% if item['name'].eql? '正泰科沁苑' %>
             <tr class="main-station" data="wind_<%= item['sitenumber'] %>">
             <% else %>
             <tr data="wind_<%= item['sitenumber'] %>">
@@ -105,7 +105,7 @@
         </thead>
         <tbody>
           <% @statistics.each do |item| %>
-            <% if item['name'].eql? '松江' %>
+            <% if item['name'].eql? '正泰科沁苑' %>
             <tr class="main-station" data="rain_<%= item['sitenumber'] %>">
             <% else %>
             <tr data="rain_<%= item['sitenumber'] %>">
