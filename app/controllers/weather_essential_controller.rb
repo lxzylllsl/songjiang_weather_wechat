@@ -14,13 +14,13 @@ class WeatherEssentialController < ApplicationController
     @real_time_station = @real_time_site
     # 气象统计  
     @statistics = AutoStation::Statistic.new.fetch
+    Cimiss.fix_name(@statistics)
     # 动态数据
     @dems = Image::DemData.new.fetch
     
     # 替换cimiss 数据
     if @cimiss = Cimiss.get
       # 所有站的即时信息
-      Cimiss.fix_name(@statistics)
       Cimiss.fix_name(@cimiss)
       @statistics.map do |item|
         _station = StationInfo.get_by_sitenumber item['sitenumber']

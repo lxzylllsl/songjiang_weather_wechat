@@ -7,13 +7,21 @@ class Cimiss
 
     time = ( Time.now.gmtime - 3.minute ).strftime("%Y%m%d%H%M") + "00"
     time2 = Time.now.gmtime.strftime("%Y%m%d%H%M") + "00"
-    uri = URI.parse("http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_TEM,Q_WIN_D_Avg_1mi,Q_WIN_S_Avg_1mi&dataFormat=json")
-    https = Net::HTTP.new(uri.host,uri.port)
-
-    _body = Net::HTTP.get(uri)
+    # uri = URI.parse("http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_TEM,Q_WIN_D_Avg_1mi,Q_WIN_S_Avg_1mi&dataFormat=json")
+    # https = Net::HTTP.new(uri.host,uri.port)
+    begin
+      _body =  RestClient::Request.execute(
+        method: :get, 
+        url: "http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_TEM,Q_WIN_D_Avg_1mi,Q_WIN_S_Avg_1mi&dataFormat=json", 
+        timeout: 1)
+    rescue RestClient::RequestTimeout => e
+      return nil
+    end
+    # _body = Net::HTTP.get(uri.to_s, timeout = 0.1)
     # 防止cimiss 请求得不到数据
     _output = nil
-    if _ds =  JSON.parse(_body)['DS']
+  
+    if _ds =  JSON.parse(_body)['DS'] 
       #筛选出最新
       _newest = _ds.group_by{ |i| i['Station_Name']}.values.map { |e| e[ e.length - 1] }
 
@@ -105,16 +113,20 @@ class Cimiss
 			"5级"
 		when speed.in?(10.8..13.8)
 			"6级"
+    when speed.in?(13.8..17.1)
+      "7级"
 		when speed.in?(17.2..20.7)
-			"7级"
-		when speed.in?(20.8..24.4)
 			"8级"
-		when speed.in?(24.5..28.4)
+		when speed.in?(20.8..24.4)
 			"9级"
-		when speed.in?(28.5..32.6)
+		when speed.in?(24.5..28.4)
 			"10级"
-		when speed.in?(32.7..36.9)
+		when speed.in?(28.5..32.6)
 			"11级"
+		when speed.in?(32.7..36.9)
+			"12级"
+    when speed.in?(36.9..41.4)
+      "13级"
 		else
 			"无数据"		
   	end

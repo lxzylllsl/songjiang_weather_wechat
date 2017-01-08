@@ -114,7 +114,7 @@
               <td class="<%= "text-danger" if item['one_hour_rain'].to_i >= 20 %>"><%= item['one_hour_rain'] %></td>
               <td><%= item['three_hour_rain'] %></td>
               <td><%= item['six_hour_rain'] %></td>
-              <td class="<%= "text-danger" if item['one_day1_rain'].to_i >= 50 %>"><%= item['one_day1_rain'] %></td>
+              <td class="<%= "text-danger" if item['one_day2_rain'].to_i >= 50 %>"><%= item['one_day2_rain'] %></td>
             </tr>
           <% end %>
         </tbody>
