@@ -16,3 +16,7 @@ end
 every 5.minute do 
 	runner 'AqiInfo.get_info', timeout: 50
 end
+
+every 5.minute do
+	runner 'Cimiss.check_link', timeout: 50
+end
