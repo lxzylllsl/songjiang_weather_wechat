@@ -13,10 +13,10 @@ every 5.minutes do
   runner 'Radar.process', timeout: 50
 end
 
-every 5.minute do 
+every 5.minutes do 
 	runner 'AqiInfo.get_info', timeout: 50
 end
 
-every 5.minute do
+every 5.minutes do
 	runner 'Cimiss.check_link', timeout: 50
 end

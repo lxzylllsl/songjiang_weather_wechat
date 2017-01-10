@@ -13,15 +13,13 @@ class Cimiss
       _body =  RestClient::Request.execute(
         method: :get, 
         url: "http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_TEM,Q_WIN_D_Avg_1mi,Q_WIN_S_Avg_1mi&dataFormat=json", 
-        timeout: 3)
+        timeout: 3) 
+    end
     rescue RestClient::RequestTimeout => e
       return nil
-    end
-    # _body = Net::HTTP.get(uri.to_s, timeout = 0.1)
     # 防止cimiss 请求得不到数据
-    _output = nil
   
-    if _ds =  JSON.parse(_body)['DS'] 
+    if _body && _ds =  JSON.parse(_body)['DS'] 
       #筛选出最新
       _newest = _ds.group_by{ |i| i['Station_Name']}.values.map { |e| e[ e.length - 1] }
 
@@ -59,11 +57,13 @@ class Cimiss
   end
 
   def self.check_link
+    time = ( Time.now.gmtime - 3.minute ).strftime("%Y%m%d%H%M") + "00"
+    time2 = Time.now.gmtime.strftime("%Y%m%d%H%M") + "00"
     _body =  RestClient::Request.execute(
         method: :get, 
         url: "http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_TEM,Q_WIN_D_Avg_1mi,Q_WIN_S_Avg_1mi&dataFormat=json", 
         timeout: 3)
-    $redis.set "cimiss_link", "true" if _body.any?
+    $redis.set "cimiss_link", "true" unless _body.nil?
     rescue RestClient::RequestTimeout => e
       p "======================================= Cimiss link error ==========================================="
       $redis.set "cimiss_link", "flase"
