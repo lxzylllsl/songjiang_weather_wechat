@@ -30,7 +30,7 @@ class WeatherEssentialController < ApplicationController
       end
       @real_time_station = Cimiss.getNowStation @cimiss, @real_time_site
       Cimiss.fix_name(@real_time_station)
-      @statistics.reject! {|x| x["name"] == "车墩"}
+      # @statistics.reject! {|x| x["name"] == "车墩"}
     end
   end
 
