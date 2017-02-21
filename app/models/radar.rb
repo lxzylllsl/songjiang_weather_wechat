@@ -94,6 +94,14 @@ class Radar
       file.close
       $redis.lpush @redis_key, {img: "#{file_path}/#{name}.png", time: name}.to_json
     end
+
+    def self.clear_histroy_image
+      _reserve_date = [Time.zone.today.strftime("%Y-%m-%d")]#, (Time.zone.today - 1 ).strftime("%Y-%m-%d")]
+
+      Dir["tmp/radar/*"].each do |dir|
+        FileUtils.rm_rf(dir) unless dir.gsub('tmp/radar/','').in?(_reserve_date)
+      end
+    end
   end
 
   class RadarEcho

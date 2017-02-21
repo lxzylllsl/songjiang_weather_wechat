@@ -20,3 +20,7 @@ end
 every 5.minutes do
 	runner 'Cimiss.check_link', timeout: 50
 end
+
+every 1.day, :at => '03:00' do 
+	runner 'Radar::RadarImageProcess.clear_histroy_image', timeout: 50
+end
