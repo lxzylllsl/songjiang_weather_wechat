@@ -12,9 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require iscroll
 //= require echarts/echarts
 //= require echarts/chart/line
 //= require bootstrap-sprockets
 //= require ckeditor/init
+//= require turbolinks

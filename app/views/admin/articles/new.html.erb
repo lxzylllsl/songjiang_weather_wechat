@@ -57,7 +57,7 @@
                     <dd class="error">* <%= @article.errors[:content][0] %></dd>
                   <% end %>
                 </label>
-                <%= f.text_area :content, {:rows => 20, :class => "form-control"} %>
+                <%= f.cktext_area :content, {:rows => 40, :class => "form-control"} %>
               </div>
             </div>
             <i class="arrow arrow_out" style="margin-top: 0;"></i>
@@ -71,6 +71,7 @@
     </div>
   <% end %>  
 </div>
+
 <script>
   var _w_height = $(document).height();
   $('.editor-content').height(_w_height - 210);
