@@ -31,7 +31,7 @@
                 <%= link_to edit_admin_article_path(item) do %>
                   <i class="iconfont icon-bianji"></i>
                 <% end %>
-                <%= link_to admin_article_path(item) do %>
+                <%= link_to admin_article_path(item), method: "delete",  data: { confirm: '确定删除?'} do %>
                   <i class="iconfont icon-shanchu"></i>
                 <% end %>
               </td>
