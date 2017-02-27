@@ -28,9 +28,9 @@
               <td><%= item.author -%></td>
               <td><%= item.created_at.strftime('%F %H:%M') -%></td>
               <td>
-                <%= link_to edit_admin_article_path(item) do %>
+                <a href="<%= edit_admin_article_path(item) %>" data-turbolinks="false">
                   <i class="iconfont icon-bianji"></i>
-                <% end %>
+                </a>
                 <%= link_to admin_article_path(item), method: "delete",  data: { confirm: '确定删除?'} do %>
                   <i class="iconfont icon-shanchu"></i>
                 <% end %>
