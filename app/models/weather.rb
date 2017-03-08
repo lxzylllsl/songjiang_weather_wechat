@@ -33,7 +33,7 @@ class Weather
       _result = get_data({method: 'get', data: {
         appid: @appid,
         appkey: @appkey,
-        city_name: '上海'
+        city_name: '松江'
       }}, {})
       items = _result.fetch('data', {}).fetch('items', [])
       items.map do |item|
