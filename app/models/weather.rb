@@ -33,12 +33,14 @@ class Weather
       _result = get_data({method: 'get', data: {
         appid: @appid,
         appkey: @appkey,
-        city_name: '松江'
+        city_name: '上海'
       }}, {})
       items = _result.fetch('data', {}).fetch('items', [])
       items.map do |item|
-        _datetime = item['report_date'].to_datetime
-        item['report_date'] = _datetime.strftime('%m.%d')
+        # _datetime = item['report_date'].to_datetime
+        # item['report_date'] = _datetime.strftime('%m.%d')
+        _datetime = item['datetime'].to_datetime
+        item['datetime'] = _datetime.strftime('%m.%d')
         item['week'] = _datetime.strftime('%a')
         weathers = Weather.filter(analyzed(item['weather']))
         if weathers[0].eql?(weathers[-1])
