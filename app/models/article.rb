@@ -17,6 +17,7 @@
 #
 
 class Article < ActiveRecord::Base
+	default_scope { order('created_at desc')}
   has_attached_file :picture, styles: { mini: '48x48>', small: '150x150>', medium: '300x300>', product: '600x600>', large: '1280x1280>' }
 
   validates_attachment_presence :picture
