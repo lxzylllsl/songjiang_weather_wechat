@@ -48,7 +48,7 @@ gem 'weixin_rails_middleware'
 gem 'weixin_authorize', git: "https://github.com/shtzr840329/weixin_authorize.git", branch: 'news_message_api'
 gem 'jquery-fileupload-rails'
 
-gem 'rmagick', :require => 'RMagick'
+gem 'rmagick', :require => 'rmagick'
 gem 'mini_magick'
 
 gem 'redis', '3.2.1'
