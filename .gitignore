@@ -29,3 +29,5 @@ public/images/*
 app/.DS_Store
 app/assets/.DS_Store
 app/assets/images/.DS_Store
+
+config/puma.rb
