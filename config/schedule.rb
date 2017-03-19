@@ -24,3 +24,19 @@ end
 every 1.day, :at => '03:00' do 
 	runner 'Radar::RadarImageProcess.clear_histroy_image', timeout: 50
 end
+
+every 1.minutes do 
+	SimpleCimissRain.new.sum_multi_mins_rain, timeout: 50
+end
+# 错峰处理？
+every 10.minutes do 
+	SimpleCimissRain.new.sum_last_multi_hours_rain 3, timeout: 50
+end
+
+every 12.minutes do 
+	SimpleCimissRain.new.sum_last_multi_hours_rain 6, timeout: 50
+end
+
+every 15.minutes do 
+	SimpleCimissRain.new.sum_last_multi_hours_rain 24, timeout: 50
+end

@@ -1,5 +1,12 @@
 # config/application.yml
 defaults: &defaults
+  Cimiss:
+    min_rain_time_range: 
+      title: 分钟雨量累加 按时间段地区查询
+      url: "http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=statSurfEleInRegion&dataCode=SURF_CHN_PRE_MIN&elements=Station_Name&statEles=Sum_PRE&timeRange=[#{time1},#{time2}]&adminCodes=310117&dataFormat=json"
+    oclock_rain_time_range: 
+      title: 整点小时雨量累加 按时间段地区查询 
+      url: "http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=statSurfPreInRegion&elements=Station_Name,Station_Id_C&timeRange=[#{time1},#{time2}]&adminCodes=310117&limitCnt=30&dataFormat=html"
   LocationUtil:
     ak: '200aadcf1ccf720749c79228f9b7fd79'
     remote: 'http://api.map.baidu.com'

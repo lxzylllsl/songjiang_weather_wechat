@@ -22,7 +22,7 @@
           <!-- <td>离你距离 <span class="glyphicon glyphicon-sort"></span></td> -->
         </thead>
         <tbody>
-          <% @statistics.each do |item| %>
+          <% @statistics.reject{|i|i['name'].in?(['第一中学', '松江工业区'])}.each do |item| %>
             <% if item['name'].eql? '正泰科沁苑' %>
               <tr class="main-station" data="tempe_<%= item['sitenumber'] %>">
             <% elsif item['name'].eql? @real_time_site['name'] %>
@@ -52,7 +52,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @statistics.each do |item| %>
+          <% @statistics.reject{|i|i['name'].in?(['第一中学', '松江工业区'])}.each do |item| %>
             <% if item['name'].eql? '正泰科沁苑' %>
             <tr class="main-station" data="wind_<%= item['sitenumber'] %>">
             <% else %>

@@ -32,6 +32,11 @@ class WeatherEssentialController < ApplicationController
       Cimiss.fix_name(@real_time_station)
       # @statistics.reject! {|x| x["name"] == "车墩"}
     end
+    p 'result  ====------'
+    @statistics << {'name' => '第一中学'} << {'name' => '松江工业区'}
+    @statistics = SimpleCimissRain.replace @statistics, SimpleCimissRain.do_join
+    p @statistics
+
   end
 
   private
