@@ -192,6 +192,8 @@ class SimpleCimissRain
 				last_6_hours_sum_rain: { 'SUM_PRE_1H' => 'six_hour_rain'},
 				last_24_hours_sum_rain: { 'SUM_PRE_1H' => 'one_day1_rain'},
 				last_24_hours_sum_rain: { 'SUM_PRE_1H' => 'one_day2_rain'},
+				# 同redis key 同 column 但 不同目标对象 处理一下！！
+				# 
 			} 
 			fix_name_option = {
 				'桐泾' => '洞泾',
