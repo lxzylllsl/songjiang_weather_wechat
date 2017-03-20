@@ -33,11 +33,13 @@ class SimpleCimissRain
 	
 
 	def sum_multi_mins_rain
-		sum_min_rain_url = 'http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=statSurfEleInRegion&dataCode=SURF_CHN_PRE_MIN&elements=Station_Name,Q_PRE&statEles=SUM_PRE&timeRange=[#{time1},#{time2}]&adminCodes=310117&dataFormat=json'
+		sum_min_rain_url = 'http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=statSurfEleInRegion&dataCode=SURF_CHN_PRE_MIN&elements=Station_Name,Q_PRE&statEles=SUM_PRE&timeRange=[#{time1},#{time2}]&adminCodes=310117&orderBy=Q_PRE_1H:desc&dataFormat=json'
+		# 'http://10.228.89.55/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=statSurfPreInRegion&elements=Station_Name,Q_PRE_1H&timeRange=[20170319000000,20170320000000]&adminCodes=310117&orderBy=Q_PRE_1H:asc&dataFormat=json'
 		time1 = @now.oclock
 		time2 = @now
 		body = cimiss_get(sum_min_rain_url, { time1: time1, time2: time2 })
 		if body # 访问成功
+p body
 			data = last_data_parse(body)
 			$redis.set_cimiss_hash 'one_hour_rain', data, @now
 			data
@@ -53,6 +55,7 @@ class SimpleCimissRain
 		
 		body = cimiss_get(sum_hour_rain_url, { time1: time1, time2: time2 })
 		if body # 访问成功
+p body
 			data = last_data_parse(body)
 			$redis.set_cimiss_hash "last_#{num}_hours_sum_rain", data, @now
 			data
@@ -122,7 +125,7 @@ class SimpleCimissRain
 			$redis.get_cimiss_hash(redis_key).to_a.map { |station_name, data| 
 				[ 
 					station_name, 
-					rename_options.map { |old_key, new_key| 
+					rename_options.map { |new_key, old_key| 
 						[ new_key, data[old_key] ]
 					}.to_h
 				]
@@ -162,7 +165,9 @@ class SimpleCimissRain
 		output
 	end
 
-
+	# check_corr_id(val.**last**.except('Station_Name'))
+	# [{"Station_Name"=>"天马山", "Q_PRE_1H"=>"0", "SUM_PRE_1H"=>"23.90", "COUNT_PRE_1H"=>"23.00"}, {"Station_Name"=>"天马山", "Q_PRE_1H"=>"1", "SUM_PRE_1H"=>"1.00", "COUNT_PRE_1H"=>"1.00"}]
+	# [{"Station_Name"=>"新桥", "Q_PRE_1H"=>"1", "SUM_PRE_1H"=>"0.10", "COUNT_PRE_1H"=>"1.00"}, {"Station_Name"=>"新桥", "Q_PRE_1H"=>"0", "SUM_PRE_1H"=>"21.90", "COUNT_PRE_1H"=>"23.00"}]
  	# 旧数据源 cimiss数据源均可转换
 	def last_data_parse body
 		data = {}
@@ -170,8 +175,12 @@ class SimpleCimissRain
 			item['Station_Name'] || item['name'] # 旧数据源
 			}.each { |station_name, val|
 				# last 得到最新数据
+				  p '---'
+				  p  val
+				  p '---'
 					p data[station_name] =
-						check_corr_id(val.last.except('Station_Name'))
+					# 临时 对Q_PRE_1H(单数据数据源)
+						check_corr_id(val.select{|x| x["Q_PRE_1H"].nil? ||  x["Q_PRE_1H"].in?(['0', '3', '4']) }.last.except('Station_Name'))
 					}
 		data
 	end
@@ -179,19 +188,30 @@ class SimpleCimissRain
 	class << self
 		def do_join
 			# p '-------self.new.sum_multi_mins_rain'
-			# p self.new.sum_multi_mins_rain
+			# p SimpleCimissRain.new.sum_multi_mins_rain
 			# p '-------self.new.sum_last_multi_hours_rain 3'
-			# p self.new.sum_last_multi_hours_rain 3
+			# p SimpleCimissRain.new.sum_last_multi_hours_rain 3
 			# p '-------self.new.sum_last_multi_hours_rain 6'
-			# p self.new.sum_last_multi_hours_rain 6
+			# p SimpleCimissRain.new.sum_last_multi_hours_rain 6
 			# p '-------self.new.sum_last_multi_hours_rain 24'
-			# p self.new.sum_last_multi_hours_rain 24
+			# p SimpleCimissRain.new.sum_last_multi_hours_rain 24
+			# options = {
+			# 	one_hour_rain: { 'SUM_PRE' => 'one_hour_rain'},
+			# 	last_3_hours_sum_rain: { 'SUM_PRE_1H' => 'three_hour_rain'},
+			# 	last_6_hours_sum_rain: { 'SUM_PRE_1H' => 'six_hour_rain'},
+			# 	last_24_hours_sum_rain: { 'SUM_PRE_1H' => 'one_day1_rain'},
+			# 	last_24_hours_sum_rain: { 'SUM_PRE_1H' => 'one_day2_rain'},
+			# 	# 同redis key 同 column 但 不同目标对象 处理一下！！
+			# 	# 
+			# } 
 			options = {
-				one_hour_rain: { 'SUM_PRE' => 'one_hour_rain'},
-				last_3_hours_sum_rain: { 'SUM_PRE_1H' => 'three_hour_rain'},
-				last_6_hours_sum_rain: { 'SUM_PRE_1H' => 'six_hour_rain'},
-				last_24_hours_sum_rain: { 'SUM_PRE_1H' => 'one_day1_rain'},
-				last_24_hours_sum_rain: { 'SUM_PRE_1H' => 'one_day2_rain'},
+				one_hour_rain: { 'one_hour_rain' => 'SUM_PRE'},
+				last_3_hours_sum_rain: { 'three_hour_rain' => 'SUM_PRE_1H'},
+				last_6_hours_sum_rain: { 'six_hour_rain' => 'SUM_PRE_1H'},
+				last_24_hours_sum_rain: { 
+					'one_day1_rain' => 'SUM_PRE_1H', 
+					'one_day2_rain' => 'SUM_PRE_1H'
+					},
 				# 同redis key 同 column 但 不同目标对象 处理一下！！
 				# 
 			} 
@@ -199,7 +219,7 @@ class SimpleCimissRain
 				'桐泾' => '洞泾',
 				'松江' => '正泰科沁苑'
 			}
-			p '############'
+			p '#########fix_name###'
 			oooo = self.join_and_rename(options)
 			oo = oooo.clone 
 			oooo.each do |name, data|
