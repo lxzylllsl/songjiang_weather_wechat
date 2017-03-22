@@ -70,8 +70,8 @@ gem 'ransack'
 gem 'chinese_lunar', git: 'https://github.com/shtzr840329/chinese_lunar.git'
 
 # Ckeditor integration gem for rails
-gem 'ckeditor'
-
+# gem 'ckeditor'
+gem 'ckeditor', github: 'galetahub/ckeditor'
 gem 'acts_as_votable', '~> 0.10.0'
 
 gem 'by_star', '~> 2.2.1'
