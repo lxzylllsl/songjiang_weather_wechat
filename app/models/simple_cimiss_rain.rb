@@ -33,13 +33,15 @@ class SimpleCimissRain
 	
 
 	def sum_multi_mins_rain
-		sum_min_rain_url = 'http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=statSurfEleInRegion&dataCode=SURF_CHN_PRE_MIN&elements=Station_Name,Q_PRE&statEles=SUM_PRE&timeRange=[#{time1},#{time2}]&adminCodes=310117&orderBy=Q_PRE_1H:desc&dataFormat=json'
+		sum_min_rain_url = 'http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=statSurfEleInRegion&dataCode=SURF_CHN_PRE_MIN&elements=Station_Name,Q_PRE&statEles=SUM_PRE&timeRange=[#{time1},#{time2}]&adminCodes=310117&dataFormat=json'
 		# 'http://10.228.89.55/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=statSurfPreInRegion&elements=Station_Name,Q_PRE_1H&timeRange=[20170319000000,20170320000000]&adminCodes=310117&orderBy=Q_PRE_1H:asc&dataFormat=json'
-		time1 = @now.oclock
+		time1 = @now.one_hour_rain_start
 		time2 = @now
 		body = cimiss_get(sum_min_rain_url, { time1: time1, time2: time2 })
 		if body # 访问成功
 p body
+# 非累加数据
+# 取得最新(last) 数据
 			data = last_data_parse(body)
 			$redis.set_cimiss_hash 'one_hour_rain', data, @now
 			data
@@ -56,6 +58,7 @@ p body
 		body = cimiss_get(sum_hour_rain_url, { time1: time1, time2: time2 })
 		if body # 访问成功
 p body
+# 累计数据处理，1.合并 质控码合理数据 2.出现不可信自控码 弃置本站数据
 			data = last_data_parse(body)
 			$redis.set_cimiss_hash "last_#{num}_hours_sum_rain", data, @now
 			data
@@ -184,6 +187,8 @@ p body
 					}
 		data
 	end
+
+
 
 	class << self
 		def do_join

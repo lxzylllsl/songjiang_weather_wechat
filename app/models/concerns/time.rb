@@ -5,6 +5,10 @@ class	Time
 		self.strftime("%Y%m%d%H").to_time
 	end
 
+	def one_hour_rain_start
+		( self - 1.minutes ).strftime("%Y%m%d%H").to_time
+	end
+
 	# 自动站十分
 	def ten_mins_string
 		self.strftime("%Y%m%d%H#{ self.min / 10 }0")
