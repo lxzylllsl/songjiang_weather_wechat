@@ -1,0 +1,9 @@
+json.weather_forecasts @weather_forecasts
+json.weather_forecasts_size @weather_forecasts_size
+json.real_time_site @real_time_site
+json.real_time_station @real_time_station
+json.cimiss @cimiss
+json.real_time_site @real_time_site
+json.real_time_aqi @real_time_aqi
+json.warnings @warnings
+json.poem @poem
