@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="230" height="560" viewBox="0 0 230 560">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7 {
+        font-size: 16px;
+      }
+
+      .cls-2 {
+        fill: #670609;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7 {
+        font-family: "STHeitiSC-Light";
+      }
+
+      .cls-3 {
+        fill: #9a0847;
+      }
+
+      .cls-4 {
+        fill: #fc0d1b;
+      }
+
+      .cls-5 {
+        fill: #f19625;
+      }
+
+      .cls-6 {
+        fill: #feef35;
+      }
+
+      .cls-7 {
+        fill: #22d732;
+      }
+    </style>
+  </defs>
+  <image xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAIuCAMAAACFN6iaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAeFBMVEUAAAD/AAD/BQDynwDzmQDzlwDzlgDykgDxiwD/9gD/8gD/8QD/9QD38AEA1yEA2CAA2R8A2R8A2R8A2R9oBAScAEb/AAD/BQDynwDzmQDzlwDzlgDykgDxiwD/9gD/8gD/8QD/9QD38AEA1yEA2CEA2CAA2R8AAABXBwmAAAAAFHRSTlMA7u7u7u7u7u7u7u7u7u7u7v343o8UhGMAAAABYktHRACIBR1IAAAACXBIWXMAAAsSAAALEgHS3X78AAAAqElEQVRo3u3USQ6CUBRE0UendCKNfa+g+1+i0WHB4CcywOTeUeUsoGzVyyAIgqC/IrfWvSAIgiAIgiAImh655W0kD4IgCJow+VvJd/z7YCcFFu6l0KKDFEEQBEG/0OwozWx+kuYWn6V46KPdSi5SYulVSi27SRkEQRA0Mg28b36Xcls8pIXj3xdt17Vd+6377MKWT2lp5UsqIQiCoJGpUqqsVqqtKaXmDYL+qRa1Q0+0AAAAAElFTkSuQmCC" y="2" width="18" height="558"/>
+  <text x="27" y="22" class="cls-1"><tspan class="cls-2">六级，严重污染</tspan></text>
+  <text x="27" y="100" class="cls-1"><tspan class="cls-3">五级，重度污染</tspan></text>
+  <text x="26" y="261" class="cls-1"><tspan class="cls-4">四级，中度污染</tspan></text>
+  <text x="27" y="339" class="cls-1"><tspan class="cls-5">三级，轻度污染</tspan></text>
+  <text x="27" y="422" class="cls-1"><tspan class="cls-6">二级，良</tspan></text>
+  <text x="27" y="500" class="cls-1"><tspan class="cls-7">一级，优</tspan></text>
+</svg>
