@@ -5,7 +5,7 @@
   <div class="row main-top-container-1">
     <div class="col-xs-7 location-info">
       <%= image_tag 'locate.png', class: 'locate-icon' %>
-      <span><%= @real_time_site['name'] %></span>
+      <span><%= @real_time_station['name'] %></span>
     </div>
     <div class="col-xs-5 date-time-info text-right">
       <%= @real_time_station['datetime'] %>
@@ -16,7 +16,7 @@
     <div class="col-xs-7 container-left">
       <%= link_to locate_weather_essential_index_path do %>
         <div class="real-time-tempe">
-          <%= @real_time_site['tempe'] %>°
+          <%= @real_time_station['tempe'] %>°
         </div>
         <div class="forecast-tempe">
           <p class="tempe"><%= @weather_forecasts.first['tempe'] %></p>
@@ -27,10 +27,10 @@
     <div class="col-xs-5 container-right">
       <div class="auto-station-info text-left">
         <%= link_to locate_weather_essential_index_path do %>
-          <div class="col-xs-12">能见度 <%= @real_time_site['visibility'] %>km</div>
-          <div class="col-xs-12">湿&nbsp;&nbsp;&nbsp;度 <%= @real_time_site['humi'] %>%</div>
+          <div class="col-xs-12">能见度 <%= @real_time_station['visibility'] %>km</div>
+          <div class="col-xs-12">湿&nbsp;&nbsp;&nbsp;度 <%= @real_time_station['humi'] %>%</div>
           <div class="col-xs-12"><%= @real_time_station["wind_direction"] %>风 <%= @real_time_station["wind_speed"]%></div>
-          <div class="col-xs-12">气&nbsp;&nbsp;&nbsp;压 <%= @real_time_site['pressure'] %>Pa</div>
+          <div class="col-xs-12">气&nbsp;&nbsp;&nbsp;压 <%= @real_time_station['pressure'] %>Pa</div>
         <% end %>
         <%= link_to air_quality_index_path, 'data-turbolinks' => false do %>
           <div class="col-xs-12">
