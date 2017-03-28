@@ -23,6 +23,7 @@ config/ininializers/weixin_authorize.rb
 public/system/*
 public/assets/*
 public/images/*
+public/ckeditor_assets/*
 
 
 .DS_Store
