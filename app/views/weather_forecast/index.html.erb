@@ -29,7 +29,7 @@
         <%= link_to locate_weather_essential_index_path do %>
           <div class="col-xs-12">能见度 <%= @real_time_station['visibility'] %>km</div>
           <div class="col-xs-12">湿&nbsp;&nbsp;&nbsp;度 <%= @real_time_station['humi'] %>%</div>
-          <div class="col-xs-12"><%= @real_time_station["wind_direction"] %>风 <%= @real_time_station["wind_speed"]%></div>
+          <div class="col-xs-12"><%= Cimiss.wind_direction( @real_time_station["wind_direction"] ) %>风 <%= @real_time_station["wind_speed"]%></div>
           <div class="col-xs-12">气&nbsp;&nbsp;&nbsp;压 <%= @real_time_station['pressure'] %>Pa</div>
         <% end %>
         <%= link_to air_quality_index_path, 'data-turbolinks' => false do %>

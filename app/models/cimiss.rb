@@ -74,7 +74,7 @@ class Cimiss
       %w(北 北东北 东北 东东北
          东 东东南 东南 南东南
          南 南西南 西南 西西南
-         西 西西北 西北 北西北)[((angle + 11.24) / 22.5)] unless angle.nil?
+         西 西西北 西北 北西北)[((angle + 11.24) / 22.5)] unless angle.nil? rescue angle
     end
 
     # def wind_level2 speed
