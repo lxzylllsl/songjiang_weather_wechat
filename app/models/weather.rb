@@ -33,7 +33,7 @@ class Weather
       _result = get_data({method: 'get', data: {
         appid: @appid,
         appkey: @appkey,
-        city_name: '上海'
+        city_name: '松江'
       }}, {})
       items = _result.fetch('data', {}).fetch('items', [])
       items.map do |item|
@@ -42,12 +42,18 @@ class Weather
         _datetime = item['datatime'].to_datetime
         item['datatime'] = _datetime.strftime('%m.%d')
         item['week'] = _datetime.strftime('%a')
-        weathers = Weather.filter(analyzed(item['weather']))
-        if weathers[0].eql?(weathers[-1])
-          item['weather'] = weathers[0]
-        else
-          item['weather'] = weathers.join('转')
-        end
+        # # 使用 query city_name = 上海 时
+        # weathers = Weather.filter(analyzed(item['weather']))
+        # if weathers[0].eql?(weathers[-1])
+        #   item['weather'] = weathers[0]
+        # else
+        #   item['weather'] = weathers.join('转')
+        # end
+        # item['first_icon'] = Weather.get_pic_file weathers[0]
+        # item['second_icon'] = Weather.get_pic_file weathers[-1]
+        
+        # 使用 query city_name = 松江 时
+        weathers = item['weatherpic'].split('转')
         item['first_icon'] = Weather.get_pic_file weathers[0]
         item['second_icon'] = Weather.get_pic_file weathers[-1]
       end
