@@ -13,7 +13,8 @@ class WeatherForecastController < ApplicationController
     # 当前站即时信息
     @real_time_site = Weather::RealTimeStation.new.fetch(location_params[:lon], location_params[:lat])
     @real_time_station = @cimiss ? (Cimiss.getNowStation @cimiss, @real_time_site) : @real_time_site
-
+    # 补充 cmiss 数据源缺失的 能见度 湿度 气压
+    @real_time_station = @real_time_site.merge @real_time_station
     @real_time_aqi = Aqi::RealTimeAqi.new.fetch
     @warnings = Warning::SongjiangWarning.new.fetch
 
