@@ -48,6 +48,7 @@ class Radar
 
   def self.process
     RadarImageProcess.new.fetch
+    RadarImageProcess::QpRadarImageProcess.new.fetch
   end
 
   class RadarImageProcess
