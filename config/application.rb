@@ -1,7 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
-require File.dirname(__FILE__) + "/../app/models/concerns/time.rb"
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -13,6 +13,7 @@ module SongjiangWeatherWechat
       Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")) do |c|
         Rails.configuration.cache_classes ? require(c) : load(c)
       end
+      Dir.glob(File.join(File.dirname(__FILE__), "/../app/models/*.rb")).each{ |file| require file }
     end
 
     # Settings in config/environments/* take precedence over those specified here.
