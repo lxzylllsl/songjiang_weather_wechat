@@ -9,7 +9,8 @@ class RadarSatellisController < ApplicationController
     @radar_images = Radar.locate location_params
     @qp_radar_images = Radar::QpRadar.locate location_params
     @cloud_img = Image::CloudData.new.fetch
-    p @qp_radar_images
+    @cloud_fy2g_img = Image::CloudFy2gData.new.fetch
+    p @cloud_fy2g_img
   end
 
   def demo

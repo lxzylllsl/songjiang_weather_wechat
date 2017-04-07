@@ -74,6 +74,11 @@ defaults: &defaults
     appkey: 'mXwnhDkYIG6S9iOyqsAW7vPVQ5ZxBe'
     api_path: '/api/v1/images'
     remote: 'http://61.152.122.112:8080/'
+  Image::CloudFy2gData:
+    appid: 'bFLKk0uV7IZvzcBoWJ1j'
+    appkey: 'mXwnhDkYIG6S9iOyqsAW7vPVQ5ZxBe'
+    api_path: '/api/v1/images'
+    remote: 'http://61.152.122.112:8080/'
   Radar::RadarImageProcess:
     appid: 'bFLKk0uV7IZvzcBoWJ1j'
     appkey: 'mXwnhDkYIG6S9iOyqsAW7vPVQ5ZxBe'
