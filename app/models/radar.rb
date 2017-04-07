@@ -4,13 +4,13 @@ class Radar
   @radar_lon = 121.88194
   @radar_lat = 31.00694
 
-  def self.locate location
+  def self.locate location, redis_key="radar_image_cache"
     _lon = location[:lon].to_f
     _lat = location[:lat].to_f
 
     offset_x, offset_y = calculate _lon, _lat
     # offset_x, offset_y = calculate
-    list = $redis.lrange "radar_image_cache", 0, 9
+    list = $redis.lrange redis_key, 0, 9
     lists = list.reverse
     # lists = [{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"},{"time" => "2016-08-10","img" => "WechatIMG4.jpeg"}].map{|i| i.to_json}
     radar_images = []
@@ -104,60 +104,7 @@ class Radar
       end
     end
   end
-  # 青浦雷达
-  # class QpRadarImageProcess < Radar::RadarImageProcess
-    
-  #   def initialize
-  #     p @root = self.class.name.to_s
-  #     @redis_key = "qp_radar_image_cache"
-  #     super
-  #   end
-
-  #   def fetch
-  #     response = get_data({method: 'get', data: {
-  #       appid: @appid,
-  #       appkey: @appkey,
-  #       type: 'qp_radar'
-  #     }}, {});
-  #     _result = response['result']
-  #     if _result.present?
-  #       new_img = $redis.lindex(@redis_key, 0)
-  #       new_img_hash = MultiJson.load(new_img) rescue {}
-  #       _result.each do |item|
-  #         # p "datetime: #{item['datetime'].to_i}"
-  #         # p "img: #{new_img_hash['time'].to_i}"
-  #         if item['datetime'].to_i > (new_img_hash['time'].to_i || 0)
-  #           @api_path = item['url']
-  #           _img = get_data({method: 'get', type: 'image'})
-  #           if _img.status == 200
-  #             write_image _img.body, item['datetime']
-  #           end
-  #         end
-  #       end
-
-  #       $redis.ltrim @redis_key, 0, 75
-  #     end
-  #   end
-
-  #   def write_image data, name
-  #     _time = DateTime.parse(name).strftime("%F")
-  #     file_path = "tmp/radar/#{_time}"
-  #     FileUtils.makedirs(file_path) unless File.exist?(file_path)
-  #     file = File.new("#{file_path}/#{name}.png", 'wb')
-  #     file.write(data)
-  #     file.close
-  #     $redis.lpush @redis_key, {img: "#{file_path}/#{name}.png", time: name}.to_json
-  #   end
-
-  #   def self.clear_histroy_image
-  #     _reserve_date = [Time.zone.today.strftime("%Y-%m-%d")]#, (Time.zone.today - 1 ).strftime("%Y-%m-%d")]
-
-  #     Dir["tmp/radar/*"].each do |dir|
-  #       FileUtils.rm_rf(dir) unless dir.gsub('tmp/radar/','').in?(_reserve_date)
-  #     end
-  #   end
-  # end
-
+  
   class RadarEcho
     include NetworkMiddleware
 
