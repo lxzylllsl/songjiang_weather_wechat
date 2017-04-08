@@ -1,8 +1,8 @@
 # 青浦雷达 采集
 class Radar::RadarImageProcess::QpRadarImageProcess < Radar::RadarImageProcess
   def initialize
-    @redis_key = "qp_radar_image_cache"
     super
+     @redis_key = "qp_radar_image_cache"
   end
 
   def fetch
