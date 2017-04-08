@@ -6,11 +6,10 @@ class RadarSatellisController < ApplicationController
   end
 
   def index
-    @radar_images = Radar.locate location_params
+    @nh_radar_images = Radar.locate location_params
     @qp_radar_images = Radar::QpRadar.locate location_params
-    @cloud_img = Image::CloudData.new.fetch
-    @cloud_fy2g_img = Image::CloudFy2gData.new.fetch
-    p @cloud_fy2g_img
+    @fy2e_cloud_img = Image::CloudData.new.fetch
+    @fy2g_cloud_img = Image::CloudFy2gData.new.fetch
   end
 
   def demo

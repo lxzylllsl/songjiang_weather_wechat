@@ -3,53 +3,106 @@
 <% end %>
 <div class="row">
   <ul class="tab">
-    <li role="presentation" class="col-xs-6 active"><a href="#radar" aria-controls="radar" role="tab" data-toggle="tab"><i class="iconfont icon-leida"></i>雷达回波</a></li>
-    <li role="presentation" class="col-xs-6"><a href="#satelli" aria-controls="satelli" role="tab" data-toggle="tab"><i class="iconfont icon-weixing"></i>卫星云图</a></li>  
+    <li role="presentation" class="col-xs-6 active"><a href="#nh_radar" aria-controls="radar" role="tab" data-toggle="tab"><i class="iconfont icon-leida"></i>南汇雷达回波</a></li>
+    <li role="presentation" class="col-xs-6"><a href="#qp_radar" aria-controls="radar" role="tab" data-toggle="tab"><i class="iconfont icon-leida"></i>青浦雷达回波</a></li>
+    <li role="presentation" class="col-xs-6"><a href="#fy2e_cloud" aria-controls="cloud" role="tab" data-toggle="tab"><i class="iconfont icon-weixing"></i>FY2E卫星云图</a></li>  
+    <li role="presentation" class="col-xs-6"><a href="#fy2g_cloud" aria-controls="cloud" role="tab" data-toggle="tab"><i class="iconfont icon-weixing"></i>FY2G卫星云图</a></li>
   </ul>
 </div>
 
 <div class="row tab-content">
   <!-- 雷达区 -->
-  <div role="tabpanel" class="tab-pane active" id="radar">
+  <div role="tabpanel" class="tab-pane active" id="nh_radar">
     <div class="col-xs-10 col-xs-offset-1 info">
-      <div class="col-xs-7 date-time">更新时间: <%= @radar_images.last[:datetime].to_datetime.strftime("%F %H:%M") %></div>
+      <div class="col-xs-7 date-time">更新时间: <%= @nh_radar_images.last[:datetime].to_datetime.strftime("%F %H:%M") %></div>
       <div class="col-xs-5 sub-info text-right">红点代表当前位置</div>
     </div>
-    <div id="radar-container" class="col-xs-12">
-      <div id="img_time" class="img_time"><%= @radar_images.last[:datetime].to_datetime.strftime("%F %H:%M:%S") %></div>
+    <div id="nh-radar-container" class="col-xs-12">
+      <div id="nh_img_time" class="img_time"><%= @nh_radar_images.last[:datetime].to_datetime.strftime("%F %H:%M:%S") %></div>
       <div id="radar-img-content">
         <div id="radar-img-scrool">
-          <%= image_tag @radar_images.last['url'] , id:"radar-image" %>
+          <%= image_tag @nh_radar_images.last[:url] , id:"nh-radar-image" %>
         </div>
       </div>
     </div>
     <div class="col-xs-12 radar-bitmap">
       <%= image_tag "radar_bitmap.png" %>
     </div>
-    <ul class="radar-time-line time-line">
-      <% @radar_images.each_with_index do |item, idx| %>
+    <ul class="nh-radar-time-line time-line">
+      <% @nh_radar_images.each_with_index do |item, idx| %>
         <% if idx == 9 %>
-          <li data-cc="<%= item[:datetime].to_datetime.strftime('%H:%M') %>" pic-time="<%= item[:datetime].to_datetime.strftime('%F %H:%M:%S') %>" class="active time radar<%=idx%>" data-url="../images/<%= item[:url] %>"></li>
+          <li data-cc="<%= item[:datetime].to_datetime.strftime('%H:%M') %>" pic-time="<%= item[:datetime].to_datetime.strftime('%F %H:%M:%S') %>" class="active time radar<%=idx%>" data-url="../<%= item[:url] %>"></li>
         <% else %>
-          <li data-cc="<%= item[:datetime].to_datetime.strftime('%H:%M') %>" pic-time="<%= item[:datetime].to_datetime.strftime('%F %H:%M:%S') %>" class="time radar<%=idx%>" data-url="../images/<%= item[:url] %>"><%= item[:datetime].to_datetime.strftime('%H:%M') %></li>
+          <li data-cc="<%= item[:datetime].to_datetime.strftime('%H:%M') %>" pic-time="<%= item[:datetime].to_datetime.strftime('%F %H:%M:%S') %>" class="time radar<%=idx%>" data-url="../<%= item[:url] %>"><%= item[:datetime].to_datetime.strftime('%H:%M') %></li>
         <% end %>
       <% end %>
     </ul>
   </div>
-  
-  <!-- 云图 -->
-  <div role="tabpanel" class="tab-pane" id="satelli">
+    <!-- 青浦雷达区 -->
+  <div role="tabpanel" class="tab-pane" id="qp_radar">
     <div class="col-xs-10 col-xs-offset-1 info">
-      <div class="col-xs-7 date-time">更新时间:<%= @cloud_img.last['datetime'].to_datetime.strftime('%F %H:%M') %></div>
+      <div class="col-xs-7 date-time">更新时间: <%= @qp_radar_images.last[:datetime].to_datetime.strftime("%F %H:%M") %></div>
+      <div class="col-xs-5 sub-info text-right">红点代表当前位置</div>
     </div>
-    <div id="cloud-container" class="col-xs-12">
-      <!-- <div id="img_time1" class="img_time"><%#= @cloud_img.last['datetime'].to_datetime.strftime("%F %H:%M:%S") %></div> -->
-      <div id="cloud">
-        <%= image_tag @cloud_img.last['url'], id:"cloud-image" %>
+    <div id="qp-radar-container" class="col-xs-12">
+      <div id="qp_img_time" class="img_time"><%= @qp_radar_images.last[:datetime].to_datetime.strftime("%F %H:%M:%S") %></div>
+      <div id="radar-img-content">
+        <div id="radar-img-scrool">
+        <!-- image_tag默认自带/images/ -->
+          <%= image_tag @qp_radar_images.last[:url][7..-1] , id:"qp-radar-image" %>
+        </div>
       </div>
     </div>
-    <ul class="cloud-time-line time-line">
-      <% @cloud_img.each_with_index do |item, idx| %>
+    <div class="col-xs-12 radar-bitmap">
+      <%= image_tag "radar_bitmap.png" %>
+    </div>
+    <ul class="qp-radar-time-line time-line">
+      <% @qp_radar_images.each_with_index do |item, idx| %>
+        <% if idx == 9 %>
+          <li data-cc="<%= item[:datetime].to_datetime.strftime('%H:%M') %>" pic-time="<%= item[:datetime].to_datetime.strftime('%F %H:%M:%S') %>" class="active time radar<%=idx%>" data-url="../<%= item[:url] %>"></li>
+        <% else %>
+          <li data-cc="<%= item[:datetime].to_datetime.strftime('%H:%M') %>" pic-time="<%= item[:datetime].to_datetime.strftime('%F %H:%M:%S') %>" class="time radar<%=idx%>" data-url="../<%= item[:url] %>"><%= item[:datetime].to_datetime.strftime('%H:%M') %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+  <!-- FY2E云图 -->
+  <div role="tabpanel" class="tab-pane" id="fy2e_cloud">
+    <div class="col-xs-10 col-xs-offset-1 info">
+      <div class="col-xs-7 date-time">更新时间:<%= @fy2e_cloud_img.last['datetime'].to_datetime.strftime('%F %H:%M') %></div>
+    </div>
+    <div id="fy2e-cloud-container" class="col-xs-12">
+      <!-- <div id="nh_img_time1" class="nh_img_time"><%#= @fy2e_cloud_img.last['datetime'].to_datetime.strftime("%F %H:%M:%S") %></div> -->
+      <div id="cloud">
+        <%= image_tag @fy2e_cloud_img.last['url'], id:"fy2e-cloud-image" %>
+      </div>
+    </div>
+    <ul class="fy2e-cloud-time-line time-line">
+      <% @fy2e_cloud_img.each_with_index do |item, idx| %>
+        <% if idx == 9 %>
+          <li data-cc="<%= item['datetime'].to_datetime.strftime('%H:%M') %>" pic-time="<%= item['datetime'].to_datetime.strftime('%F %H:%M:%S') %>" class="active time cloud<%=idx%>" data-url="<%= item['url'] %>"></li>
+        <% else %>
+          <li data-cc="<%= item['datetime'].to_datetime.strftime('%H:%M') %>" pic-time="<%= item['datetime'].to_datetime.strftime('%F %H:%M:%S') %>" class="time cloud<%=idx%>" data-url="<%= item['url'] %>"><%= item['datetime'].to_datetime.strftime('%H:%M') %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+
+<!-- FY2G云图 -->
+  <div role="tabpanel" class="tab-pane" id="fy2g_cloud">
+    <div class="col-xs-10 col-xs-offset-1 info">
+      <div class="col-xs-7 date-time">更新时间:<%= @fy2g_cloud_img.last['datetime'].to_datetime.strftime('%F %H:%M') %></div>
+    </div>
+    <div id="fy2g-cloud-container" class="col-xs-12">
+      <!-- <div id="nh_img_time1" class="nh_img_time"><%#= @fy2e_cloud_img.last['datetime'].to_datetime.strftime("%F %H:%M:%S") %></div> -->
+      <div id="cloud">
+        <%= image_tag @fy2g_cloud_img.last['url'], id:"fy2g-cloud-image" %>
+      </div>
+    </div>
+    <ul class="fy2g-cloud-time-line time-line">
+      <% @fy2g_cloud_img.each_with_index do |item, idx| %>
         <% if idx == 9 %>
           <li data-cc="<%= item['datetime'].to_datetime.strftime('%H:%M') %>" pic-time="<%= item['datetime'].to_datetime.strftime('%F %H:%M:%S') %>" class="active time cloud<%=idx%>" data-url="<%= item['url'] %>"></li>
         <% else %>
@@ -67,9 +120,9 @@
     var height = $(window).width();
     sessionStorage.setItem('now_url', window.location.pathname);
 
-    $_target = $('.radar-time-line').find('li.radar9');
-    $('#radar-image').attr('src', $_target.attr('data-url'));
-    $('.radar-time-line').on('click', 'li', function(evt){
+    $_target = $('.nh-radar-time-line').find('li.radar9');
+    $('#nh-radar-image').attr('src', $_target.attr('data-url'));
+    $('.nh-radar-time-line').on('click', 'li', function(evt){
       if ($is_run) return;
       var $_target = $(evt.target);
       if ($_target.hasClass('active')) {
@@ -79,38 +132,79 @@
         var $_previous;
         run_thread = setInterval(function() {
           if (i == 0) {
-            $_previous = $('.radar-time-line').find('li.radar9');
+            $_previous = $('.nh-radar-time-line').find('li.radar9');
           }else {
-            $_previous = $('.radar-time-line').find('li.radar'+(i-1));
+            $_previous = $('.nh-radar-time-line').find('li.radar'+(i-1));
           }
-          $_target = $('.radar-time-line').find('li.radar'+i);
+          $_target = $('.nh-radar-time-line').find('li.radar'+i);
           $_previous.html($_previous.attr('data-cc')).removeClass('stop');
-          $('.radar-time-line').find('li.radar'+i).html('').addClass('stop');
-          $('#radar-image').attr('src', $_target.attr('data-url'));
-          document.getElementById('img_time').innerHTML=$_target.attr('pic-time');
+          $('.nh-radar-time-line').find('li.radar'+i).html('').addClass('stop');
+          $('#nh-radar-image').attr('src', $_target.attr('data-url'));
+          document.getElementById('nh_img_time').innerHTML=$_target.attr('pic-time');
           (i >= 9) ? stop_radar($_target) : i++;
         }, 600);
       }else {
-        $('#radar-image').attr('src', $_target.attr('data-url'));
-        document.getElementById('img_time').innerHTML=$_target.attr('pic-time');
-        $('.radar-time-line').find('li').each(function(index, el) {
+        $('#nh-radar-image').attr('src', $_target.attr('data-url'));
+        document.getElementById('nh_img_time').innerHTML=$_target.attr('pic-time');
+        $('.nh-radar-time-line').find('li').each(function(index, el) {
           $(el).html($(el).attr('data-cc')).removeClass('active');
         });
         $_target.html('').addClass('active');
       }
     });
 
-    $('#radar-image').css({
+    $('.qp-radar-time-line').on('click', 'li', function(evt){
+      if ($is_run) return;
+      var $_target = $(evt.target);
+      if ($_target.hasClass('active')) {
+        $is_run = true;
+        $_target.html($_target.attr('data-cc')).removeClass('active');
+        var i = 0;
+        var $_previous;
+        run_thread = setInterval(function() {
+          if (i == 0) {
+            $_previous = $('.qp-radar-time-line').find('li.radar9');
+          }else {
+            $_previous = $('.qp-radar-time-line').find('li.radar'+(i-1));
+          }
+          $_target = $('.qp-radar-time-line').find('li.radar'+i);
+          $_previous.html($_previous.attr('data-cc')).removeClass('stop');
+          $('.qp-radar-time-line').find('li.radar'+i).html('').addClass('stop');
+          $('#qp-radar-image').attr('src', $_target.attr('data-url'));
+          document.getElementById('qp_img_time').innerHTML=$_target.attr('pic-time');
+          (i >= 9) ? stop_radar($_target) : i++;
+        }, 600);
+      }else {
+        $('#qp-radar-image').attr('src', $_target.attr('data-url'));
+        document.getElementById('qp_img_time').innerHTML=$_target.attr('pic-time');
+        $('.qp-radar-time-line').find('li').each(function(index, el) {
+          $(el).html($(el).attr('data-cc')).removeClass('active');
+        });
+        $_target.html('').addClass('active');
+      }
+    });
+
+    $('#nh-radar-image').css({
       "width":height*4/3,
       "height":height
     });
 
-    $('#cloud-image').css({
+    $('#qp-radar-image').css({
+      "width":height*4/3,
+      "height":height
+    });
+
+    $('#fy2e-cloud-image').css({
       "width":height,
       "height":height*3/4
     });
 
-    $('.cloud-time-line').on('click', 'li', function(evt){
+    $('#fy2g-cloud-image').css({
+      "width":height,
+      "height":height*3/4
+    });
+
+    $('.fy2e-cloud-time-line').on('click', 'li', function(evt){
       if ($is_run) return;
       var $_target = $(evt.target);
 
@@ -121,25 +215,58 @@
         var $_previous;
         run_thread = setInterval(function() {
           if (i == 0) {
-            $_previous = $('.cloud-time-line').find('li.cloud9');
+            $_previous = $('.fy2e-cloud-time-line').find('li.cloud9');
           }else {
-            $_previous = $('.cloud-time-line').find('li.cloud'+(i-1));
+            $_previous = $('.fy2e-cloud-time-line').find('li.cloud'+(i-1));
           }
-          $_target = $('.cloud-time-line').find('li.cloud'+i);
+          $_target = $('.fy2e-cloud-time-line').find('li.cloud'+i);
           $_previous.html($_previous.attr('data-cc')).removeClass('stop');
-          $('.cloud-time-line').find('li.cloud'+i).html('').addClass('stop');
+          $('.fy2e-cloud-time-line').find('li.cloud'+i).html('').addClass('stop');
           $('#cloud img').attr('src', $_target.attr('data-url'));
-          // document.getElementById('img_time1').innerHTML=$_target.attr('pic-time');
+          // document.getElementById('nh_img_time1').innerHTML=$_target.attr('pic-time');
           (i >= 9) ? stop_radar($_target) : i++;
         }, 600);
       }else {
         $('#cloud img').attr('src', $_target.attr('data-url'));
-        $('.cloud-time-line').find('li').each(function(index, el) {
+        $('.fy2e-cloud-time-line').find('li').each(function(index, el) {
           $(el).html($(el).attr('data-cc')).removeClass('active');
         });
         $_target.html('').addClass('active');
       }
     });
+
+
+    $('.fy2g-cloud-time-line').on('click', 'li', function(evt){
+      if ($is_run) return;
+      var $_target = $(evt.target);
+
+      if ($_target.hasClass('active')) {
+        $is_run = true;
+        $_target.html($_target.attr('data-cc')).removeClass('active');
+        var i = 0;
+        var $_previous;
+        run_thread = setInterval(function() {
+          if (i == 0) {
+            $_previous = $('.fy2g-cloud-time-line').find('li.cloud9');
+          }else {
+            $_previous = $('.fy2g-cloud-time-line').find('li.cloud'+(i-1));
+          }
+          $_target = $('.fy2g-cloud-time-line').find('li.cloud'+i);
+          $_previous.html($_previous.attr('data-cc')).removeClass('stop');
+          $('.fy2g-cloud-time-line').find('li.cloud'+i).html('').addClass('stop');
+          $('#cloud img').attr('src', $_target.attr('data-url'));
+          // document.getElementById('nh_img_time1').innerHTML=$_target.attr('pic-time');
+          (i >= 9) ? stop_radar($_target) : i++;
+        }, 600);
+      }else {
+        $('#cloud img').attr('src', $_target.attr('data-url'));
+        $('.fy2g-cloud-time-line').find('li').each(function(index, el) {
+          $(el).html($(el).attr('data-cc')).removeClass('active');
+        });
+        $_target.html('').addClass('active');
+      }
+    });
+
 
     function stop_radar(el) {
       clearInterval(run_thread);

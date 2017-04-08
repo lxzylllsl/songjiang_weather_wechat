@@ -4,7 +4,7 @@ class Radar
   @radar_lon = 121.88194
   @radar_lat = 31.00694
 
-  def self.locate location, redis_key="radar_image_cache"
+  def self.locate location, redis_key=RadarImageProcess.new.instance_variable_get('@redis_key')
     _lon = location[:lon].to_f
     _lat = location[:lat].to_f
 
@@ -38,10 +38,16 @@ class Radar
       locate_pty = 300 + offset_y
       tri.circle(locate_ptx, locate_pty, locate_ptx + 2, locate_pty + 2)
       tri.draw(image)
-      file_name = "radar/#{_item['time']}_#{_lon}_#{_lat}.jpeg"
 
-      image.write("public/images/#{file_name}")
-      radar_images << {datetime: _item['time'], url: file_name}
+      file_path = "public/images/radar/#{redis_key}/"
+      FileUtils.makedirs(file_path) unless File.exist?(file_path)
+
+      file_name = "#{_item['time']}_#{_lon}_#{_lat}.jpeg"
+      file = file_path + file_name
+      
+      image.write(file)
+      url = file_path.gsub('public/', '') + file_name
+      radar_images << {datetime: _item['time'], url: url}
     end
     radar_images
   end
@@ -56,7 +62,7 @@ class Radar
 
     def initialize
       @root = self.class.name.to_s
-      @redis_key = "radar_image_cache"
+      @redis_key = "nh_radar_image_cache"
       super
     end
 
