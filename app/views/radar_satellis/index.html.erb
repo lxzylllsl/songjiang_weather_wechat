@@ -20,7 +20,7 @@
     <div id="nh-radar-container" class="col-xs-12">
       <div id="nh_img_time" class="img_time"><%= @nh_radar_images.last[:datetime].to_datetime.strftime("%F %H:%M:%S") %></div>
       <div id="radar-img-content">
-        <div id="radar-img-scrool">
+        <div id="nh-radar-img-scrool">
           <%= image_tag @nh_radar_images.last[:url] , id:"nh-radar-image" %>
         </div>
       </div>
@@ -46,9 +46,9 @@
     </div>
     <div id="qp-radar-container" class="col-xs-12">
       <div id="qp_img_time" class="img_time"><%= @qp_radar_images.last[:datetime].to_datetime.strftime("%F %H:%M:%S") %></div>
-      <div id="radar-img-content">
-        <div id="radar-img-scrool">
-        <!-- image_tag默认自带/images/ -->
+      <div id="qp-radar-img-content">
+        <div id="qp-radar-img-scrool">
+          <!-- image_tag默认自带地址 ../images/ ; how? -->
           <%= image_tag @qp_radar_images.last[:url][7..-1] , id:"qp-radar-image" %>
         </div>
       </div>
@@ -191,7 +191,7 @@
 
     $('#qp-radar-image').css({
       "width":height*4/3,
-      "height":height
+      "height":height,
     });
 
     $('#fy2e-cloud-image').css({
@@ -274,7 +274,14 @@
       $is_run = false;
     }
 
-    $('#radar-img-scrool').panzoom({
+    $('#nh-radar-img-scrool').panzoom({
+      startTransform: 'scale(1)',
+      increment: 1,
+      minScale: 1,
+      contain: 'automatic'
+    });
+    
+    $('#qp-radar-img-scrool').panzoom({
       startTransform: 'scale(1)',
       increment: 1,
       minScale: 1,

@@ -90,7 +90,6 @@ a:focus {
     width: 100%;
     height: 100%;
   }
-  #qp-radar-container,
   #fy2e-cloud-container,
   #fy2g-cloud-container {
     width: 90%;
@@ -98,6 +97,9 @@ a:focus {
     left: 5%;
     position: relative;
     overflow: hidden;
+    #qp-radar-image{
+      margin-left: -20px
+    }
   }
   
   .radar-bitmap {
