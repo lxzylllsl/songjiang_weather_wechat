@@ -3,10 +3,10 @@
 <% end %>
 <div class="row">
   <ul class="tab">
-    <li role="presentation" class="col-xs-6 active"><a href="#nh_radar" aria-controls="radar" role="tab" data-toggle="tab"><i class="iconfont icon-leida"></i>南汇雷达回波</a></li>
-    <li role="presentation" class="col-xs-6"><a href="#qp_radar" aria-controls="radar" role="tab" data-toggle="tab"><i class="iconfont icon-leida"></i>青浦雷达回波</a></li>
-    <li role="presentation" class="col-xs-6"><a href="#fy2e_cloud" aria-controls="cloud" role="tab" data-toggle="tab"><i class="iconfont icon-weixing"></i>FY2E卫星云图</a></li>  
-    <li role="presentation" class="col-xs-6"><a href="#fy2g_cloud" aria-controls="cloud" role="tab" data-toggle="tab"><i class="iconfont icon-weixing"></i>FY2G卫星云图</a></li>
+    <li role="presentation" class="col-xs-3 active"><a href="#nh_radar" aria-controls="radar" role="tab" data-toggle="tab"><i class="iconfont icon-leida"></i>南汇</a></li>
+    <li role="presentation" class="col-xs-3"><a href="#qp_radar" aria-controls="radar" role="tab" data-toggle="tab"><i class="iconfont icon-leida"></i>青浦</a></li>
+    <li role="presentation" class="col-xs-3"><a href="#fy2e_cloud" aria-controls="cloud" role="tab" data-toggle="tab"><i class="iconfont icon-weixing"></i>FY2E</a></li>  
+    <li role="presentation" class="col-xs-3"><a href="#fy2g_cloud" aria-controls="cloud" role="tab" data-toggle="tab"><i class="iconfont icon-weixing"></i>FY2G</a></li>
   </ul>
 </div>
 
@@ -70,7 +70,7 @@
   <!-- FY2E云图 -->
   <div role="tabpanel" class="tab-pane" id="fy2e_cloud">
     <div class="col-xs-10 col-xs-offset-1 info">
-      <div class="col-xs-7 date-time">更新时间:<%= @fy2e_cloud_img.last['datetime'].to_datetime.strftime('%F %H:%M') %></div>
+      <div class="col-xs-7 date-time">更新时间: <%= @fy2e_cloud_img.last['datetime'].to_datetime.strftime('%F %H:%M') %></div>
     </div>
     <div id="fy2e-cloud-container" class="col-xs-12">
       <!-- <div id="nh_img_time1" class="nh_img_time"><%#= @fy2e_cloud_img.last['datetime'].to_datetime.strftime("%F %H:%M:%S") %></div> -->
@@ -93,7 +93,7 @@
 <!-- FY2G云图 -->
   <div role="tabpanel" class="tab-pane" id="fy2g_cloud">
     <div class="col-xs-10 col-xs-offset-1 info">
-      <div class="col-xs-7 date-time">更新时间:<%= @fy2g_cloud_img.last['datetime'].to_datetime.strftime('%F %H:%M') %></div>
+      <div class="col-xs-7 date-time">更新时间: <%= @fy2g_cloud_img.last['datetime'].to_datetime.strftime('%F %H:%M') %></div>
     </div>
     <div id="fy2g-cloud-container" class="col-xs-12">
       <!-- <div id="nh_img_time1" class="nh_img_time"><%#= @fy2e_cloud_img.last['datetime'].to_datetime.strftime("%F %H:%M:%S") %></div> -->
@@ -277,14 +277,14 @@
     $('#nh-radar-img-scrool').panzoom({
       startTransform: 'scale(1)',
       increment: 1,
-      minScale: 1,
+      // minScale: 1,
       contain: 'automatic'
     });
     
     $('#qp-radar-img-scrool').panzoom({
       startTransform: 'scale(1)',
       increment: 1,
-      minScale: 1,
+      // minScale: 1,
       contain: 'automatic'
     });
 
