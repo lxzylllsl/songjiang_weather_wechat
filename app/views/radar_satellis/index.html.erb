@@ -74,7 +74,7 @@
     </div>
     <div id="fy2e-cloud-container" class="col-xs-12">
       <!-- <div id="nh_img_time1" class="nh_img_time"><%#= @fy2e_cloud_img.last['datetime'].to_datetime.strftime("%F %H:%M:%S") %></div> -->
-      <div id="cloud">
+      <div id="fy2e-cloud">
         <%= image_tag @fy2e_cloud_img.last['url'], id:"fy2e-cloud-image" %>
       </div>
     </div>
@@ -97,7 +97,7 @@
     </div>
     <div id="fy2g-cloud-container" class="col-xs-12">
       <!-- <div id="nh_img_time1" class="nh_img_time"><%#= @fy2e_cloud_img.last['datetime'].to_datetime.strftime("%F %H:%M:%S") %></div> -->
-      <div id="cloud">
+      <div id="fy2g-cloud">
         <%= image_tag @fy2g_cloud_img.last['url'], id:"fy2g-cloud-image" %>
       </div>
     </div>
@@ -222,12 +222,12 @@
           $_target = $('.fy2e-cloud-time-line').find('li.cloud'+i);
           $_previous.html($_previous.attr('data-cc')).removeClass('stop');
           $('.fy2e-cloud-time-line').find('li.cloud'+i).html('').addClass('stop');
-          $('#cloud img').attr('src', $_target.attr('data-url'));
+          $('#fy2e-cloud img').attr('src', $_target.attr('data-url'));
           // document.getElementById('nh_img_time1').innerHTML=$_target.attr('pic-time');
           (i >= 9) ? stop_radar($_target) : i++;
         }, 600);
       }else {
-        $('#cloud img').attr('src', $_target.attr('data-url'));
+        $('#fy2e-cloud img').attr('src', $_target.attr('data-url'));
         $('.fy2e-cloud-time-line').find('li').each(function(index, el) {
           $(el).html($(el).attr('data-cc')).removeClass('active');
         });
@@ -254,12 +254,12 @@
           $_target = $('.fy2g-cloud-time-line').find('li.cloud'+i);
           $_previous.html($_previous.attr('data-cc')).removeClass('stop');
           $('.fy2g-cloud-time-line').find('li.cloud'+i).html('').addClass('stop');
-          $('#cloud img').attr('src', $_target.attr('data-url'));
+          $('#fy2g-cloud img').attr('src', $_target.attr('data-url'));
           // document.getElementById('nh_img_time1').innerHTML=$_target.attr('pic-time');
           (i >= 9) ? stop_radar($_target) : i++;
         }, 600);
       }else {
-        $('#cloud img').attr('src', $_target.attr('data-url'));
+        $('#fy2g-cloud img').attr('src', $_target.attr('data-url'));
         $('.fy2g-cloud-time-line').find('li').each(function(index, el) {
           $(el).html($(el).attr('data-cc')).removeClass('active');
         });
