@@ -4,7 +4,7 @@ class WeatherRobot
 		require 'net/http'
 		require 'net/https'
 
-		uri = URI.parse("http://www.weather-huayun.com/ask.do")
+		uri = URI.parse("http://xiaoi.weather-huayun.com")
 		https = Net::HTTP.new(uri.host,uri.port)
 		# https.use_ssl = true
 		req = Net::HTTP::Post.new(uri.path + "?platform=weixin&question=#{question}")
