@@ -1,0 +1,16 @@
+<% sign_package = $client.get_jssign_package(request.url) %>
+
+<script>
+  wx.config({
+    debug: false,
+    appId: "<%= sign_package['appId'] %>",
+    timestamp: "<%= sign_package['timestamp'] %>",
+    nonceStr: "<%= sign_package['nonceStr'] %>",
+    signature: "<%= sign_package['signature'] %>",
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+    ]
+  });
+</script>

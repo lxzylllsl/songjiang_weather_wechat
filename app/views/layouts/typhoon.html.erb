@@ -8,14 +8,39 @@
   <%= javascript_include_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag "#{controller.controller_name}", media: 'all', 'data-turbolinks-track' => true %>
   <script type="text/javascript" src="http://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
-  <!-- <script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=200aadcf1ccf720749c79228f9b7fd79&v=1.0"></script> -->
   <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=200aadcf1ccf720749c79228f9b7fd79"></script>
 </head>
 <body>
 
-<div class="container-fluid">
-  <%= yield %>      
-</div>
-<%= yield :scripts %>
+  <div class="container-fluid">
+    <%= yield %>
+  </div>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" type="text/javascript"></script>
+	<%#= render partial: "typhoon/wechat_js" %>
+	<script type="text/javascript">
+		wx.ready(function () {
+			// 设置“分享给朋友”按钮点击状态及自定义分享内容
+			wx.onMenuShareAppMessage({
+				title: "台风路径实时发布系统",
+				desc: "",
+				link: "<%= typhoon_index_url %>",
+				imgUrl: "<%= image_url "icon_typhoon.jpg" %>"
+			});
+			// 设置“分享到朋友圈”按钮点击状态及自定义分享内容
+			wx.onMenuShareTimeline({
+				title: "台风路径实时发布系统",
+				link: "<% typhoon_index_url %>",
+				imgUrl: "<%= image_url "icon_typhoon.jpg" %>"
+			});
+      // 分享qq
+      wx.onMenuShareQQ({
+        title: "台风路径实时发布系统",
+				desc: "",
+				link: "<%= typhoon_index_url %>",
+				imgUrl: "<%= image_url "icon_typhoon.jpg" %>"
+      });
+		});
+	</script>
+  <%= yield :scripts %>
 </body>
 </html>
