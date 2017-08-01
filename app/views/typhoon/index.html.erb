@@ -771,7 +771,11 @@
         content = "【上海天气】台风";
         content += "("+json.cname+") 路径实时发布系统";
       } else {
-        content += json.name + "号"+level_names[transform_level(current_location.max_wind)] + json.cname + "("+json.ename+") ";
+        if (json.status === 'active') {
+          content += json.serial_number + "号"+level_names[transform_level(current_location.max_wind)] + json.cname + "("+json.ename+") ";
+        } else {
+          content += json.name + "号"+level_names[transform_level(current_location.max_wind)] + json.cname + "("+json.ename+") ";
+        }
         content += current_location.time;
         if (current_location.max_wind != 9999) {
           content += " 风速: " + current_location.max_wind;
