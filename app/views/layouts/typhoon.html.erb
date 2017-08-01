@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= yield :title %></title>
+  <title>台风路径实时发布系统</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag    "#{controller.controller_name}", media: 'all', 'data-turbolinks-track' => true %>
@@ -13,6 +13,7 @@
 <body>
 
   <div class="container-fluid">
+		<img style="width:0px;height:0px" src="<%= "http://#{request.host_with_port}/wechat_share.jpg" %>">
     <%= yield %>
   </div>
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" type="text/javascript"></script>
