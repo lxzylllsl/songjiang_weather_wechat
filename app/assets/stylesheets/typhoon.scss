@@ -1,21 +1,23 @@
 // Place all the styles related to the typhoon controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 .container-fluid {
   height: 100%;
   background-color: #333;
 }
+
 .anchorBL,
 .anchorTR {
   display: none;
 }
+
 .typhoon_label {
   position: absolute;
   background-color: #fff;
   padding: 2px 4px;
   border: 1px solid #000;
 }
+
 .BMapLabel {
   font-size: 12px!important;
   width: 20px!important;
@@ -26,30 +28,31 @@
 }
 
 .BMap_pop {
+  z-index: 1000;
   div:first-child {
     width: 0!important;
     height: 0!important;
     border: 0!important;
   }
-
   div:first-child.BMap_bubble_title {
     padding-left: 5px;
     width: 190px!important;
     height: 24px!important;
   }
-
-  [src="http://api0.map.bdimg.com/images/iw_close1d3.gif"]{
-    top: 5px!important;
+  [src="http://api0.map.bdimg.com/images/iw_close1d3.gif"] {
+    top: -25px!important;
     left: 188px!important;
   }
-  [style="box-sizing: content-box; width: 220px; height: 130px; position: absolute; left: 16px; top: 16px; z-index: 10; overflow: hidden;"]{
+  [style="box-sizing: content-box; width: 220px; height: 130px; position: absolute; left: 16px; top: 16px; z-index: 10; overflow: hidden;"] {
     width: auto!important;
     height: auto!important;
-    top: 0px!important;
+    top: -30px!important;
   }
 }
 
-.BMap_top, .BMap_center, .BMap_bottom {
+.BMap_top,
+.BMap_center,
+.BMap_bottom {
   width: 0!important;
   height: 0!important;
 }
@@ -64,18 +67,16 @@
 .BMap_bubble_content {
   background-color: #fff!important;
   padding: 5px;
-  width: 190px!important;
-  // height: 130px!important;
+  width: 190px!important; // height: 130px!important;
   font-size: 12px;
   p {
     margin-top: 3px;
-    margin-bottom: 3px;
-    // padding-top: 4px;
+    margin-bottom: 3px; // padding-top: 4px;
     font-size: 12px;
-    color: #9e9e9f;
-    // border-bottom: 1px solid #d3d3d3;
+    color: #9e9e9f; // border-bottom: 1px solid #d3d3d3;
   }
 }
+
 .title-container {
   position: absolute;
   height: 50px;
@@ -84,11 +85,11 @@
   right: 68px;
   z-index: 99;
   border-radius: 7px;
-  background-color: rgba(255,255,255,.6);
-  box-shadow: 0px 2px 12px rgba(0,0,0,.2);
-  -webkit-backdrop-filter:blur(15px);
-  // -webkit-filter: blur(2px);
+  background-color: rgba(255, 255, 255, .6);
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, .2);
+  -webkit-backdrop-filter: blur(15px); // -webkit-filter: blur(2px);
 }
+
 #title {
   position: absolute;
   height: 50px;
@@ -118,23 +119,26 @@
   }
   .sub-title {
     margin-top: 0;
-    font-size: 14px; 
+    font-size: 14px;
   }
 }
-#title:after{
-  box-shadow: 0 2px 12px rgba(0,0,0,.2);
+
+#title:after {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .2);
 }
+
 #viewDiv {
   position: absolute;
   width: 100%;
   top: 0;
   bottom: 0;
-
 }
+
 #typhoon_selector {
   width: 100%;
   font-size: 16px;
 }
+
 .wind_marker {
   position: absolute;
   left: 10px;
@@ -142,6 +146,7 @@
   width: 80px;
   height: 100px;
 }
+
 .btn-group {
   position: absolute;
   right: 18px;
@@ -157,12 +162,11 @@
     margin-bottom: 15px;
     padding: 11px;
     font-size: 22px;
-    background-color: rgba(49,86,172,.6);
+    background-color: rgba(49, 86, 172, .6);
     text-align: center;
     border-radius: 50%;
     border: 3px solid #fff;
-    cursor: pointer;
-    // -webkit-appearance: button;
+    cursor: pointer; // -webkit-appearance: button;
   }
 }
 
@@ -170,17 +174,17 @@
   position: absolute;
   right: 18px;
   top: 20px;
-  li{
+  li {
     list-style: none;
     margin-bottom: 1px;
     height: 12px;
     width: 38px;
-    .legend_color{
+    .legend_color {
       width: 19px;
       height: 12px;
       float: left;
     }
-    .legend_number{
+    .legend_number {
       width: 19px;
       height: 12px;
       float: left;
@@ -213,11 +217,11 @@
   bottom: 66px;
   left: 18px;
   z-index: 100;
-  .typhoon_list_d{
+  .typhoon_list_d {
     margin-bottom: 0;
     width: 79vw;
     height: 60vh;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     color: #fff;
     text-align: center;
     font-size: 10px;
@@ -227,7 +231,9 @@
       margin: 20px auto 20px auto;
     }
     table {
-      th, tr, td {
+      th,
+      tr,
+      td {
         text-align: center;
         vertical-align: middle;
       }
@@ -239,12 +245,12 @@
     height: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-top: 14px solid rgba(0,0,0,0.6);
+    border-top: 14px solid rgba(0, 0, 0, 0.6);
   }
 }
 
 #run-icon {
- position: absolute;
+  position: absolute;
   right: 72px;
   bottom: 30px;
   width: 42px;
@@ -258,8 +264,9 @@
     font-size: 20px;
     padding-top: 10px;
     color: #fff;
-  } 
+  }
 }
+
 #tflist {
   position: absolute;
   bottom: 0;
@@ -269,6 +276,7 @@
   display: none;
   z-index: 99;
 }
+
 .tab-bar {
   background-color: transparent;
   ul {
@@ -297,6 +305,7 @@
     text-align: center;
   }
 }
+
 .tab-pane {
   height: 360px;
   .header {
@@ -352,6 +361,7 @@
     }
   }
 }
+
 .header {
   overflow: hidden;
   background-color: #7A90C1;
@@ -360,7 +370,7 @@
   font-size: 16px;
   font-weight: 400;
   letter-spacing: .68px;
-  color: rgba(255,255,255,.8);
+  color: rgba(255, 255, 255, .8);
   text-align: center;
   div {
     float: left;
@@ -372,6 +382,7 @@
     width: 25%;
   }
 }
+
 #wrapper {
   position: absolute;
   z-index: 99;
@@ -386,7 +397,7 @@
 #scroller {
   position: absolute;
   z-index: 1000;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   width: 100%;
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -424,7 +435,7 @@
     }
     li:nth-child(even) {
       background-color: #eee;
-    } 
+    }
   }
 }
 
@@ -440,12 +451,11 @@
   position: absolute;
   top: 42px;
   width: 100%;
-  height: 100%;
-  // background-color: rgba(255,255,255,.6);
+  height: 100%; // background-color: rgba(255,255,255,.6);
   -webkit-backdrop-filter: blur(15px);
 }
 
-.tab-pane-typ{
+.tab-pane-typ {
   .typhoon-list {
     height: 100%;
     .typhoon-items {
@@ -460,7 +470,7 @@
       text-align: left;
       font-weight: 300;
       letter-spacing: .55px;
-      color: rgba(255,255,255,.6);
+      color: rgba(255, 255, 255, .6);
       background-color: #fff;
       li {
         padding: 0 10px;
@@ -481,12 +491,12 @@
         }
       }
       li:nth-child(even) {
-        background-color: rgba(122,144,193,.2);
-      }  
+        background-color: rgba(122, 144, 193, .2);
+      }
     }
   }
-  
 }
+
 #visitor-logo {
   position: absolute;
   bottom: 40px;
@@ -498,7 +508,7 @@
     color: #5f5f5f;
     font-weight: 700;
   }
-  img{
+  img {
     width: 100%;
     margin-bottom: 6px;
     position: relative;
@@ -516,8 +526,8 @@
   font-weight: 700;
   border: 1px solid #5C6F99;
   border-radius: 6px;
-  background-color: rgba(255,255,255,.4);
-  box-shadow: 0px 2px 12px rgba(0,0,0,.6);
+  background-color: rgba(255, 255, 255, .4);
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, .6);
   .unit {
     padding-top: 6px;
     padding-left: 10px;
@@ -558,20 +568,22 @@
     color: #E7A802;
   }
 }
+
 .gray {
   color: #ddd!important;
 }
+
 #typhoons_selector {
   width: 90%;
   height: 320px;
   position: relative;
-  top: 80px;
+  top: 50px;
   left: 5%;
   padding-top: 12px;
   padding-bottom: 12px;
   border-radius: 8px;
   background-color: #fff;
-  box-shadow: 0px 8px 20px rgba(0,0,0,.1);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, .1);
   z-index: 99;
   display: none;
   ul {
@@ -595,20 +607,25 @@
     }
   }
 }
+
 .active_list {
   -webkit-transition: opacity 0.4s ease-in-out;
   -moz-transition: opacity 0.4s ease-in-out;
   -o-transition: opacity 0.4s ease-in-out;
   transition: opacity 0.4s ease-in-out;
-  opacity:0;
+  opacity: 0;
+  display: none;
   filter: alpha(opacity=0);
   visibility: hidden;
 }
+
 .hide_list {
   -webkit-transition: opacity 0.3s ease-in-out;
   -moz-transition: opacity 0.3s ease-in-out;
   -o-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
-  opacity:1;
+  opacity: 1;
+  display: block;
   filter: alpha(opacity=1);
+  padding: 0;
 }

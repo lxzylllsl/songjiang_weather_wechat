@@ -1,6 +1,3 @@
-<%# when share page from QQ to wechat, this title will be used for desc. %>
-<div class="title" style="height: 0;width: 0;">随时了解台风的实时信息</div>
-
 <div class="title-container"></div>
 <div id="title">
   <p class="main-title"></p>
@@ -15,9 +12,12 @@
 <div class="list_btn">
   <div id="list_btn"><ul class="active_list"></ul></div>
 </div>
-<div class="help_btn">
-  <div id="help_btn">帮助</div>
-</div>
+
+<% unless @visitor.eql?('shweather') %>
+  <div class="help_btn">
+    <div id="help_btn">帮助</div>
+  </div>
+<% end %>
 <div id="typhoon_list_d_c" class="typhoon_list_d_c active_list">
   <div class="typhoon_list_d table-responsive">
     <div class="title">热带气旋、风级、风速对照表</div>
@@ -901,7 +901,7 @@
     }
 
     function show_tips(content, e, typhoon_more){
-      var infowindow = new BMap.InfoWindow(content,{width:180,height:130,title: "[" + typhoon_more.name + "] " + typhoon_more.cname});
+      var infowindow = new BMap.InfoWindow(content,{width:180,height:130,title: "[" + typhoon_more.serial_number + "] " + typhoon_more.cname});
       map.openInfoWindow(infowindow,e.target.point);
     }
 
@@ -928,6 +928,8 @@
       var content = "<p>数据时间: " + point.time + "</p>";
       if (point.unit != null) {
         content += "<p>预报机构: "+ point.unit+"</p>";
+      } else {
+        content += "<p>预报机构: —</p>";
       }
       content += "<p>中心位置: " + point.lon + '°, ' + point.lat + "°</p>";
       content += "<p>最大风力: " + get_wind_level(point.max_wind) + " 级("+level_names[transform_level(point.max_wind)]+")</p>";
@@ -939,9 +941,13 @@
       content += "<p>中心气压: " + ((point.min_pressure == null || point.min_pressure == 9999) ? "-" : point.min_pressure) + " 百帕</p>";
       if (point.seven_radius != null && point.seven_radius != 9999) {
         content += "<p>七级半径: " + point.seven_radius + " 公里</p>";
+      } else {
+        content += "<p>七级半径: — </p>";
       }
       if (point.ten_radius != null && point.ten_radius != 9999) {
         content += "<p>十级半径: " + point.ten_radius + " 公里</p>";
+      } else {
+        content += "<p>十级半径: — </p>";
       }
 
       return content;
