@@ -53,7 +53,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       # 如果开启了语音翻译功能，@keyword则为翻译的结果
       # reply_text_message("回复语音信息: #{@keyword}")
       # reply_voice_message(generate_voice(@media_id))
-      reply_text_message(WeatherRobot.get_reply(@keyword))      
+      reply_text_message(WeatherRobot.get_reply(@keyword))
     end
 
     # <MediaId><![CDATA[media_id]]></MediaId>
@@ -112,6 +112,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
     # 点击菜单跳转链接时的事件推送
     def handle_view_event
       Rails.logger.info("你点击了: #{@keyword}")
+      reply_text_message("")
     end
 
     # 帮助文档: https://github.com/lanrion/weixin_authorize/issues/22

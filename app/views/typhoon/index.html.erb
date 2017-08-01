@@ -317,15 +317,10 @@
 
       for(var i = 0; i < colors.length; i++) {
         var color = colors[i]
-        console.log(value[i]);
         list += "<li key='"+i+"'>"
               +"<div class='legend_color' style='background:"+color+"'></div>"
               +"<div class='legend_number'>"+value[i]+"</div>"
               +"</li>"
-          // <li key={i}>
-          //   <div className={styles.legend_color} style={{background: color}}></div>
-          //   <div className={styles.legend_number}>{value[i]}</div>
-          // </li>
       }
       $("#list_btn > ul").append(list);
     }
