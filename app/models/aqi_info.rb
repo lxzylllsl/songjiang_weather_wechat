@@ -21,7 +21,7 @@ class AqiInfo < ActiveRecord::Base
 	#
 	# 注意：当空气质量等级为一级时，没有首要污染物，显示“/”，浓度则显示pm2.5的浓度。对健康的影响及建议措施判断已经参考：
 	# http://www.semc.gov.cn/aqi/home/Detail.aspx?id=51b2d3d1-37f1-4927-9733-3960a2384b99
-	#  
+	#
 	#  main_pullotant                 :string(255)
 	#  main_pollutant_concentration   :string(255)
 	#  siteID                         :integer
@@ -30,7 +30,7 @@ class AqiInfo < ActiveRecord::Base
 	#  time                           :datetime
 	#  level                          :string "良"
 	#  grade                          :integer
-	#  
+	#
 	#  1:"PM10" 2:"55.0μg/m³" 3:"0" 4:"PM10" 5:"53"aqi 6:"2"等级 7:"良" 8:"2014-08-12 18:00:00" 9:"43"24小时 10:"Y"
 
 	after_create :save_into_redis
@@ -39,7 +39,7 @@ class AqiInfo < ActiveRecord::Base
 		/(.*)\$(.*)\#(.*)\$(.*)\$(.*)\$(.*)\$(.*)\$(.*)\#(.*)\#(.*)/.match(info.force_encoding("UTF-8"))
 	end
 
-	def self.real_time 
+	def self.real_time
 		_decode = AqiInfo.decode($redis.lrange("aqi_info", 0, 0).first)
 		if _decode[8]
 			{
@@ -134,7 +134,7 @@ class AqiInfo < ActiveRecord::Base
 								    <UserName>8564879f-3d1a-4c4f-9219-47f1fa5a0811</UserName>
 								    <PassWord>a1ea259d-068c-4aab-a795-0191f3b50811</PassWord>
 								  </MySoapHeader>
-								  
+
 								</soap12:Header>
 								<soap12:Body>
 								  <GetRealTimeAirQuality xmlns=\"http://tempuri.org/\">
@@ -142,21 +142,18 @@ class AqiInfo < ActiveRecord::Base
 								  </GetRealTimeAirQuality>
 								</soap12:Body>
 								</soap12:Envelope>"
-		
+
 		req["Content-Type"] = "application/soap+xml; charset=utf-8"
 
 		res = https.request(req)
 		# puts "Response #{res.code} #{res.message}: #{res.body}
-		_info = /<GetRealTimeAirQualityResult>(.*)<\/GetRealTimeAirQualityResult>/.match(res.body) 
+		_info = /<GetRealTimeAirQualityResult>(.*)<\/GetRealTimeAirQualityResult>/.match(res.body)
 		_info = _info ? _info[1] : res.body
 		# 转换中文编码
 		_info.force_encoding("UTF-8")
 		unless _info == 'nodata' || AqiInfo.last.try(:info) == _info
 			aqi_info = AqiInfo.create(info: _info)
 		end
-		p "+++++++++++++++++++"
-		p _info
-
 	end
 
 	private

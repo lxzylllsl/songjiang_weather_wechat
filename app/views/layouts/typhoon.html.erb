@@ -22,22 +22,22 @@
 			// 设置“分享给朋友”按钮点击状态及自定义分享内容
 			wx.onMenuShareAppMessage({
 				title: "台风路径实时发布系统",
-				desc: "",
+				desc: "随时了解台风的实时信息",
 				link: "<%= typhoon_index_url %>",
-				imgUrl: "<%= image_url "icon_typhoon.jpg" %>"
+				imgUrl: "<%= "http://#{request.host_with_port}/wechat_share.jpg" %>"
 			});
 			// 设置“分享到朋友圈”按钮点击状态及自定义分享内容
 			wx.onMenuShareTimeline({
 				title: "台风路径实时发布系统",
 				link: "<% typhoon_index_url %>",
-				imgUrl: "<%= image_url "icon_typhoon.jpg" %>"
+				imgUrl: "<%= "http://#{request.host_with_port}/wechat_share.jpg" %>"
 			});
       // 分享qq
       wx.onMenuShareQQ({
         title: "台风路径实时发布系统",
 				desc: "",
 				link: "<%= typhoon_index_url %>",
-				imgUrl: "<%= image_url "icon_typhoon.jpg" %>"
+				imgUrl: "<%= "http://#{request.host_with_port}/wechat_share.jpg" %>"
       });
 		});
 	</script>

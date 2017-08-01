@@ -398,12 +398,8 @@
 
           for (idx in typhoons) {
             // 获取当前24小时内未停报台风
-            date = typhoons[idx].last_report_time;
-            var ddd = new Date((date).replace(/-/g, "/"));
-            var now = Date.now();
-
-            chazhi = (now-ddd)/(36*100000);
-            if (chazhi < 12) {
+            var status = typhoons[idx].status;
+            if (status === 'active') {
               now_list.push(typhoons[idx].serial_number);
               now_list_cname.push(typhoons[idx].cname);
               now_list_ename.push(typhoons[idx].ename);
@@ -566,15 +562,10 @@
         success: function(json) {
           current_typhoon.first = json;
           // 获取当前12小时内未停报台风
-            date = current_typhoon.first.last_report_time;
-            var ddd = new Date((date).replace(/-/g, "/"));
-            var now = Date.now();
-
-            chazhi = (now-ddd)/(36*100000);
-            if (chazhi < 12) {
-              $('#title .main-title').html(json.name + json.cname + " ("+ json.ename +")");
+            if (json.status === 'active') {
+              $('#title .main-title').html(json.serial_number + "✪" + json.cname + " ("+ json.ename +")");
             }else{
-              $('#title .main-title').html(json.name + json.cname + " ("+ json.ename +")-[停编]");
+              $('#title .main-title').html(json.name + "✪" + json.cname + " ("+ json.ename +")-[停编]");
             }
           //点击列表按钮弹框耳朵，文字设置（台风名称）
           $("#ear_list > ul").empty();
@@ -609,14 +600,7 @@
       });
     }
 
-
-
-
-
-
-
     // 初始化多台风路径显示
-
     var _typhoon1 = [];
     var curr_more_point_idx = [0,0,0];
     var timer1 = [];
@@ -678,7 +662,7 @@
       var _ptm;
       var real_location = current_more_typhoon.real_location;
       if (real_location[curr_more_point_idx[idx]] == undefined) {
-        // show_wind_radius(real_location[curr_more_point_idx[idx] - 1]);
+        show_wind_radius(real_location[curr_more_point_idx[idx] - 1]);
         curr_more_point_idx[idx] = 0;
         points1_more.length = 0;
         // clearTimeout(time);
@@ -751,7 +735,7 @@
       var forecast_location = current_more_typhoon.forecast_location;
       for (size in forecast_location) {
         var items = forecast_location[size];
-        if ($.inArray(items[0].unit, show_units) < 0) {
+        if ($.inArray((items[0] && items[0].unit), show_units) < 0) {
           continue;
         }
         var _path = [curr_point]
@@ -866,7 +850,7 @@
       var forecast_location = current_typhoon.first.forecast_location;
       for (size in forecast_location) {
         var items = forecast_location[size];
-        if ($.inArray(items[0].unit, show_units) < 0) {
+        if ($.inArray((items[0] && items[0].unit), show_units) < 0) {
           continue;
         }
         var _path = [curr_point]
