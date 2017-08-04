@@ -4,12 +4,14 @@
 # 3, @keyword: 目前微信只有这三种情况存在关键字: 文本消息, 事件推送, 接收语音识别结果
 WeixinRailsMiddleware::WeixinController.class_eval do
   before_filter :set_keyword, only: :reply
+  
   def reply
-    render xml: send("response_#{@weixin_message.MsgType}_message", {})
+    result = send("response_#{@weixin_message.MsgType}_message", {})
+    render result.is_a?(String) ? {xml: result} : {nothing: true}
+    # render xml: send("response_#{@weixin_message.MsgType}_message")
   end
 
   private
-
     def response_text_message(options={})
       # reply_text_message("Your Message: #{@keyword}")
       reply_text_message(WeatherRobot.get_reply(@keyword))

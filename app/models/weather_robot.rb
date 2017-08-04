@@ -8,11 +8,16 @@ class WeatherRobot
 			req = Net::HTTP::Post.new(uri)
 			req.set_form_data( platform: "weixin", question: question )
 			req['X-Auth'] = create_x_auth
-			res = Net::HTTP.start(uri.hostname, uri.port) do |http|
-				http.request(req)
+			begin
+				Timeout.timeout(3) do
+					res = Net::HTTP.start(uri.hostname, uri.port) do |http|
+						http.request(req)
+					end
+					res.body.strip
+				end
+			rescue Exception
+				nil
 			end
-
-			res.body.strip
 		end
 		
 	private
