@@ -16,7 +16,7 @@ class WeatherRobot
 					res.body.strip
 				end
 			rescue Exception
-				nil
+				'抱歉，这个问题我暂时回答不上来呢。一会再来试试吧！'
 			end
 		end
 		
