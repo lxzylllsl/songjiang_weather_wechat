@@ -3,7 +3,7 @@ class LocationUtil
   @@EARTH_RADIUS = 6378.137
 
   def initialize
-    @ak = '200aadcf1ccf720749c79228f9b7fd79'
+    @ak = '1QMYSpByhuxTihG8MGnDxPNivzMmnqA9'
     @root = self.class.name.to_s
     super
   end
