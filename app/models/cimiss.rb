@@ -10,10 +10,11 @@ class Cimiss
       # uri = URI.parse("http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_TEM,Q_WIN_D_Avg_1mi,Q_WIN_S_Avg_1mi&dataFormat=json")
       # https = Net::HTTP.new(uri.host,uri.port)
       # _body = nil
-      unless $redis.get "cimiss_link" == "flase" 
+      unless $redis.get("cimiss_link") == "flase" 
         _body =  RestClient::Request.execute(
           method: :get, 
-          url: "http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_TEM,Q_WIN_D_Avg_1mi,Q_WIN_S_Avg_1mi&dataFormat=json", 
+          url: "http://10.228.89.55/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_TEM,Q_WIN_D_Avg_1mi,Q_WIN_S_Avg_1mi&dataFormat=json", 
+          # url: "http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_TEM,Q_WIN_D_Avg_1mi,Q_WIN_S_Avg_1mi&dataFormat=json", 
           timeout: 3) 
       end
       # 
@@ -61,7 +62,8 @@ class Cimiss
       begin
       _body =  RestClient::Request.execute(
           method: :get, 
-          url: "http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_TEM,Q_WIN_D_Avg_1mi,Q_WIN_S_Avg_1mi&dataFormat=json", 
+          url: "http://10.228.89.55/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_TEM,Q_WIN_D_Avg_1mi,Q_WIN_S_Avg_1mi&dataFormat=json", 
+          # url: "http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=getSurfEleInRegionByTimeRange&dataCode=SURF_CHN_MAIN_MIN&timeRange=[#{time},#{time2}]&adminCodes=310117&elements=Station_Name,Datetime,TEM,WIN_D_Avg_1mi,WIN_S_Avg_1mi,Q_TEM,Q_WIN_D_Avg_1mi,Q_WIN_S_Avg_1mi&dataFormat=json", 
           timeout: 3)
       $redis.set "cimiss_link", "true" unless _body.nil?
       end

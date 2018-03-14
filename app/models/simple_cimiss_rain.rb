@@ -33,7 +33,7 @@ class SimpleCimissRain
 	
 
 	def sum_multi_mins_rain
-		sum_min_rain_url = 'http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=statSurfEleInRegion&dataCode=SURF_CHN_PRE_MIN&elements=Station_Name,Q_PRE&statEles=SUM_PRE&timeRange=[#{time1},#{time2}]&adminCodes=310117&dataFormat=json'
+		sum_min_rain_url = 'http://10.228.89.55/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=statSurfEleInRegion&dataCode=SURF_CHN_PRE_MIN&elements=Station_Name,Q_PRE&statEles=SUM_PRE&timeRange=[#{time1},#{time2}]&adminCodes=310117&dataFormat=json'
 		# 'http://10.228.89.55/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=statSurfPreInRegion&elements=Station_Name,Q_PRE_1H&timeRange=[20170319000000,20170320000000]&adminCodes=310117&orderBy=Q_PRE_1H:asc&dataFormat=json'
 		time1 = @now.one_hour_rain_start
 		time2 = @now
@@ -51,7 +51,7 @@ p body
 	# three_hour_rain, six_hour_rain
 	def sum_last_multi_hours_rain num
 		# xx - 20170313 09:30 取得的是09:00 数据 代表 8:00 - 9:00 累计雨量
-		sum_hour_rain_url = 'http://t.weather-huayun.com:8080/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=statSurfPreInRegion&elements=Station_Name,Q_PRE_1H&timeRange=[#{time1},#{time2}]&adminCodes=310117&limitCnt=30&dataFormat=json'
+		sum_hour_rain_url = 'http://10.228.89.55/cimiss-web/api?userId=BCSH_SHSJ_api&pwd=67739161&interfaceId=statSurfPreInRegion&elements=Station_Name,Q_PRE_1H&timeRange=[#{time1},#{time2}]&adminCodes=310117&limitCnt=30&dataFormat=json'
 		time1 = @now - num.hours 
 		time2 = @now
 		
