@@ -301,8 +301,8 @@
         $("#list_btn > ul").removeClass('hide_list');
         return;
       }
-      var SW = new BMap.Point(71.993044552411,3.9647143346677);
-      var NE = new BMap.Point(134.81287310095,57.863626408479);
+      var SW = new BMap.Point(71.993044552411, 3.9647143346677);
+      var NE = new BMap.Point(150.81287310095, 57.863626408479);
       map.removeOverlay(radar_pic);
       radar_pic = new BMap.GroundOverlay(new BMap.Bounds(SW, NE), {opacity: .7})
       radar_pic.setImageURL('<%= @radar_echo%>');
