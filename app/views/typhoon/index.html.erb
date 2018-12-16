@@ -572,7 +572,7 @@
             if (json.status === 'active') {
               $('#title .main-title').html(json.serial_number + "✪" + json.cname + " ("+ json.ename +")");
             }else{
-              $('#title .main-title').html(json.name + "✪" + json.cname + " ("+ json.ename +")-[停编]");
+              $('#title .main-title').html(json.serial_number + "✪" + json.cname + " ("+ json.ename +")-[停编]");
             }
           //点击列表按钮弹框耳朵，文字设置（台风名称）
           $("#ear_list > ul").empty();
