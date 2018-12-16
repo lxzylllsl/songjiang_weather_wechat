@@ -781,7 +781,7 @@
         if (json.status === 'active') {
           content += json.serial_number + "号"+level_names[transform_level(current_location.max_wind)] + json.cname + "("+json.ename+") ";
         } else {
-          content += json.name + "号"+level_names[transform_level(current_location.max_wind)] + json.cname + "("+json.ename+") ";
+          content += json.serial_number + "号"+level_names[transform_level(current_location.max_wind)] + json.cname + "("+json.ename+") ";
         }
         content += current_location.time;
         if (current_location.max_wind != 9999) {
