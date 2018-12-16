@@ -463,8 +463,12 @@
           if (now_list.length > 1) {
             get_more_typhoon(now_list);
             $("#btn-play").hide();
-          }else{
+          } else if (now_list.length === 1){
             get_typhoon(now_list[0]);
+          } else {
+            $('#title .main-title').html("当前无活动台风");
+            $('.current_time').html("查看台风历史记录->");
+            $("#btn-play").hide();
           }
         },
         fail: function(json) {
